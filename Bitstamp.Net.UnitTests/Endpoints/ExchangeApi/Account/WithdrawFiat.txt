@@ -1,0 +1,6 @@
+POST
+/api/v2/withdrawal/open/
+true
+{
+"withdrawal_id": 1
+}

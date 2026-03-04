@@ -1,0 +1,25 @@
+GET
+/api/v2/position_settlement_transactions/
+true
+[
+  {
+    "transaction_id": "123123",
+    "position_id": "123123",
+    "settlement_time": 123123123,
+    "settlement_type": "PERIODIC",
+    "settlement_price": "20.00",
+    "market": "BTC/USD-PERP",
+    "market_type": "PERPETUAL",
+    "pnl_currency": "USD",
+    "pnl_settled": "-200.00",
+    "pnl_component_price": "-200.00",
+    "pnl_component_fees": "-200.00",
+    "pnl_component_funding": "-200.00",
+    "pnl_component_socialized_loss": "-200.00",
+    "margin_mode": "ISOLATED",
+    "size": "3.00",
+    "strike_price": "20000.00",
+    "fees_component_trading": "50.00",
+    "fees_component_liquidation": "50.00"
+  }
+]

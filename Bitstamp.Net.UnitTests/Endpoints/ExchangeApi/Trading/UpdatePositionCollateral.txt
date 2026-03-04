@@ -1,0 +1,3 @@
+POST
+/api/v2/adjust_position_collateral/
+true

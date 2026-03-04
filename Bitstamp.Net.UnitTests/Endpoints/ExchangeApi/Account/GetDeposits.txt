@@ -1,0 +1,16 @@
+GET
+/api/v2/crypto-transactions/deposits/
+true
+[
+{
+"id": 1,
+"network": "bitcoin",
+"currency": "BTC",
+"destination_address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+"txid": "e4123d1d57df4106aaae5ec4d77eb6cd42e226d020a0a2c1c7919d14b932494b",
+"amount": 1.23,
+"datetime": 1759995000,
+"status": "PENDING",
+"pending_reason": "ADDRESS_VERIFICATION_NEEDED"
+}
+]

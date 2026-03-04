@@ -1,0 +1,6 @@
+POST
+/api/v2/withdrawal/status/
+true
+{
+"status": "Waiting to be processed"
+}

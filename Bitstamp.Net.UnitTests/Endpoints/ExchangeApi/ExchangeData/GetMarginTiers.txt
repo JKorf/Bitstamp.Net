@@ -1,0 +1,22 @@
+GET
+/api/v2/margin_tiers/
+false
+[
+  {
+    "market": "BTC/USD-PERP",
+    "tiers": [
+      {
+        "tier": "1",
+        "size_limit_low": "0",
+        "size_limit_high": "10000000",
+        "max_leverage": "10",
+        "initial_margin_rate": "10",
+        "maintenance_margin_rate": "5",
+        "close_out_margin_rate": "5",
+        "initial_margin_previous_level_max": "5000",
+        "maintenance_margin_previous_level_max": "2500",
+        "close_out_margin_previous_level_max": "5000"
+      }
+    ]
+  }
+]

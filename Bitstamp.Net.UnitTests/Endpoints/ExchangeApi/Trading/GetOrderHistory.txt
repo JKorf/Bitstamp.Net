@@ -1,0 +1,29 @@
+POST
+/api/v2/account_order_data/
+true
+[
+  {
+    "event": "order_created",
+    "event_id": "019f4ac8-1234-abcd-af00-3e9012000020",
+    "order_source": "orderbook",
+    "trade_account_id": 0,
+    "data": {
+      "id": 1458532827766784,
+      "id_str": "1458532827766784",
+      "order_type": 0,
+      "order_subtype": 0,
+      "datetime": "1643698764",
+      "microtimestamp": "1643698764000000",
+      "amount": 0.5,
+      "amount_str": "0.5",
+      "amount_traded": "0.5",
+      "amount_at_create": "1.0",
+      "price": 50000,
+      "price_str": "50000.00",
+      "is_liquidation": false,
+      "trade_account_id": 0,
+      "client_order_id": "my-order-123",
+      "stop_price": "48000.00"
+    }
+  }
+]

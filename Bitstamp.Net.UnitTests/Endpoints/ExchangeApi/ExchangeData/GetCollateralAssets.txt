@@ -1,0 +1,9 @@
+GET
+/api/v2/collateral_currencies/
+false
+[
+  {
+    "currency": "USD",
+    "haircut": "0.5"
+  }
+]

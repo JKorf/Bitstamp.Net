@@ -1,0 +1,21 @@
+GET
+/api/v2/margin_info/
+true
+{
+  "account_margin": "20000.00",
+  "account_margin_available": "20000.00",
+  "account_margin_reserved": "20000.00",
+  "account_margin_currency": "USD",
+  "assets": [
+    {
+      "asset": "USD",
+      "total_amount": "20000.00",
+      "available": "20000.00",
+      "reserved": "20000.00",
+      "margin_available": "20000.00"
+    }
+  ],
+  "initial_margin_ratio": "3.00",
+  "maintenance_margin_ratio": "3.12",
+  "implied_leverage": "3.12"
+}

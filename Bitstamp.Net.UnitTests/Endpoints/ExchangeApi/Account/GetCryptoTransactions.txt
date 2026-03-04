@@ -1,0 +1,38 @@
+POST
+/api/v2/crypto-transactions/
+true
+{
+  "ripple_iou_transactions": [
+    {
+      "currency": "BTC",
+      "network": "bitcoin",
+      "destinationAddress": "3FiKkjgZ6Sj4RWp3ZsCjYh5Pt7ZCBsL7uF",
+      "txid": "e4123d1d57df4106aaae5ec4d77eb6cd42e226d020a0a2c1c7919d14b932494b",
+      "amount": 0.00012,
+      "datetime": 1642665114
+    }
+  ],
+  "deposits": [
+    {
+      "id": 1,
+      "network": "bitcoin",
+      "currency": "BTC",
+      "txid": "e4123d1d57df4106aaae5ec4d77eb6cd42e226d020a0a2c1c7919d14b932494b",
+      "amount": 1.23,
+      "datetime": 1759995000,
+      "status": "PENDING",
+      "pending_reason": "ADDRESS_VERIFICATION_NEEDED",
+      "destinationAddress": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+    }
+  ],
+  "withdrawals": [
+    {
+      "currency": "BTC",
+      "network": "bitcoin",
+      "destinationAddress": "3FiKkjgZ6Sj4RWp3ZsCjYh5Pt7ZCBsL7uF",
+      "txid": "e4123d1d57df4106aaae5ec4d77eb6cd42e226d020a0a2c1c7919d14b932494b",
+      "amount": 0.00012,
+      "datetime": 1642665114
+    }
+  ]
+}

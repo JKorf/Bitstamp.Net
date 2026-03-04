@@ -1,0 +1,11 @@
+GET
+/api/v2/leverage_settings/
+true
+[
+  {
+    "margin_mode": "ISOLATED",
+    "market": "BTC/USD-PERP",
+    "leverage_current": "1.90",
+    "leverage_max": "1.90"
+  }
+]

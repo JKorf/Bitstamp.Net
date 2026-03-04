@@ -1,0 +1,6 @@
+POST
+/api/v2/eth_withdrawal/
+true
+{
+"id": 1
+}

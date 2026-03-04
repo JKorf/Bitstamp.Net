@@ -1,0 +1,10 @@
+POST
+/api/v2/withdrawal/cancel/
+true
+{
+"id": "1",
+"amount": 100,
+"currency": "EUR",
+"account_currency": "EUR",
+"type": "EU bank transfer (SEPA)"
+}

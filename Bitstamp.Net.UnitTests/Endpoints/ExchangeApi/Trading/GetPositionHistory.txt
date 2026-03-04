@@ -1,0 +1,29 @@
+GET
+/api/v2/position_history/
+true
+[
+  {
+    "id": "1234567890",
+    "market": "BTC/USD-PERP",
+    "market_type": "PERPETUAL",
+    "margin_mode": "ISOLATED",
+    "pnl_currency": "USD",
+    "entry_price": "20000.00",
+    "pnl_percentage": "20.00",
+    "pnl_realized": "-200.00",
+    "pnl_settled": "-200.00",
+    "leverage": "3.00",
+    "pnl": "-200.00",
+    "cumulative_price_pnl": "122.22",
+    "cumulative_trading_fees": "0.1",
+    "cumulative_liquidation_fees": "2.5",
+    "cumulative_funding": "50.25",
+    "cumulative_socialized_loss": "-17.23",
+    "amount_delta": "20000.00",
+    "time_opened": "1643643584684047",
+    "time_closed": "1712143108684047",
+    "status": "SETTLED",
+    "exit_price": "20000.00",
+    "settlement_price": "20000.00"
+  }
+]
