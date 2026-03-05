@@ -6,7 +6,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Bitstamp.Net.Objects.Models;
+using Bitstamp.Net.Objects.Models.Socket;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -31,25 +31,11 @@ namespace Bitstamp.Net.UnitTests
             }), loggerFactory);
         }
 
-        private BitstampRestClient GetRestClient()
-        {
-            var key = Environment.GetEnvironmentVariable("APIKEY");
-            var sec = Environment.GetEnvironmentVariable("APISECRET");
-
-            Authenticated = key != null && sec != null;
-            return new BitstampRestClient(x =>
-            {
-                x.ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null;
-            });
-        }
-
         [Test]
         public async Task TestSubscriptions()
         {
-            //await RunAndCheckUpdate<BitstampAccountUpdate>((client, updateHandler) => client.SpotApi.SubscribeToUserDataUpdatesAsync(listenKey.Data, updateHandler, default, default, default), false, true);
-            
-            //await RunAndCheckUpdate<BitstampTickerUpdate>((client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
-            //await RunAndCheckUpdate<BitstampTickerUpdate>((client, updateHandler) => client.UsdtFuturesApi.SubscribeToTickerUpdatesAsync("ETH-SWAP-USDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<BitstampTradeUpdate>((client, updateHandler) => client.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD", updateHandler, default), true, false);
+            await RunAndCheckUpdate<BitstampTradeUpdate>((client, updateHandler) => client.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD-PERP", updateHandler, default), true, false);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using Bitstamp.Net.Enums;
 
 namespace Bitstamp.Net.Objects.Models.Socket
@@ -9,6 +8,12 @@ namespace Bitstamp.Net.Objects.Models.Socket
     /// </summary>
     public record BitstampOrderUpdate
     {
+        /// <summary>
+        /// Order event
+        /// </summary>
+        [JsonIgnore]
+        public OrderEvent OrderEvent { get; set; }
+
         /// <summary>
         /// Id
         /// </summary>
@@ -23,7 +28,6 @@ namespace Bitstamp.Net.Objects.Models.Socket
         /// Timestamp
         /// </summary>
         [JsonPropertyName("microtimestamp")]
-        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Order quantity

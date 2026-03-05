@@ -1,10 +1,6 @@
 ﻿using Bitstamp.Net.Clients.MessageHandlers;
-using Bitstamp.Net.Enums;
 using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
-using Bitstamp.Net.Objects.Models;
-using Bitstamp.Net.Objects.Models.Socket;
 using Bitstamp.Net.Objects.Options;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
@@ -12,7 +8,6 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
-using CryptoExchange.Net.Objects.Options;
 using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.Logging;
 
@@ -25,9 +20,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public new BitstampRestOptions ClientOptions => (BitstampRestOptions)base.ClientOptions;
 
-        protected override ErrorMapping ErrorMapping => BitstampErrors.RestErrorMapping;
+        protected override ErrorMapping ErrorMapping { get; } = BitstampErrors.RestErrorMapping;
 
-        protected override IRestMessageHandler MessageHandler { get; } = new BitstampRestMessageHandler();
+        protected override IRestMessageHandler MessageHandler { get; } = new BitstampRestMessageHandler(BitstampErrors.RestErrorMapping);
         #endregion
 
         /// <inheritdoc />
@@ -58,7 +53,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitstampExchange._serializerContext));
 
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new BitstampAuthenticationProvider(credentials, new BitstampNonceProvider());
+            => new BitstampAuthenticationProvider(credentials);
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

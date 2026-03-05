@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Bitstamp.Net.Enums;
 using Bitstamp.Net.Objects.Models;
 
 namespace Bitstamp.Net.Converters
@@ -45,7 +44,7 @@ namespace Bitstamp.Net.Converters
 
         public override void Write(Utf8JsonWriter writer, BitstampOrderTrade value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, value, options);
+            // not implemented
         }
     }
 }

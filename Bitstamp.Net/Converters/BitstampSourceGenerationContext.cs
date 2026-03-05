@@ -20,7 +20,7 @@ namespace Bitstamp.Net.Converters
     [JsonSerializable(typeof(BitstampCryptoTransactions))]
     [JsonSerializable(typeof(BitstampDepositAddress))]
     [JsonSerializable(typeof(BitstampFiatWithdrawalStatus))]
-    [JsonSerializable(typeof(BitstampWithdrawal))]
+    [JsonSerializable(typeof(BitstampWithdrawal[]))]
     [JsonSerializable(typeof(BitstampCancelWithdrawResponse))]
     [JsonSerializable(typeof(BitstampMaxTradeQuantity))]
     [JsonSerializable(typeof(BitstampAccountSymbol[]))]

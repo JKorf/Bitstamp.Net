@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using Bitstamp.Net.Converters;
-using Bitstamp.Net.Enums;
 
 namespace Bitstamp.Net.Objects.Models
 {

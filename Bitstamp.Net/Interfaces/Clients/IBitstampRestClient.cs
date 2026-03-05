@@ -1,6 +1,5 @@
 ﻿using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 
@@ -12,7 +11,7 @@ namespace Bitstamp.Net.Interfaces.Clients
     public interface IBitstampRestClient : IRestClient
     {
         /// <summary>
-        /// Spot V2 API endpoints
+        /// Exchange API endpoints
         /// </summary>
         /// <see cref="IBitstampRestClientExchangeApi"/>
         IBitstampRestClientExchangeApi ExchangeApi { get; }

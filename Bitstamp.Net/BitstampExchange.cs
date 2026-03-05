@@ -126,19 +126,15 @@ namespace Bitstamp.Net
 
         private void Initialize()
         {
-            Rest = new RateLimitGate("Rest Endpoint")
+            Rest = new RateLimitGate("Rest")
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/"), 400, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed))
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/"), 10_000, TimeSpan.FromMinutes(10), RateLimitWindowType.Fixed))
                 ;
             Rest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             Rest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
-
-            AuthenticatedSocket = new RateLimitGate("Spot Socket");
-            AuthenticatedSocket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
         }
 
 
         internal IRateLimitGate Rest { get; private set; }
-        internal IRateLimitGate AuthenticatedSocket { get; private set; }
     }
 }

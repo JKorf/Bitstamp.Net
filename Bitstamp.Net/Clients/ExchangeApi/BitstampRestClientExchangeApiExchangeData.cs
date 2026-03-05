@@ -3,8 +3,6 @@ using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using Bitstamp.Net.Objects.Models;
 using Bitstamp.Net.Objects.Models.Socket;
 using CryptoExchange.Net.Objects;
-using System.Collections.Generic;
-using System.Net.Http;
 
 namespace Bitstamp.Net.Clients.ExchangeApi
 {
@@ -97,7 +95,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             parameters.AddOptionalBoolString("exclude_current_candle", excludeCurrentCandle);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v2/ohlc/{BitstampExchange.SymbolToPathParameter(symbol)}/", BitstampExchange.RateLimiter.Rest, 1, false);
-            var result = await _baseClient.SendAsync<BitstampKlinesResult>(request, parameters, ct);
+            var result = await _baseClient.SendAsync<BitstampKlinesResult>(request, parameters, ct).ConfigureAwait(false);
             return result.As(result.Data?.Data?.KLines ?? []);
         }
 
@@ -167,11 +165,11 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("limit", limit);
-            parameters.AddOptionalMilliseconds("since_timestamp", startTime);
-            parameters.AddOptionalMilliseconds("until_timestamp", endTime);
+            parameters.AddOptionalSeconds("since_timestamp", startTime);
+            parameters.AddOptionalSeconds("until_timestamp", endTime);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v2/funding_rate_history/{BitstampExchange.SymbolToPathParameter(symbol)}/", BitstampExchange.RateLimiter.Rest, 1, false);
-            var result = await _baseClient.SendAsync<BitstampFundingRateHistoryWrapper>(request, parameters, ct);
+            var result = await _baseClient.SendAsync<BitstampFundingRateHistoryWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<BitstampFundingRateHistory[]>(result.Data?.History);
         }
 
@@ -196,7 +194,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         public async Task<WebCallResult<BitstampCollateralAsset[]>> GetCollateralAssetsAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/collateral_currencies/", BitstampExchange.RateLimiter.Rest, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/collateral_currencies/", BitstampExchange.RateLimiter.Rest, 1, false, forcePathEndWithSlash: true);
             var result = await _baseClient.SendAsync<BitstampCollateralAsset[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

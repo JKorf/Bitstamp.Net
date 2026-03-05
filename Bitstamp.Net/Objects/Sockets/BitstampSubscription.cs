@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Bitstamp.Net.Objects.Sockets
 {
-    public abstract class BitstampSubscription : Subscription
+    internal abstract class BitstampSubscription : Subscription
     {
         public BitstampSocketAuthToken? AuthToken { get; set; }
         public bool RequiresAuthentication { get; }
@@ -17,7 +17,7 @@ namespace Bitstamp.Net.Objects.Sockets
         { }
     }
 
-    public class BitstampSubscription<T> : BitstampSubscription
+    internal class BitstampSubscription<T> : BitstampSubscription
     {
         private readonly string _channel;
         private readonly Action<DateTime, string?, BitstampSocketData<T>> _handler;

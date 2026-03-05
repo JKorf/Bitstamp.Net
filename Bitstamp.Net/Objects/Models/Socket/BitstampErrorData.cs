@@ -2,7 +2,7 @@
 
 namespace Bitstamp.Net.Objects.Models.Socket
 {
-    public record BitstampErrorData
+    internal record BitstampErrorData
     {
         [JsonPropertyName("code")]
         public int? Code { get; set; }

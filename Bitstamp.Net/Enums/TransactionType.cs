@@ -3,6 +3,7 @@
     /// <summary>
     /// Transaction type
     /// </summary>
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum TransactionType
     {
         Deposit = 0,

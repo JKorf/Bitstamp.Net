@@ -2,7 +2,7 @@
 
 namespace Bitstamp.Net.Objects.Models.Socket
 {
-    public record BitstampSubscriptionData
+    internal record BitstampSubscriptionData
     {
         [JsonPropertyName("channel")]
         public string Channel { get; set; }

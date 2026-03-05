@@ -2,7 +2,7 @@
 
 namespace Bitstamp.Net.Objects.Models
 {
-    public record BitstampSocketAuthToken
+    internal record BitstampSocketAuthToken
     {
         [JsonPropertyName("token")]
         public string Token { get; set; } = string.Empty;

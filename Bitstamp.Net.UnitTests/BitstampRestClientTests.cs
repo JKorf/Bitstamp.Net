@@ -4,6 +4,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net.Http;
+using Bitstamp.Net;
 using Bitstamp.Net.Clients;
 
 namespace Bitstamp.Net.UnitTests
@@ -14,22 +15,22 @@ namespace Bitstamp.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new BitstampAuthenticationProvider(new ApiCredentials("XXX", "XXX"), new BitstampNonceProvider());
+            var authProvider = new BitstampAuthenticationProvider(new ApiCredentials("XXX", "XXX"), "123");
             var client = (RestApiClient)new BitstampRestClient().ExchangeApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
                 client,
                 authProvider,
                 HttpMethod.Post,
-                "/api/v3/order",
+                "/api/v2/buy/ethusd/",
                 (uriParams, bodyParams, headers) =>
                 {
-                    return uriParams["signature"].ToString();
+                    return headers["X-Auth-Signature"].ToString();
                 },
-                "c2a5ec39e186f05cf65000aac8c6707c6541337bda16bc1edaea13ea35d1eb0e",
+                "6DCA01A0817446CBC44CD792EF743262A7342A15C2DF805BC89D30DBE099EEFA",
                 new Dictionary<string, object>
                 {
-                    { "symbol", "LTCBTC" },
+                    { "side", 0 },
                 },
                 DateTimeConverter.ParseFromDouble(1499827319559),
                 true,

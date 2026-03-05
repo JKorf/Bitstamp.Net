@@ -6,7 +6,6 @@ using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace Bitstamp.Net.SymbolOrderBooks
 {
@@ -42,9 +41,10 @@ namespace Bitstamp.Net.SymbolOrderBooks
 
         /// <inheritdoc />
         public ISymbolOrderBook Create(string symbol, Action<BitstampOrderBookOptions>? options = null)
-            => new BitstampSpotSymbolOrderBook(symbol,
+            => new BitstampSymbolOrderBook(symbol,
                                         options,
                                         _serviceProvider.GetRequiredService<ILoggerFactory>(),
+                                        _serviceProvider.GetRequiredService<IBitstampRestClient>(),
                                         _serviceProvider.GetRequiredService<IBitstampSocketClient>());
 
     }

@@ -1,4 +1,5 @@
 ﻿using Bitstamp.Net.Clients.MessageHandlers;
+using Bitstamp.Net.Enums;
 using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using Bitstamp.Net.Objects.Models;
 using Bitstamp.Net.Objects.Models.Socket;
@@ -17,7 +18,6 @@ using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
 using Microsoft.Extensions.Logging;
 using System.Net.WebSockets;
-using System.Threading.Channels;
 
 namespace Bitstamp.Net.Clients.ExchangeApi
 {
@@ -29,7 +29,6 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public new BitstampSocketOptions ClientOptions => (BitstampSocketOptions)base.ClientOptions;
 
-#warning todo
         protected override ErrorMapping ErrorMapping => BitstampErrors.RestErrorMapping;
 
         #endregion
@@ -87,7 +86,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             => Task.FromResult<Query?>(null);
 
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new BitstampAuthenticationProvider(credentials, new BitstampNonceProvider());
+            => new BitstampAuthenticationProvider(credentials);
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType)
             => new BitstampSocketMessageHandler();
@@ -174,9 +173,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         }
 
 
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<DataEvent<BitstampSocketData<BitstampOrderUpdate>>> handler, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<DataEvent<BitstampOrderUpdate>> handler, CancellationToken ct = default)
         {
-            var authToken = await _keyGenerator.GenerateWebsocketKeyAsync();
+            var authToken = await _keyGenerator.GenerateWebsocketKeyAsync().ConfigureAwait(false);
             if (!authToken.Success)
                 return new CallResult<UpdateSubscription>(authToken.Error!);
 
@@ -184,9 +183,10 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             {
                 var timestamp = data.Data!.Timestamp;
                 UpdateTimeOffset(timestamp);
+                data.Data.OrderEvent = GetOrderEvent(data.Event);
 
                 handler(
-                    new DataEvent<BitstampSocketData<BitstampOrderUpdate>>(BitstampExchange.ExchangeName, data, receiveTime, originalData)
+                    new DataEvent<BitstampOrderUpdate>(BitstampExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
@@ -195,12 +195,21 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             });
 
             var subscription = BuildSubscription("private-my_orders", BitstampExchange.SymbolToPathParameter(symbol), internalHandler, authToken.Data);
-            return await SubscribeAsync(subscription, ct);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
+
+        private OrderEvent GetOrderEvent(SocketEventType @event)
+            => @event switch
+            {
+                SocketEventType.OrderCreated => OrderEvent.OrderCreated,
+                SocketEventType.OrderChanged => OrderEvent.OrderChanged,
+                SocketEventType.OrderDeleted => OrderEvent.OrderDeleted,
+                _ => OrderEvent.OrderChanged
+            };
 
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampUserTradeUpdate>> handler, CancellationToken ct = default)
         {
-            var authToken = await _keyGenerator.GenerateWebsocketKeyAsync();
+            var authToken = await _keyGenerator.GenerateWebsocketKeyAsync().ConfigureAwait(false);
             if (!authToken.Success)
                 return new CallResult<UpdateSubscription>(authToken.Error!);
 
@@ -219,7 +228,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             });
 
             var subscription = BuildSubscription("private-my_trades", BitstampExchange.SymbolToPathParameter(symbol), internalHandler, authToken.Data);
-            return await SubscribeAsync(subscription, ct);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
         #endregion
     }

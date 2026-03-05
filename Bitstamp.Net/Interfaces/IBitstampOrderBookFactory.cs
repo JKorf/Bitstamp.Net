@@ -1,7 +1,6 @@
 ﻿using Bitstamp.Net.Objects.Options;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
-using System;
 
 namespace Bitstamp.Net.Interfaces
 {
@@ -24,7 +23,7 @@ namespace Bitstamp.Net.Interfaces
         ISymbolOrderBook Create(SharedSymbol symbol, Action<BitstampOrderBookOptions>? options = null);
 
         /// <summary>
-        /// Create a SymbolOrderBook for the Spot API
+        /// Create a SymbolOrderBook for the API
         /// </summary>
         /// <param name="symbol">The symbol</param>
         /// <param name="options">Order book options</param>

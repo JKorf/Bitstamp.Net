@@ -5,7 +5,6 @@ using Bitstamp.Net.Objects.Options;
 using Bitstamp.Net.Objects.Sockets;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -18,6 +17,7 @@ namespace Bitstamp.Net.Clients
         private readonly IBitstampRestClient _restClient;
         private readonly BitstampSocketKeyGenerator _keyGenerator;
 
+        /// <inheritdoc />
         public IBitstampSocketClientExchangeApi ExchangeApi { get; }
 
         #region ctor
@@ -51,6 +51,7 @@ namespace Bitstamp.Net.Clients
         }
         #endregion
 
+        /// <inheritdoc />
         public void SetApiCredentials(ApiCredentials credentials)
         {
             _restClient.SetApiCredentials(credentials);

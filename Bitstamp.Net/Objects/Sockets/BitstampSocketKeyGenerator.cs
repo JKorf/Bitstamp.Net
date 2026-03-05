@@ -1,4 +1,6 @@
-﻿using Bitstamp.Net.Interfaces.Clients;
+﻿using Bitstamp.Net.Clients.ExchangeApi;
+using Bitstamp.Net.Interfaces.Clients;
+using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using Bitstamp.Net.Objects.Models;
 using CryptoExchange.Net.Objects;
 
@@ -21,7 +23,7 @@ namespace Bitstamp.Net.Objects.Sockets
             if (ValidKeyExists())
                 return new CallResult<BitstampSocketAuthToken>(_lastKey!);
 
-            await _semaphore.WaitAsync();
+            await _semaphore.WaitAsync().ConfigureAwait(false);
             if (ValidKeyExists())
             {
                 _semaphore.Release();
@@ -30,7 +32,7 @@ namespace Bitstamp.Net.Objects.Sockets
 
             try
             {
-                var newKey = await _client.ExchangeApi.Account.GenerateWebsocketAuthTokenAsync();
+                var newKey = await ((BitstampRestClientExchangeApiAccount)_client.ExchangeApi.Account).GenerateWebsocketAuthTokenAsync().ConfigureAwait(false);
                 _lastKey = newKey.Data;
                 _lastKeyValidUntil = DateTime.UtcNow.AddSeconds((newKey.Data?.ValidSeconds ?? 0) - 10); // New key will be instant invalid if no valid response is returned
                 return newKey;

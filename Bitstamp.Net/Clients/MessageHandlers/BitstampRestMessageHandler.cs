@@ -9,8 +9,14 @@ namespace Bitstamp.Net.Clients.MessageHandlers
 {
     internal class BitstampRestMessageHandler : JsonRestMessageHandler
     {
+        private readonly ErrorMapping _errorMapping;
         public override bool RequiresSeekableStream => true;
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitstampExchange._serializerContext);
+
+        public BitstampRestMessageHandler(ErrorMapping errorMapping)
+        {
+            _errorMapping = errorMapping;
+        }
 
         private Error ParseErrorInternal(JsonElement rootElement)
         {
@@ -23,7 +29,11 @@ namespace Bitstamp.Net.Clients.MessageHandlers
             {
                 if (reasonProp.ValueKind is JsonValueKind.Object)
                 {
-                    var allErrors = reasonProp.Deserialize<Dictionary<string, string[]>>();
+#pragma warning disable IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
+#pragma warning disable IL3050 // Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.
+                    var allErrors = reasonProp.Deserialize<Dictionary<string, string[]>>(Options);
+#pragma warning restore IL3050 // Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.
+#pragma warning restore IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
                     if (allErrors != null)
                     {
                         if (allErrors.Count == 1 && allErrors.TryGetValue("__all__", out var genericErrors))
@@ -42,9 +52,9 @@ namespace Bitstamp.Net.Clients.MessageHandlers
 
             reason ??= (rootElement.TryGetProperty("error", out var errorProp) ? errorProp.GetString() : null);
             reason ??= (rootElement.TryGetProperty("message", out var messageProp) ? messageProp.GetString() : null);
+            reason ??= (rootElement.TryGetProperty("errors", out var errorsProp) ? errorsProp.GetRawText() : null);
 
-#warning error mapping
-            return new ServerError(code, new ErrorInfo(ErrorType.Unknown, reason));
+            return new ServerError(code, _errorMapping.GetErrorInfo(code, reason));
         }
 
         public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, Stream responseStream)
@@ -70,7 +80,7 @@ namespace Bitstamp.Net.Clients.MessageHandlers
             if (status == "error" || error?.Length > 0)
                 return ParseErrorInternal(document!.RootElement);
 
-            return await base.CheckForErrorResponse(request, responseHeaders, responseStream);
+            return await base.CheckForErrorResponse(request, responseHeaders, responseStream).ConfigureAwait(false);
 
         }
     }

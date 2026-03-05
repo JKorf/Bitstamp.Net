@@ -9,12 +9,12 @@ namespace Bitstamp.Net
     public class BitstampEnvironment : TradeEnvironment
     {
         /// <summary>
-        /// Spot Rest client address
+        /// Rest client address
         /// </summary>
         public string RestBaseAddress { get; }
 
         /// <summary>
-        /// Spot Socket client address
+        /// Socket client address
         /// </summary>
         public string SocketBaseAddress { get; }
 

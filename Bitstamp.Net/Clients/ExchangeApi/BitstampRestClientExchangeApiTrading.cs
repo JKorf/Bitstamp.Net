@@ -1,14 +1,7 @@
 using Bitstamp.Net.Enums;
 using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using Bitstamp.Net.Objects.Models;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Errors;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Bitstamp.Net.Clients.ExchangeApi
 {
@@ -233,14 +226,21 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #region Get Derivatives User Trades
 
         /// <inheritdoc />
-        public Task<WebCallResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(int? limit = null, SortOrder? sort = null, long? orderId = null, DateTime? sinceDate = null, DateTime? untilDate = null, long? afterId = null, CancellationToken ct = default)
+        public Task<WebCallResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(
+            long? orderId = null,
+            long? afterId = null,
+            SortOrder? sort = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null, 
+            int? limit = null,
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("sort", sort);
             parameters.AddOptional("order_id", orderId);
-            parameters.AddOptionalMilliseconds("since_timestamp", sinceDate);
-            parameters.AddOptionalMilliseconds("until_timestamp", untilDate);
+            parameters.AddOptionalMilliseconds("since_timestamp", startTime);
+            parameters.AddOptionalMilliseconds("until_timestamp", endTime);
             parameters.AddOptional("after_id", afterId);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/trade_history/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
@@ -252,14 +252,22 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #region Get Derivatives User Trades
 
         /// <inheritdoc />
-        public Task<WebCallResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(string symbol, int? limit = null, SortOrder? sort = null, long? orderId = null, DateTime? sinceDate = null, DateTime? untilDate = null, long? afterId = null, CancellationToken ct = default)
+        public Task<WebCallResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(
+            string symbol,
+            long? orderId = null,
+            long? afterId = null,
+            SortOrder? sort = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? limit = null,
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("sort", sort);
             parameters.AddOptional("order_id", orderId);
-            parameters.AddOptionalMilliseconds("since_timestamp", sinceDate);
-            parameters.AddOptionalMilliseconds("until_timestamp", untilDate);
+            parameters.AddOptionalMilliseconds("since_timestamp", startTime);
+            parameters.AddOptionalMilliseconds("until_timestamp", endTime);
             parameters.AddOptional("after_id", afterId);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v2/trade_history/{BitstampExchange.SymbolToPathParameter(symbol)}/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
@@ -310,11 +318,11 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #region Get Position History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(string? sinceId = null, string? sort = null, int? limit = null, int? offset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(string? sinceId = null, SortOrder? sort = null, int? limit = null, int? offset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("since_id", sinceId);
-            parameters.AddOptional("sort", sort);
+            parameters.AddOptionalEnum("sort", sort);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/position_history/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
@@ -327,11 +335,11 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #region Get Position History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(string symbol, string? sinceId = null, string? sort = null, int? limit = null, int? offset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(string symbol, string? sinceId = null, SortOrder? sort = null, int? limit = null, int? offset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("since_id", sinceId);
-            parameters.AddOptional("sort", sort);
+            parameters.AddOptionalEnum("sort", sort);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v2/position_history/{BitstampExchange.SymbolToPathParameter(symbol)}/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);

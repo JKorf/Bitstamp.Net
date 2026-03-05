@@ -31,7 +31,7 @@ namespace Bitstamp.Net.Converters
                 var root = doc.RootElement;
                 var id = root.GetProperty("id").GetInt64()!;
                 var datetime = DateTime.SpecifyKind(DateTime.Parse(root.GetProperty("datetime").GetString()!), DateTimeKind.Utc);
-                var type = Enum.Parse<TransactionType>(root.GetProperty("type").GetString()!);
+                var type = (TransactionType)Enum.Parse(typeof(TransactionType), root.GetProperty("type").GetString()!);
                 var fee = ParseDecimalValue(root.GetProperty("fee"));
                 var assetA = root.EnumerateObject().ElementAt(4).Name;
                 var amountA = ParseDecimalValue(root.EnumerateObject().ElementAt(4).Value);
@@ -82,7 +82,7 @@ namespace Bitstamp.Net.Converters
 
         public override void Write(Utf8JsonWriter writer, BitstampUserTransaction value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, value, options);
+            // not implemented
         }
     }
 }

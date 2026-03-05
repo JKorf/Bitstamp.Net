@@ -1,10 +1,6 @@
 using Bitstamp.Net.Enums;
 using Bitstamp.Net.Objects.Models;
 using CryptoExchange.Net.Objects;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 {
@@ -13,51 +9,166 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
     /// </summary>
     public interface IBitstampRestClientExchangeApiAccount
     {
-
-
         /// <summary>
-        /// <seealso href="https://www.bitstamp.net/api/#tag/Account-balances/operation/GetAccountBalances"/> 
+        /// Get user account balances
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Account-balances/operation/GetAccountBalances" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/account_balances/
+        /// </para>
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampAccountBalance[]>> GetAccountBalancesAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get user account balance
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Account-balances/operation/GetAccountBalancesForCurrency" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/account_balances/{asset}/
+        /// </para>
+        /// </summary>
+        /// <param name="asset">Asset name</param>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampAccountBalance>> GetAccountBalanceAsync(string asset, CancellationToken ct = default);
-        Task<WebCallResult<BitstampWithdrawFee[]>> GetWithdrawFeesAsync(CancellationToken cancellationToken = default);
-        Task<WebCallResult<BitstampWithdrawFee>> GetWithdrawFeesAsync(string asset, string? network = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// <seealso href="https://www.bitstamp.net/api/#tag/Fees/operation/GetAllTradingFees"/>"
+        /// Get withdraw fees
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Fees/operation/GetAllWithdrawalFees" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/fees/withdrawal/
+        /// </para>
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitstampWithdrawFee[]>> GetWithdrawFeesAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get withdraw fees
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Fees/operation/GetWithdrawalFeeForCurrency" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/fees/withdrawal/{asset}/
+        /// </para>
+        /// </summary>
+        /// <param name="asset">Asset name</param>
+        /// <param name="network">Network</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitstampWithdrawFee>> GetWithdrawFeesAsync(string asset, string? network = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get trading fees
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Fees/operation/GetAllTradingFees" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/fees/trading/
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampTradingFees[]>> GetAllFeesAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// <seealso href="https://www.bitstamp.net/api/#tag/Fees/operation/GetTradingFeesForCurrency"/>"
+        /// Get trading fees for a symbol
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Fees/operation/GetTradingFeesForCurrency" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/fees/trading/{symbol}/
+        /// </para>
         /// </summary>
+        /// <param name="symbol">Symbol, for example `ETH/USD`</param>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampTradingFees>> GetFeesAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// <seealso href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetUserTransactions"/>
+        /// Get user transaction history
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetUserTransactions" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/user_transactions/
+        /// </para>
         /// </summary>
-        /// <param name="offset">Skip that many transactions before returning results (default: 0, maximum: 200000). If you need to export older history contact support OR use combination of limit and since_id parameters.</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Limit result to that many transactions (default: 100; maximum: 1000).</param>
-        /// <param name="sort">Sorting by date and time: asc - ascending; desc - descending (default: desc).</param>
-        /// <param name="startDate">(Optional) Show only transactions from unix timestamp (for max 30 days old).</param>
-        /// <param name="endDate">Show only transactions to unix timestamp (for max 30 days old).</param>
-        /// <param name="sinceId">(Optional) Show only transactions from specified transaction id. If since_id parameter is used, limit parameter is set to 1000.</param>
-        Task<WebCallResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(SortOrder? sort = null, long? sinceId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default);
+        /// <param name="sort">Sorting direction</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="sinceId">Filter results since id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(
+            SortOrder? sort = null,
+            long? sinceId = null, 
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? limit = null, 
+            int? offset = null,
+            CancellationToken ct = default);
 
         /// <summary>
-        /// <seealso href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetUserTransactions"/>
+        /// Get user transaction history for a symbol
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetUserTransactionsForMarket" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/user_transactions/{symbol}/
+        /// </para>
         /// </summary>
-        /// <param name="offset">Skip that many transactions before returning results (default: 0, maximum: 200000). If you need to export older history contact support OR use combination of limit and since_id parameters.</param>
+        /// <param name="symbol">Symbol, for example `ETH/USD`</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Limit result to that many transactions (default: 100; maximum: 1000).</param>
-        /// <param name="sort">Sorting by date and time: asc - ascending; desc - descending (default: desc).</param>
-        /// <param name="startDate">(Optional) Show only transactions from unix timestamp (for max 30 days old).</param>
-        /// <param name="endDate">Show only transactions to unix timestamp (for max 30 days old).</param>
-        /// <param name="sinceId">(Optional) Show only transactions from specified transaction id. If since_id parameter is used, limit parameter is set to 1000.</param>
-        Task<WebCallResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(string symbol, SortOrder? sort = null, long? sinceId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default);
+        /// <param name="sort">Sorting direction</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="sinceId">Filter results since id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(
+            string symbol,
+            SortOrder? sort = null, 
+            long? sinceId = null, 
+            DateTime? startTime = null, 
+            DateTime? endTime = null,
+            int? limit = null,
+            int? offset = null,
+            CancellationToken ct = default);
 
+        /// <summary>
+        /// Get symbols tradable for the user
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Orders/operation/GetUserTradingMarkets" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/my_markets/
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampAccountSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get max tradable quantity for the parameters
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Orders/operation/MaxBuySellResource" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/get_max_order_amount/
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETH/USD-PERP`</param>
+        /// <param name="marginMode">Margin mode</param>
+        /// <param name="leverage">Leverage</param>
+        /// <param name="orderType">Order type</param>
+        /// <param name="side">Order side</param>
+        /// <param name="price">Order price</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="activationPrice">Activation price</param>
+        /// <param name="trailingDelta">Trailing delta</param>
+        /// <param name="additionalCollateral">Additional collateral asset->quantity</param>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampMaxTradeQuantity>> GetMaxTradeQuantityAsync(
             string symbol,
             MarginMode marginMode,
@@ -72,24 +183,34 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// <seealso href="https://www.bitstamp.net/api/#tag/Websocket/operation/GetWebsocketToken"/> 
-        /// </summary>
-        Task<WebCallResult<BitstampSocketAuthToken>> GenerateWebsocketAuthTokenAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Get withdrawal
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/GetWithdrawalRequests" /></para>
+        /// Get withdrawals
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/GetWithdrawalRequests" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/withdrawal-requests/
+        /// </para>
         /// </summary>
         /// <param name="id">Filter by id</param>
         /// <param name="maxAge">Max age in number of seconds to return</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampWithdrawal>> GetWithdrawalsAsync(string? id = null, long? maxAge = null, int? limit = null, int? offset = null, CancellationToken ct = default);
+        Task<WebCallResult<BitstampWithdrawal[]>> GetWithdrawalsAsync(
+            string? id = null, 
+            long? maxAge = null, 
+            int? limit = null, 
+            int? offset = null, 
+            CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw fiat to a bank account
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/RequestFiatWithdrawal" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/RequestFiatWithdrawal" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/withdrawal/open/
+        /// </para>
         /// </summary>
         /// <param name="quantity">Quantity to withdraw</param>
         /// <param name="asset">The asset to withdraw, for example `USD`</param>
@@ -133,7 +254,12 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Cancel an in progress withdrawal
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/CancelWithdrawal" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/CancelWithdrawal" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/withdrawal/cancel/
+        /// </para>
         /// </summary>
         /// <param name="id">Withdrawal id</param>
         /// <param name="ct">Cancellation token</param>
@@ -141,7 +267,12 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get fiat withdrawal status
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/GetFiatWithdrawalStatus" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/GetFiatWithdrawalStatus" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/withdrawal/status/
+        /// </para>
         /// </summary>
         /// <param name="id">The withdrawal id</param>
         /// <param name="ct">Cancellation token</param>
@@ -149,7 +280,12 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Withdraw crypto. Only non-thirdparty withdrawals supported atm
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/RequestCryptoWithdrawal" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Withdrawals/operation/RequestCryptoWithdrawal" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/{asset}_withdrawal/
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `eth`</param>
         /// <param name="quantity">Quantity</param>
@@ -173,7 +309,12 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get deposit address
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Deposits/operation/GetCryptoDepositAddress" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Deposits/operation/GetCryptoDepositAddress" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/{asset}_address/
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="network">Network</param>
@@ -182,7 +323,12 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get crypto transactions
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetCryptoUserTransactions" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetCryptoUserTransactions" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/crypto-transactions/
+        /// </para>
         /// </summary>
         /// <param name="includeIous">Include Ripple IOUs or not</param>
         /// <param name="startTime">Filter by start time</param>
@@ -190,11 +336,22 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCryptoTransactions>> GetCryptoTransactionsAsync(bool? includeIous = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default);
+        Task<WebCallResult<BitstampCryptoTransactions>> GetCryptoTransactionsAsync(
+            bool? includeIous = null,
+            DateTime? startTime = null, 
+            DateTime? endTime = null,
+            int? limit = null,
+            int? offset = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit history
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetCryptoDepositsWithReviewStatus" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Transactions-private/operation/GetCryptoDepositsWithReviewStatus" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/crypto-transactions/deposits/
+        /// </para>
         /// </summary>
         /// <param name="status">Filter by status</param>
         /// <param name="startTime">Filter by start time</param>
@@ -202,27 +359,48 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCryptoDeposit[]>> GetDepositsAsync(DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default);
+        Task<WebCallResult<BitstampCryptoDeposit[]>> GetDepositsAsync(
+            DepositStatus? status = null,
+            DateTime? startTime = null, 
+            DateTime? endTime = null, 
+            int? limit = null,
+            int? offset = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Get margin info/balances
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Derivatives-(Prelaunch)/operation/GetMarginInfo" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Derivatives-(Prelaunch)/operation/GetMarginInfo" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/margin_info/
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampMarginInfo>> GetMarginInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get leverage settings
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Derivatives-(Prelaunch)/operation/GetLeverageSettingsList" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Derivatives-(Prelaunch)/operation/GetLeverageSettingsList" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/leverage_settings/
+        /// </para>
         /// </summary>
         /// <param name="marginMode">Margin mode</param>
         /// <param name="symbol">Symbol name</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampLeverageSetting[]>> GetLeverageSettingsAsync(string? marginMode = null, string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<BitstampLeverageSetting[]>> GetLeverageSettingsAsync(MarginMode? marginMode = null, string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set leverage
-        /// <para><a href="https://www.bitstamp.net/api/#tag/Derivatives-(Prelaunch)/operation/UpdateLeverageSettingsList" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitstamp.net/api/#tag/Derivatives-(Prelaunch)/operation/UpdateLeverageSettingsList" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/leverage_settings/
+        /// </para>
         /// </summary>
         /// <param name="marginMode">Margin mode</param>
         /// <param name="symbol">Symbol</param>

@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.Objects.Options;
-using System;
 
 namespace Bitstamp.Net.Objects.Options
 {
@@ -18,17 +17,10 @@ namespace Bitstamp.Net.Objects.Options
         /// </summary>
         public TimeSpan? InitialDataTimeout { get; set; }
 
-#warning todo
-        /// <summary>
-        /// The amount of rows. Should be one of: 5/10/20/50
-        /// </summary>
-        public int? Limit { get; set; }
-
         internal BitstampOrderBookOptions Copy()
         {
             var options = Copy<BitstampOrderBookOptions>();
             options.InitialDataTimeout = InitialDataTimeout;
-            options.Limit = Limit;
             return options;
         }
     }

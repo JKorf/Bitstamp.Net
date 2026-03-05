@@ -13,6 +13,7 @@ namespace Bitstamp.Net.Clients
     /// <inheritdoc cref="IBitstampRestClient" />
     public class BitstampRestClient : BaseRestClient, IBitstampRestClient
     {
+        /// <inheritdoc />
         public IBitstampRestClientExchangeApi ExchangeApi { get; }
 
         #region ctor

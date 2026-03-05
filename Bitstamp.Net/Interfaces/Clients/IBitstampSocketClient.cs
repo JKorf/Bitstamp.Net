@@ -1,6 +1,5 @@
 ﻿using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 
@@ -12,7 +11,7 @@ namespace Bitstamp.Net.Interfaces.Clients
     public interface IBitstampSocketClient : ISocketClient
     {
         /// <summary>
-        /// API Spot streams
+        /// API exchange streams
         /// </summary>
         /// <see cref="IBitstampSocketClientExchangeApi"/>
         IBitstampSocketClientExchangeApi ExchangeApi { get; }

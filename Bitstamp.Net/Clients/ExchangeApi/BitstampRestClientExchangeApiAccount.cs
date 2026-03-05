@@ -182,7 +182,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #region Get Withdraws
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitstampWithdrawal>> GetWithdrawalsAsync(string? id = null, long? maxAge = null, int? limit = null, int? offset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitstampWithdrawal[]>> GetWithdrawalsAsync(string? id = null, long? maxAge = null, int? limit = null, int? offset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("id", id);
@@ -190,7 +190,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/withdrawal-requests/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
-            var result = await _baseClient.SendAsync<BitstampWithdrawal>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitstampWithdrawal[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -372,11 +372,11 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #region Get Leverage Settings
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitstampLeverageSetting[]>> GetLeverageSettingsAsync(string? marginMode = null, string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitstampLeverageSetting[]>> GetLeverageSettingsAsync(MarginMode? marginMode = null, string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("margin_mode", marginMode);
-            parameters.AddOptional("market", BitstampExchange.SymbolToPathParameter(symbol));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
+            parameters.AddOptional("market", symbol == null ? null : BitstampExchange.SymbolToPathParameter(symbol));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/leverage_settings/", BitstampExchange.RateLimiter.Rest, 1, true);
             var result = await _baseClient.SendAsync<BitstampLeverageSetting[]>(request, parameters, ct).ConfigureAwait(false);
             return result;

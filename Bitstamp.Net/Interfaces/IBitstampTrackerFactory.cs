@@ -1,13 +1,7 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.SharedApis;
-using CryptoExchange.Net.Trackers.Klines;
-using CryptoExchange.Net.Trackers.Trades;
 using CryptoExchange.Net.Trackers.UserData.Interfaces;
 using CryptoExchange.Net.Trackers.UserData.Objects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bitstamp.Net.Interfaces
 {
@@ -29,6 +23,19 @@ namespace Bitstamp.Net.Interfaces
         /// </summary>
         /// <param name="config">Configuration</param>
         IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null);
+        /// <summary>
+        /// Create a new Futures user data tracker
+        /// </summary>
+        /// <param name="userIdentifier">User identifier</param>
+        /// <param name="config">Configuration</param>
+        /// <param name="credentials">Credentials</param>
+        /// <param name="environment">Environment</param>
+        IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitstampEnvironment? environment = null);
+        /// <summary>
+        /// Create a new Futures user data tracker
+        /// </summary>
+        /// <param name="config">Configuration</param>
+        IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig? config = null);
 
     }
 }

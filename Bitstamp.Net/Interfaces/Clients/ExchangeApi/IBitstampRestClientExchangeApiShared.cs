@@ -3,26 +3,31 @@
 namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 {
     /// <summary>
-    /// Shared interface for Spot rest API usage
+    /// Shared interface for rest API usage
     /// </summary>
     public interface IBitstampRestClientExchangeApiShared :
         IAssetsRestClient,
         IBalanceRestClient,
         IDepositRestClient,
         IKlineRestClient,
-        //IOrderBookRestClient,
+        IOrderBookRestClient,
         IRecentTradeRestClient,
         ISpotOrderRestClient,
         ISpotSymbolRestClient,
         ISpotTickerRestClient,
-        ////ITradeHistoryRestClient,
-        //IWithdrawalRestClient,
-        //IWithdrawRestClient,
-        //IFeeRestClient,
+        IWithdrawalRestClient,
+        IWithdrawRestClient,
+        IFeeRestClient,
         ISpotOrderClientIdRestClient,
         //ISpotTriggerOrderRestClient,
-        IBookTickerRestClient
-        //ITransferRestClient
+        IBookTickerRestClient,
+        IFundingRateRestClient,
+        IFuturesSymbolRestClient,
+        IFuturesTickerRestClient,
+        ILeverageRestClient,
+        IOpenInterestRestClient,
+        IPositionHistoryRestClient,
+        IFuturesOrderRestClient
     {
     }
 }

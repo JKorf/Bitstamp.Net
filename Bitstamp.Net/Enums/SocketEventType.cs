@@ -5,7 +5,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 namespace Bitstamp.Net.Enums
 {
     [JsonConverter(typeof(EnumConverter<SocketEventType>))]
-    public enum SocketEventType
+    internal enum SocketEventType
     {
         [Map("bts:subscribe")]
         Subscribe,

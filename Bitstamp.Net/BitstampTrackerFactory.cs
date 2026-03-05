@@ -10,7 +10,6 @@ using CryptoExchange.Net.Trackers.UserData.Objects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System;
 
 namespace Bitstamp.Net
 {
@@ -51,46 +50,31 @@ namespace Bitstamp.Net
             var restClient = _serviceProvider?.GetRequiredService<IBitstampRestClient>() ?? new BitstampRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBitstampSocketClient>() ?? new BitstampSocketClient();
 
-            throw new Exception();
-            //IRecentTradeRestClient sharedRestClient;
-            //ITradeSocketClient sharedSocketClient;
-            //if (symbol.TradingMode == TradingMode.Spot)
-            //{
-            //    sharedRestClient = restClient.SpotApiV2.SharedClient;
-            //    sharedSocketClient = socketClient.SpotApiV2.SharedClient;
-            //}
-            //else
-            //{
-            //    sharedRestClient = restClient.FuturesApi.SharedClient;
-            //    sharedSocketClient = socketClient.FuturesApi.SharedClient;
-            //}
-
-            //return new TradeTracker(
-            //    _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-            //    sharedRestClient,
-            //    null,
-            //    sharedSocketClient,
-            //    symbol,
-            //    limit,
-            //    period
-            //    );
+            var sharedRestClient = restClient.ExchangeApi.SharedClient;
+            var sharedSocketClient = socketClient.ExchangeApi.SharedClient;
+            
+            return new TradeTracker(
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                null,
+                sharedSocketClient,
+                symbol,
+                limit,
+                period
+                );
         }
 
         /// <inheritdoc />
         public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBitstampRestClient>() ?? new BitstampRestClient();
-            var socketClient = _serviceProvider?.GetRequiredService<IBitstampSocketClient>() ?? new BitstampSocketClient();
 
-            throw new Exception();
-
-            //return new BitstampUserSpotDataTracker(
-            //    _serviceProvider?.GetRequiredService<ILogger<BitstampUserSpotDataTracker>>() ?? new NullLogger<BitstampUserSpotDataTracker>(),
-            //    restClient,
-            //    socketClient,
-            //    null,
-            //    config
-            //    );
+            return new BitstampUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitstampUserSpotDataTracker>>() ?? new NullLogger<BitstampUserSpotDataTracker>(),
+                restClient,
+                null,
+                config
+                );
         }
 
         /// <inheritdoc />
@@ -100,16 +84,40 @@ namespace Bitstamp.Net
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
             var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
 
-            throw new Exception();
-
-            //return new BitstampUserSpotDataTracker(
-            //    _serviceProvider?.GetRequiredService<ILogger<BitstampUserSpotDataTracker>>() ?? new NullLogger<BitstampUserSpotDataTracker>(),
-            //    restClient,
-            //    socketClient,
-            //    userIdentifier,
-            //    config
-            //    );
+            return new BitstampUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitstampUserSpotDataTracker>>() ?? new NullLogger<BitstampUserSpotDataTracker>(),
+                restClient,
+                userIdentifier,
+                config
+                );
         }
 
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IBitstampRestClient>() ?? new BitstampRestClient();
+
+            return new BitstampUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitstampUserFuturesDataTracker>>() ?? new NullLogger<BitstampUserFuturesDataTracker>(),
+                restClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitstampEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IBitstampUserClientProvider>() ?? new BitstampUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+
+            return new BitstampUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitstampUserFuturesDataTracker>>() ?? new NullLogger<BitstampUserFuturesDataTracker>(),
+                restClient,
+                userIdentifier,
+                config
+                );
+        }
     }
 }

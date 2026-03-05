@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Objects.Options;
 
 namespace Bitstamp.Net.Objects.Options
 {

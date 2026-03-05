@@ -3,7 +3,7 @@ using Bitstamp.Net.Enums;
 
 namespace Bitstamp.Net.Objects.Models.Socket
 {
-    public record BitstampSocketData<T>
+    internal record BitstampSocketData<T>
     {
         [JsonPropertyName("event")]
         public SocketEventType Event { get; set; }

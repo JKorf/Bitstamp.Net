@@ -1,0 +1,6 @@
+>1 { "event": "bts:subscribe", "data": { "channel": "live_trades_ethusd" }}
+>2 { "event": "bts:subscribe", "data": { "channel": "live_trades_btcusd" }}
+<1 { "event": "bts:subscription_succeeded", "channel": "live_trades_ethusd", "data": {}}
+<2 { "event": "bts:subscription_succeeded", "channel": "live_trades_btcusd", "data": {}}
+=1 {"data":	{"id":542327128,"timestamp":"1772723751","amount":0.241,"amount_str":"0.241000","price":2090.22,"price_str":"2090.22","type":0,	"microtimestamp":"1772723751946000","buy_order_id":1982008431775746,"sell_order_id":1982008430600193},"channel":"live_trades_ethusd","event":"trade"}
+=2 {"data":	{"id":542327128,"timestamp":"1772723751","amount":0.241,"amount_str":"0.241000","price":2090.22,"price_str":"2090.22","type":0,	"microtimestamp":"1772723751946000","buy_order_id":1982008431775746,"sell_order_id":1982008430600193},"channel":"live_trades_btcusd","event":"trade"}
