@@ -148,6 +148,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.0.1 - 06 Mar 2026
+    * Fixed CryptoExchange.Net reference
+    * Fixed Shared symbol enabled status
+
 * Version 1.0.0 - 06 Mar 2026
     * Initial release
 
