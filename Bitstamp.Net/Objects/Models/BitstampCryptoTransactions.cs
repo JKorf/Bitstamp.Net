@@ -112,5 +112,8 @@ namespace Bitstamp.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("destinationAddress")]
         public string DestinationAddress { get; set; } = string.Empty;
+
+        [JsonPropertyName("destination_address"), JsonInclude]
+        internal string DestinationAddressInt { set { DestinationAddress = value; } }
     }
 }

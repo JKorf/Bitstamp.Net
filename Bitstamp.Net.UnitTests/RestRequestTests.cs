@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bitstamp.Net.Clients;
 using Bitstamp.Net.Enums;
+using System.Linq;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -14,7 +15,7 @@ namespace Bitstamp.Net.UnitTests
     public class RestRequestTests
     {
         [Test]
-        public async Task ValidateSpotAccountCalls()
+        public async Task ValidateAccountCalls()
         {
             var client = new BitstampRestClient(opts =>
             {
@@ -36,7 +37,7 @@ namespace Bitstamp.Net.UnitTests
         }
 
         [Test]
-        public async Task ValidateSpotExchangeDataCalls()
+        public async Task ValidateExchangeDataCalls()
         {
             var client = new BitstampRestClient(opts =>
             {
@@ -50,7 +51,7 @@ namespace Bitstamp.Net.UnitTests
         }
 
         [Test]
-        public async Task ValidateSpotTradingCalls()
+        public async Task ValidateTradingCalls()
         {
             var client = new BitstampRestClient(opts =>
             {
@@ -65,12 +66,12 @@ namespace Bitstamp.Net.UnitTests
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.ClosePositionAsync("123"), "ClosePosition");
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.GetPositionSettlementTransactionsAsync(), "GetPositionSettlementTransactions");
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.UpdatePositionCollateralAsync("123", 0.1m), "UpdatePositionCollateral");
-            await tester.ValidateAsync(client => client.ExchangeApi.Trading.GetOrderHistoryAsync(OrderSource.Orderbook, "123"), "GetOrderHistory");
+            await tester.ValidateAsync(client => client.ExchangeApi.Trading.GetOrderHistoryAsync(OrderSource.Orderbook, "123"), "GetOrderHistory", ignoreProperties: ["id_str", "datetime", "amount_str", "price_str"]);
         }
 
         private bool IsAuthenticated(WebCallResult result)
         {
-            return result.RequestUrl?.Contains("signature") == true || result.RequestBody?.Contains("signature=") == true;
+            return result.RequestHeaders.SingleOrDefault(x => x.Key == "X-Auth-Signature").Key != null;
         }
     }
 }

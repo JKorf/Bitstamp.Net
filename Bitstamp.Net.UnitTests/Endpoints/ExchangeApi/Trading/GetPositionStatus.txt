@@ -1,5 +1,5 @@
 GET
-/api/v2/position_status/{position_id}/
+/api/v2/position_status/123/
 true
 {
   "id": "1234567890",
@@ -38,8 +38,8 @@ true
   "current_value": "3.00",
   "entry_value": "3.00",
   "strike_price": "3.00",
-  "exit_price": "string",
-  "settlement_price": "string",
-  "amount_delta": "string",
-  "time_closed": "string"
+  "exit_price": "123",
+  "settlement_price": "123",
+  "amount_delta": "123",
+  "time_closed": ""
 }

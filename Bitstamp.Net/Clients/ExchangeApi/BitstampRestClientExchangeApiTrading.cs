@@ -425,7 +425,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("position_id", positionId);
             parameters.Add("new_account", newCollateralQuantity);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/adjust_position_collateral/", BitstampExchange.RateLimiter.Rest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/adjust_position_collateral/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

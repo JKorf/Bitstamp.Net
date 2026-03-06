@@ -178,6 +178,51 @@ namespace Bitstamp.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("margin_tier")]
         public string MarginTier { get; set; } = string.Empty;
+        /// <summary>
+        /// Open time
+        /// </summary>
+        [JsonPropertyName("time_opened")]
+        public DateTime? OpenTime { get; set; }
+        /// <summary>
+        /// Close time
+        /// </summary>
+        [JsonPropertyName("time_closed")]
+        public DateTime? CloseTime { get; set; }
+        /// <summary>
+        /// Status
+        /// </summary>
+        [JsonPropertyName("status")]
+        public PositionStatus? Status { get; set; }
+        /// <summary>
+        /// Exit price
+        /// </summary>
+        [JsonPropertyName("exit_price")]
+        public decimal? ExitPrice { get; set; }
+        /// <summary>
+        /// Settlement price
+        /// </summary>
+        [JsonPropertyName("settlement_price")]
+        public decimal? SettlementPrice { get; set; }
+        /// <summary>
+        /// Quantity delta
+        /// </summary>
+        [JsonPropertyName("amount_delta")]
+        public decimal? QuantityDelta { get; set; }
+        /// <summary>
+        /// Profit and loss asset
+        /// </summary>
+        [JsonPropertyName("pnl_currency")]
+        public string? PnlAsset { get; set; }
+        /// <summary>
+        /// Settled profit and loss
+        /// </summary>
+        [JsonPropertyName("pnl_settled")]
+        public decimal? Settled { get; set; }
+        /// <summary>
+        /// Closing fee
+        /// </summary>
+        [JsonPropertyName("closing_fee_amount")]
+        public decimal? ClosingFee { get; set; }
     }
 
 

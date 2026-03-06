@@ -65,7 +65,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #region Generate Websocket Auth Token
 
         /// <inheritdoc />
-        public Task<WebCallResult<BitstampSocketAuthToken>> GenerateWebsocketAuthTokenAsync(CancellationToken ct = default)
+        internal Task<WebCallResult<BitstampSocketAuthToken>> GenerateWebsocketAuthTokenAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/websockets_token/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
             return _baseClient.SendAsync<BitstampSocketAuthToken>(request, null, ct);
@@ -377,7 +377,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.AddOptionalEnum("margin_mode", marginMode);
             parameters.AddOptional("market", symbol == null ? null : BitstampExchange.SymbolToPathParameter(symbol));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/leverage_settings/", BitstampExchange.RateLimiter.Rest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/leverage_settings/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
             var result = await _baseClient.SendAsync<BitstampLeverageSetting[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -393,7 +393,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             parameters.AddEnum("margin_mode", marginMode);
             parameters.Add("market", BitstampExchange.SymbolToPathParameter(symbol));
             parameters.Add("leverage", leverage);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/leverage_settings/", BitstampExchange.RateLimiter.Rest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/leverage_settings/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
             var result = await _baseClient.SendAsync<BitstampLeverageSetting>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

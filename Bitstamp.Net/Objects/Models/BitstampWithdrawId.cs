@@ -12,5 +12,8 @@ namespace Bitstamp.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("withdrawal_id")]
         public long WithdrawalId { get; set; }
+
+        [JsonPropertyName("id"), JsonInclude]
+        internal long Id { set => WithdrawalId = value; }
     }
 }

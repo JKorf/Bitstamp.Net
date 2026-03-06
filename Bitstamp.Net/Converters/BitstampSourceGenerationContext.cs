@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Converters
 {
+    [JsonSerializable(typeof(BitstampWithdrawId))]
     [JsonSerializable(typeof(BitstampOrderEvent[]))]
     [JsonSerializable(typeof(BitstampLeverageSetting))]
     [JsonSerializable(typeof(BitstampLeverageSetting[]))]

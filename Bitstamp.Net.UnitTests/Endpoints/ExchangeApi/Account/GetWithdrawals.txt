@@ -1,7 +1,7 @@
 POST
 /api/v2/withdrawal-requests/
 true
-{
+[{
 "id": 1,
 "datetime": "2022-01-31 16:07:32",
 "type": 0,
@@ -12,4 +12,4 @@ true
 "txid": 1,
 "address": "aMDHooGmAkyrsaQiKhAORhSNTmoRzxqWIO",
 "transaction_id": "NsOeFbQhRnpGzNIThWGBTkQwRJqTNOGPVhYavrVyMfkAyMUmIlUpFIwGTzSvpeOP"
-}
+}]

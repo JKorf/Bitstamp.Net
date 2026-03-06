@@ -75,7 +75,7 @@ namespace Bitstamp.Net.Clients.MessageHandlers
             if (document!.RootElement.ValueKind is JsonValueKind.Array)
                 return null;
 
-            var status = document!.RootElement.TryGetProperty("status", out var codeProp) ? codeProp.GetString() : null;
+            var status = document!.RootElement.TryGetProperty("status", out var codeProp) && codeProp.ValueKind == JsonValueKind.String ? codeProp.GetString() : null;
             var error = document!.RootElement.TryGetProperty("error", out var errorProp) ? errorProp.GetString() : null;
             if (status == "error" || error?.Length > 0)
                 return ParseErrorInternal(document!.RootElement);
