@@ -1,18 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0;net10.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <PropertyGroup>
     <PackageId>Bitstamp.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>0.0.1</PackageVersion>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
-    <FileVersion>0.0.1</FileVersion>
+    <PackageVersion>1.0.0</PackageVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
     <Description>Bitstamp.Net is a high performance client library for accessing the Bitstamp REST and Websocket API. All data is mapped to readable models and enum values. Additional features include automatic websocket (re)connection management, an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Bitstamp;Bitstamp.Net;Bitstamp.com;Bitstamp Client;Bitstamp API;CryptoCurrency;CryptoCurrency Exchange;CryptoExchange.Net</PackageTags>
@@ -63,5 +61,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CryptoExchange.Net\CryptoExchange.Net\CryptoExchange.Net.csproj" />
   </ItemGroup>
-
 </Project>
