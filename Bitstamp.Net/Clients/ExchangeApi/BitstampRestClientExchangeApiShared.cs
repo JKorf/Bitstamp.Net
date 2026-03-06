@@ -107,7 +107,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 Exchange, 
                 TradingMode.Spot,
                 result.Data.Where(x => x.MarketType == MarketType.Spot).Select(s => 
-                    new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, true)
+                    new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.Status == EnabledStatus.Enabled)
                     {
                         MinTradeQuantity = s.MinimumOrderQuantity,
                         MinNotionalValue = s.MinimumOrderValue,
@@ -976,7 +976,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         s.BaseAsset,
                         s.QuoteAsset,
                         s.Name,
-                        true)
+                        s.Status == EnabledStatus.Enabled)
                     {
                         MinTradeQuantity = s.MinimumOrderQuantity,
                         MinNotionalValue = s.MinimumOrderValue,
