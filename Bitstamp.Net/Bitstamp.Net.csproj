@@ -44,7 +44,7 @@
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>
-    <DocumentationFile>BitMart.Net.xml</DocumentationFile>
+    <DocumentationFile>Bitstamp.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Icon\icon.png" Pack="true" PackagePath="\" />

@@ -1,13 +1,13 @@
 # Examples
 
-### Toobit.Examples.Api
+### Bitstamp.Examples.Api
 A minimal API showing how to integrate Toobit.Net in a web API project
 
-### Toobit.Examples.Console
+### Bitstamp.Examples.Console
 A simple console client demonstrating basic usage
 
-### Toobit.Examples.OrderBook
+### Bitstamp.Examples.OrderBook
 Example of using the client side order book implementation
 
-### Toobit.Examples.Tracker
+### Bitstamp.Examples.Tracker
 Example of using the trade tracker

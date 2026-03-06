@@ -1,17 +1,17 @@
-using Toobit.Net.Interfaces;
+using Bitstamp.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 using System.Globalization;
 
 var collection = new ServiceCollection();
-collection.AddToobit();
+collection.AddBitstamp();
 var provider = collection.BuildServiceProvider();
 
-var trackerFactory = provider.GetRequiredService<IToobitTrackerFactory>();
+var trackerFactory = provider.GetRequiredService<IBitstampTrackerFactory>();
 
 // Create and start the tracker, keep track of the last 10 minutes
-var tracker = trackerFactory.CreateTradeTracker(new SharedSymbol(TradingMode.Spot, "ETH", "USDT"), period: TimeSpan.FromMinutes(10));
+var tracker = trackerFactory.CreateTradeTracker(new SharedSymbol(TradingMode.Spot, "ETH", "USD"), period: TimeSpan.FromMinutes(10));
 var result = await tracker.StartAsync();
 if (!result.Success)
 {

@@ -1,8 +1,8 @@
-# ![Toobit.Net](https://raw.githubusercontent.com/JKorf/Toobit.Net/main/Toobit.Net/Icon/icon.png) Toobit.Net  
+# ![Bitstamp.Net](https://raw.githubusercontent.com/JKorf/Bitstamp.Net/main/Bitstamp.Net/Icon/icon.png) Bitstamp.Net  
 
-[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Toobit.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Toobit.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Toobit.Net?style=for-the-badge)
+[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Bitstamp.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Bitstamp.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Bitstamp.Net?style=for-the-badge)
 
-Toobit.Net is a client library for accessing the [Toobit REST and Websocket API](Toobit). 
+Bitstamp.Net is a client library for accessing the [Bitstamp REST and Websocket API](https://www.bitstamp.net/api/). 
 
 ## Features
 * Response data is mapped to descriptive models
@@ -33,40 +33,40 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 ## Install the library
 
 ### NuGet 
-[![NuGet version](https://img.shields.io/nuget/v/Toobit.net.svg?style=for-the-badge)](https://www.nuget.org/packages/Toobit.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/Toobit.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/Toobit.Net)
+[![NuGet version](https://img.shields.io/nuget/v/Bitstamp.net.svg?style=for-the-badge)](https://www.nuget.org/packages/Bitstamp.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/Bitstamp.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/Bitstamp.Net)
 
-	dotnet add package Toobit.Net
+	dotnet add package Bitstamp.Net
 	
 ### GitHub packages
-Toobit.Net is available on [GitHub packages](https://github.com/JKorf/Toobit.Net/pkgs/nuget/Toobit.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
+Bitstamp.Net is available on [GitHub packages](https://github.com/JKorf/Bitstamp.Net/pkgs/nuget/Bitstamp.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
 
 ### Download release
-[![GitHub Release](https://img.shields.io/github/v/release/JKorf/Toobit.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/Toobit.Net/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/JKorf/Bitstamp.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/Bitstamp.Net/releases)
 
-The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/Toobit.Net/releases).
+The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/Bitstamp.Net/releases).
 
 ## How to use
 * REST Endpoints
 	```csharp
-	// Get the ETH/USDT ticker via rest request
-	var restClient = new ToobitRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETHUSDT");
-	var lastPrice = tickerResult.Data.Single().LastPrice;
+	// Get the ETH/USD ticker via rest request
+	var restClient = new BitstampRestClient();
+	var tickerResult = await restClient.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
+	var lastPrice = tickerResult.Data.LastPrice;
 	```
 * Websocket streams
 	```csharp
 	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new ToobitSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", (update) => 
+	var socketClient = new BitstampSocketClient();
+	var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD", (update) => 
 	{
-	  var lastPrice = update.Data.LastPrice;
+	  var lastPrice = update.Data.Price;
 	});
 	```
 
-For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=Toobit.Net), or have a look at the examples [here](https://github.com/JKorf/Toobit.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=Bitstamp.Net), or have a look at the examples [here](https://github.com/JKorf/Bitstamp.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
 ## CryptoExchange.Net
-Toobit.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
+Bitstamp.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
 CryptoExchange.Net also allows for [easy access to different exchange API's](https://cryptoexchange.jkorf.dev/client-libs/shared).
 
@@ -95,6 +95,7 @@ CryptoExchange.Net also allows for [easy access to different exchange API's](htt
 |Mexc|[JKorf/Mexc.Net](https://github.com/JKorf/Mexc.Net)|[![Nuget version](https://img.shields.io/nuget/v/JK.Mexc.net.svg?style=flat-square)](https://www.nuget.org/packages/JK.Mexc.Net)|
 |OKX|[JKorf/OKX.Net](https://github.com/JKorf/OKX.Net)|[![Nuget version](https://img.shields.io/nuget/v/JK.OKX.net.svg?style=flat-square)](https://www.nuget.org/packages/JK.OKX.Net)|
 |Polymarket|[JKorf/Polymarket.Net](https://github.com/JKorf/Polymarket.Net)|[![Nuget version](https://img.shields.io/nuget/v/Polymarket.net.svg?style=flat-square)](https://www.nuget.org/packages/Polymarket.Net)|
+|Toobit|[JKorf/Toobit.Net](https://github.com/JKorf/Toobit.Net)|[![Nuget version](https://img.shields.io/nuget/v/Toobit.net.svg?style=flat-square)](https://www.nuget.org/packages/Toobit.Net)|
 |Upbit|[JKorf/Upbit.Net](https://github.com/JKorf/Upbit.Net)|[![Nuget version](https://img.shields.io/nuget/v/JKorf.Upbit.net.svg?style=flat-square)](https://www.nuget.org/packages/JKorf.Upbit.Net)|
 |WhiteBit|[JKorf/WhiteBit.Net](https://github.com/JKorf/WhiteBit.Net)|[![Nuget version](https://img.shields.io/nuget/v/WhiteBit.net.svg?style=flat-square)](https://www.nuget.org/packages/WhiteBit.Net)|
 |XT|[JKorf/XT.Net](https://github.com/JKorf/XT.Net)|[![Nuget version](https://img.shields.io/nuget/v/XT.net.svg?style=flat-square)](https://www.nuget.org/packages/XT.Net)|
@@ -107,37 +108,34 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discuss
 
 ## Supported functionality
 
-### Spot REST
+### REST Public Data
 |API|Supported|Location|
 |--|--:|--|
-|Wallet|✓|`restClient.SpotApi.Account`|
-|Market Data|✓|`restClient.SpotApi.ExchangeData`|
-|Account/Trade|✓|`restClient.SpotApi.Account`/`restClient.SpotApi.Trading`|
+|Tickers|✓|`restClient.ExchangeApi.ExchangeData`|
+|Order book|✓|`restClient.ExchangeApi.ExchangeData`|
+|Transactions|✓|`restClient.ExchangeApi.ExchangeData`|
+|Market Info|✓|`restClient.ExchangeApi.ExchangeData`|
+|Travel Rule|X||
 
-### Spot WebSocket
+### REST Private Data
 |API|Supported|Location|
 |--|--:|--|
-|Market Streams|✓|`socketClient.SpotApi`|
-|User Data Streams|✓|`socketClient.SpotApi`|
-
-### USDT-M Futures REST
-|API|Supported|Location|
-|--|--:|--|
-|Market Data|✓|`restClient.UsdtFuturesApi.ExchangeData`|
-|Account/Trade|✓|`restClient.UsdtFuturesApi.Account`/`restClient.UsdtFuturesApi.Trading`|
-
-### USDT-M Futures WebSocket
-|API|Supported|Location|
-|--|--:|--|
-|Market Streams|✓|`socketClient.UsdtFuturesApi`|
-|User Data Streams|✓|`socketClient.UsdtFuturesApi`|
+|Account balances|✓|`restClient.ExchangeApi.Account`|
+|Fees|✓|`restClient.ExchangeApi.Account`|
+|Orders|✓|`restClient.ExchangeApi.Trading`|
+|Derivatives|✓|`restClient.ExchangeApi.Account`/`restClient.ExchangeApi.Trading`|
+|Withdrawals|✓|`restClient.ExchangeApi.Account`|
+|Deposits|✓|`restClient.ExchangeApi.Account`|
+|Sub account|X||
+|Instant convert|X||
+|Websocket|✓|Handled internally|
+|Transactions|✓|`restClient.ExchangeApi.Account`/`restClient.ExchangeApi.Trading`|
+|Travel Rule|X||
+|Earn|X||
+|Security|X||
 
 ## Support the project
 Any support is greatly appreciated.
-
-### Referal
-If you do not yet have an account please consider using this referal link to sign up:  
-[Link](https://www.toobit.com/en-US/register?invite_code=zsV19h)
 
 ### Donate
 Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
@@ -150,118 +148,3 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
-* Version 3.7.0 - 24 Feb 2026
-    * Updated CryptoExchange.Net to version 10.7.0
-    * Added additional Http settings to client options
-    * Updated Shared REST interfaces pagination logic
-    * Updated HttpClient registration, fixing issue of DNS changes not getting processed
-    * Fixed UserClientProvider using unconfigured HttpClient
-
-* Version 3.6.0 - 16 Feb 2026
-    * Updated CryptoExchange.Net to version 10.6.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-
-* Version 3.5.1 - 12 Feb 2026
-    * Fixed websocket message handling for messages without data
-
-* Version 3.5.0 - 10 Feb 2026
-    * Updated CryptoExchange.Net to version 10.5.1, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Updated UserClientProvider internal client cache to non-static to prevent cleanup issues
-
-* Version 3.4.0 - 06 Feb 2026
-    * Updated CryptoExchange.Net to version 10.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Added ToobitUserSpotDataTracker and ToobitUserUsdtFuturesDataTracker
-    * Added additional methods for requesting supported symbols to Shared ISpotSymbolRestClient/IFuturesSymbolRestClient interfaces
-    * Added PositionMode mapping on SharedPosition models
-    * Added Status mapping for SharedDeposit models
-    * Added OrderStatus, SymbolStatus enum values
-    * Fixed disposed clients getting returned from UserClientProvider
-
-* Version 3.3.0 - 22 Jan 2026
-    * Updated CryptoExchange.Net to version 10.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Removed legacy websocket message handling and the corresponding UseUpdatedDeserialization client option
-    * Added Metadata to ToobitExchange
-
-* Version 2.2.2 - 19 Jan 2026
-    * Updated CryptoExchange.Net to version 10.2.5, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Added ApiTradeForbidden, Offline values to SymbolStatus enum
-    * Fixed some order book sync issues
-
-* Version 2.2.1 - 14 Jan 2026
-    * Updated CryptoExchange.Net to version 10.2.3, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-
-* Version 2.2.0 - 13 Jan 2026
-    * Updated CryptoExchange.Net to version 10.2.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-
-* Version 2.1.0 - 07 Jan 2026
-    * Updated CryptoExchange.Net version to 10.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Added DataTimeLocal and DataAge properties to DataEvent object
-    * Added UpdateServerTime, UpdateLocalTime and DataAge properties to (I)SymbolOrderBook
-
-* Version 2.0.0 - 16 Dec 2025
-    * Added Net10.0 target framework
-    * Updated CryptoExchange.Net version to 10.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Improved performance across the board, biggest gains in websocket message processing
-    * Updated REST message response handling
-    * Updated WebSocket message handling
-    * Added UseUpdatedDeserialization socket client options to toggle by new and old message handling
-    * Added SocketIndividualSubscriptionCombineTarget socket client option
-    * Updated Shared API's subscription update types from ExchangeEvent to DataEvent
-    * Disabled socketClient.UsdtFuturesApi.SubscribeToMarkPriceUpdatesAsync since it doesn't seem to work
-
-* Version 1.10.0 - 11 Nov 2025
-    * Updated CryptoExchange.Net version to 9.13.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Fixed Shared trades subscription publishing snapshot update
-
-* Version 1.9.0 - 03 Nov 2025
-    * Updated CryptoExchange.Net to version 9.12.0
-    * Added support for using SharedSymbol.UsdOrStable in Shared APIs
-    * Updated ToobitTransaction.CreateTime type from decimal to DateTime
-    * Fixed exception when initial trade snapshot has no items in TradeTracker
-    * Removed some unhelpful verbose logs
-
-* Version 1.8.0 - 16 Oct 2025
-    * Updated CryptoExchange.Net version to 9.10.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Added ClientOrderId mapping on SharedUserTrade models
-    * Added ITransferRestClient.TransferAsync implementation
-
-* Version 1.7.0 - 30 Sep 2025
-    * Updated CryptoExchange.Net version to 9.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Added ITrackerFactory to TrackerFactory implementation
-
-* Version 1.6.0 - 01 Sep 2025
-    * Updated CryptoExchange.Net version to 9.7.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * HTTP REST requests will now use HTTP version 2.0 by default
-
-* Version 1.5.0 - 25 Aug 2025
-    * Updated CryptoExchange.Net version to 9.6.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Added ClearUserClients method to user client provider
-    * Updated websocket subscription success checking logic
-
-* Version 1.4.0 - 20 Aug 2025
-    * Updated CryptoExchange.Net to version 9.5.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Added improved error parsing
-    * Updated rest request sending too prevent duplicate parameter serialization
-    * Fixed restClient.UsdtFuturesApi.Trading.PlaceMultipleOrdersAsync serialization error
-
-* Version 1.3.0 - 04 Aug 2025
-    * Updated CryptoExchange.Net to version 9.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Added support for multi-symbol Shared socket subscriptions
-
-* Version 1.2.1 - 25 Jul 2025
-    * Updated restClient.PlaceMultipleOrdersAsync parameter type from array to IEnumerable
-
-* Version 1.2.0 - 23 Jul 2025
-    * Updated CryptoExchange.Net to version 9.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Updated websocket message matching
-
-* Version 1.1.0 - 15 Jul 2025
-    * Updated CryptoExchange.Net to version 9.2.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Fixed websocket stream unsubscribing
-
-* Version 1.0.1 - 11 Jun 2025
-    * Fixed change percentage for Shared tickers being a factor 100 too small
-    * Fixed issue in spot Symbol order book
-
-* Version 1.0.0 - 11 Jun 2025
-    * Initial release
-

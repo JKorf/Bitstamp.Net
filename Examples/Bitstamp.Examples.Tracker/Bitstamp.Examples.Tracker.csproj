@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Toobit.Net\Toobit.Net.csproj" />
+    <ProjectReference Include="..\..\Bitstamp.Net\Bitstamp.Net.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-using Toobit.Net.Interfaces;
+using Bitstamp.Net.Interfaces;
 using CryptoExchange.Net;
 using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Objects;
 
 var collection = new ServiceCollection();
-collection.AddToobit();
+collection.AddBitstamp();
 collection.AddLogging(x =>
 {
     x.SetMinimumLevel(LogLevel.Trace);
@@ -15,10 +15,10 @@ collection.AddLogging(x =>
 });
 var provider = collection.BuildServiceProvider();
 
-var bookFactory = provider.GetRequiredService<IToobitOrderBookFactory>();
+var bookFactory = provider.GetRequiredService<IBitstampOrderBookFactory>();
 
 // Create and start the order book
-var book = bookFactory.Create(new SharedSymbol(TradingMode.Spot, "BTC", "USDT"));
+var book = bookFactory.Create(new SharedSymbol(TradingMode.Spot, "BTC", "USD"));
 var result = await book.StartAsync();
 if (!result.Success)
 {
