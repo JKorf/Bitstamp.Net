@@ -60,6 +60,7 @@ namespace Bitstamp.Net.Converters
     [JsonSerializable(typeof(BitstampSocketData<BitstampFundingRateUpdate>))]
 
     [JsonSerializable(typeof(IDictionary<string, object>))]
+    [JsonSerializable(typeof(Dictionary<string, string[]>))]
     [JsonSerializable(typeof(string))]
     [JsonSerializable(typeof(string[]))]
     [JsonSerializable(typeof(bool))]
