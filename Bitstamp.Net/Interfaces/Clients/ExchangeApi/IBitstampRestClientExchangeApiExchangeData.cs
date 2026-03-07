@@ -55,7 +55,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v2/ticker/{symbol}/
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH/USD`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
@@ -68,7 +68,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v2/ticker_hour/{symbol}/
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH/USD`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampTicker>> GetHourTickerAsync(string symbol, CancellationToken ct = default);
 
@@ -81,12 +81,12 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v2/ohlc/{symbol}/
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH/USD`</param>
-        /// <param name="interval">Interval</param>
-        /// <param name="limit">Max number of results</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="excludeCurrentCandle">Whether to exclude the current in-progress candle</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
+        /// <param name="interval">["<c>step</c>"] Interval</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
+        /// <param name="startTime">["<c>start</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end</c>"] Filter by end time</param>
+        /// <param name="excludeCurrentCandle">["<c>exclude_current_candle</c>"] Whether to exclude the current in-progress candle</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampKline[]>> GetKlinesAsync(
             string symbol,
@@ -106,7 +106,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v2/order_book/{symbol}/
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH/USD`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampOrderBookUpdate>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
 
@@ -119,8 +119,8 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v2/transactions/{symbol}/
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH/USD`</param>
-        /// <param name="period">The period to get trades for</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
+        /// <param name="period">["<c>time</c>"] The period to get trades for</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampTrade[]>> GetTradesAsync(string symbol, Period? period = null, CancellationToken ct = default);
 
@@ -145,7 +145,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v2/funding_rate/{symbol}/
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH/USD-PERP`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD-PERP`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
 
@@ -158,10 +158,10 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v2/funding_rate_history/{symbol}/
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH/USD-PERP`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD-PERP`</param>
+        /// <param name="startTime">["<c>since_timestamp</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>until_timestamp</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitstampFundingRateHistory[]>> GetFundingRateHistoryAsync(
             string symbol,
