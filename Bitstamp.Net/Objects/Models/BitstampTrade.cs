@@ -1,4 +1,4 @@
-﻿using Bitstamp.Net.Enums;
+using Bitstamp.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
@@ -9,12 +9,12 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampTrade
     {
         /// <summary>
-        /// Trade quantity
+        /// ["<c>amount</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>date</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("date")]
         public DateTime Timestamp { get; set; }
@@ -22,17 +22,17 @@ namespace Bitstamp.Net.Objects.Models
         [JsonInclude, JsonPropertyName("microtimestamp")]
         internal DateTime TimestampInt { set => Timestamp = value; }
         /// <summary>
-        /// Trade price
+        /// ["<c>price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Trade id
+        /// ["<c>tid</c>"] Trade id
         /// </summary>
         [JsonPropertyName("tid")]
         public long TradeId { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>type</c>"] Order side
         /// </summary>
         [JsonPropertyName("type")]
         public OrderSide Side { get; set; }

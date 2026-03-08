@@ -1,4 +1,4 @@
-﻿using Bitstamp.Net.Enums;
+using Bitstamp.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
@@ -9,52 +9,52 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampWithdrawal
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>datetime</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("datetime")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Type
+        /// ["<c>type</c>"] Type
         /// </summary>
         [JsonPropertyName("type")]
         public int Type { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Network
+        /// ["<c>network</c>"] Network
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public WithdrawalStatus Status { get; set; }
         /// <summary>
-        /// Txid
+        /// ["<c>txid</c>"] Txid
         /// </summary>
         [JsonPropertyName("txid")]
         public long Txid { get; set; }
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Transaction id
+        /// ["<c>transaction_id</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("transaction_id")]
         public string TransactionId { get; set; } = string.Empty;

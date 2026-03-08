@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using System.Diagnostics;
 
 namespace Bitstamp.Net.Objects.Models
@@ -10,12 +10,12 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampTradingFees
     {
         /// <summary>
-        /// Pair
+        /// ["<c>currency_pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string CurrencyPair { get; set; } = string.Empty;
         /// <summary>
-        /// Fee info
+        /// ["<c>fees</c>"] Fee info
         /// </summary>
         [JsonPropertyName("fees")]
         public TradingFeeEntry Fees { get; set; } = null!;
@@ -27,12 +27,12 @@ namespace Bitstamp.Net.Objects.Models
     public record TradingFeeEntry
     {
         /// <summary>
-        /// Maker fee
+        /// ["<c>maker</c>"] Maker fee
         /// </summary>
         [JsonPropertyName("maker")]
         public decimal MakerFee { get; set; }
         /// <summary>
-        /// Taker fee
+        /// ["<c>taker</c>"] Taker fee
         /// </summary>
         [JsonPropertyName("taker")]
         public decimal TakerFee { get; set; }

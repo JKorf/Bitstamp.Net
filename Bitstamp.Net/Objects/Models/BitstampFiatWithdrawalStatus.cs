@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -8,7 +8,7 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampFiatWithdrawalStatus
     {
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;

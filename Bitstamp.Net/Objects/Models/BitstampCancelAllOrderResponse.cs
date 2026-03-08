@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -8,12 +8,12 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampCancelAllOrderResponse
     {
         /// <summary>
-        /// Success
+        /// ["<c>success</c>"] Success
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
         /// <summary>
-        /// Canceled
+        /// ["<c>canceled</c>"] Canceled
         /// </summary>
         [JsonPropertyName("canceled")]
         public BitstampCancelOrderResponse[] Canceled { get; set; } = [];

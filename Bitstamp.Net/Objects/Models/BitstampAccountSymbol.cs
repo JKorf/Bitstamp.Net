@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -8,12 +8,12 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampAccountSymbol
     {
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Url symbol
+        /// ["<c>url_symbol</c>"] Url symbol
         /// </summary>
         [JsonPropertyName("url_symbol")]
         public string Symbol { get; set; } = string.Empty;

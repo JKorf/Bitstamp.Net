@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -8,7 +8,7 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampWithdrawId
     {
         /// <summary>
-        /// Withdrawal id
+        /// ["<c>withdrawal_id</c>"] Withdrawal id
         /// </summary>
         [JsonPropertyName("withdrawal_id")]
         public long WithdrawalId { get; set; }

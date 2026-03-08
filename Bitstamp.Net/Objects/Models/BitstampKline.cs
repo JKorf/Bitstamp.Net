@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -8,32 +8,32 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampKline
     {
         /// <summary>
-        /// Open timestamp
+        /// ["<c>timestamp</c>"] Open timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime OpenTime { get; set; }
         /// <summary>
-        /// Open price
+        /// ["<c>open</c>"] Open price
         /// </summary>
         [JsonPropertyName("open")]
         public decimal OpenPrice { get; set; }
         /// <summary>
-        /// Close price
+        /// ["<c>close</c>"] Close price
         /// </summary>
         [JsonPropertyName("close")]
         public decimal ClosePrice { get; set; }
         /// <summary>
-        /// Highest price
+        /// ["<c>high</c>"] Highest price
         /// </summary>
         [JsonPropertyName("high")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// Lowest price
+        /// ["<c>low</c>"] Lowest price
         /// </summary>
         [JsonPropertyName("low")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }

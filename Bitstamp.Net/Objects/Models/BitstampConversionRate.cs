@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -8,12 +8,12 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampConversionRate
     {
         /// <summary>
-        /// Buy price
+        /// ["<c>buy</c>"] Buy price
         /// </summary>
         [JsonPropertyName("buy")]
         public decimal BuyPrice { get; set; }
         /// <summary>
-        /// Sell price
+        /// ["<c>sell</c>"] Sell price
         /// </summary>
         [JsonPropertyName("sell")]
         public decimal SellPrice { get; set; }

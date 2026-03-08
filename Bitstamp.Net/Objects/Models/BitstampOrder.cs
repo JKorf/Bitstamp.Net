@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using Bitstamp.Net.Enums;
 
 namespace Bitstamp.Net.Objects.Models
@@ -9,107 +9,107 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>id</c>"] Order id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>client_order_id</c>"] Client order id
         /// </summary>
         [JsonPropertyName("client_order_id")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>datetime</c>"] Creation time
         /// </summary>
         [JsonPropertyName("datetime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>type</c>"] Order side
         /// </summary>
         [JsonPropertyName("type")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>subtype</c>"] Order type
         /// </summary>
         [JsonPropertyName("subtype")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>status</c>"] Order status
         /// </summary>
         [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
         /// <summary>
-        /// Trading pair
+        /// ["<c>currency_pair</c>"] Trading pair
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string? Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>market</c>"] Symbol
         /// </summary>
         [JsonPropertyName("market")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity remaining
+        /// ["<c>amount_remaining</c>"] Quantity remaining
         /// </summary>
         [JsonPropertyName("amount_remaining")]
         public decimal? QuantityRemaining { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Limit price
+        /// ["<c>limit_price</c>"] Limit price
         /// </summary>
         [JsonPropertyName("limit_price")]
         public decimal? LimitPrice { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>amount</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal? Quantity { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public MarginMode? MarginMode { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal? Leverage { get; set; }
         /// <summary>
-        /// Reserved margin
+        /// ["<c>reserved_margin</c>"] Reserved margin
         /// </summary>
         [JsonPropertyName("reserved_margin")]
         public decimal? ReservedMargin { get; set; }
         /// <summary>
-        /// Stop price
+        /// ["<c>stop_price</c>"] Stop price
         /// </summary>
         [JsonPropertyName("stop_price")]
         public decimal? StopPrice { get; set; }
         /// <summary>
-        /// Trigger type
+        /// ["<c>trigger</c>"] Trigger type
         /// </summary>
         [JsonPropertyName("trigger")]
         public TriggerType? TriggerType { get; set; }
         /// <summary>
-        /// Activation price
+        /// ["<c>activation_price</c>"] Activation price
         /// </summary>
         [JsonPropertyName("activation_price")]
         public decimal? ActivationPrice { get; set; }
         /// <summary>
-        /// Trailing delta
+        /// ["<c>trailing_delta</c>"] Trailing delta
         /// </summary>
         [JsonPropertyName("trailing_delta")]
         public decimal? TrailingDelta { get; set; }
         /// <summary>
-        /// Reduce only
+        /// ["<c>reduce_only</c>"] Reduce only
         /// </summary>
         [JsonPropertyName("reduce_only")]
         public bool? ReduceOnly { get; set; }
         /// <summary>
-        /// Trades
+        /// ["<c>transactions</c>"] Trades
         /// </summary>
         [JsonPropertyName("transactions")]
         public BitstampOrderTrade[]? Trades { get; set; }

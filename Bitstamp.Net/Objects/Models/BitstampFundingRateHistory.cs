@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -14,12 +14,12 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampFundingRateHistory
     {
         /// <summary>
-        /// Funding rate
+        /// ["<c>funding_rate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("funding_rate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

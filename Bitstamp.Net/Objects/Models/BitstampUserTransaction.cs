@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using Bitstamp.Net.Converters;
 using Bitstamp.Net.Enums;
 
@@ -11,22 +11,22 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampUserTransaction
     {
         /// <summary>
-        /// Id
+        /// ["<c>tid</c>"] Id
         /// </summary>
         [JsonPropertyName("tid")]
         public long Id { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>datetime</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("datetime")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Transaction type
+        /// ["<c>side</c>"] Transaction type
         /// </summary>
         [JsonPropertyName("side")]
         public TransactionType Type { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }

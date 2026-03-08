@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using Bitstamp.Net.Enums;
 
 namespace Bitstamp.Net.Objects.Models
@@ -9,67 +9,67 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampUserTrade
     {
         /// <summary>
-        /// Trade id
+        /// ["<c>trade_id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("trade_id")]
         public long TradeId { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Self trade order id
+        /// ["<c>self_trade_order_id</c>"] Self trade order id
         /// </summary>
         [JsonPropertyName("self_trade_order_id")]
         public long? SelfTradeOrderId { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Liquidation fee
+        /// ["<c>liquidation_fee</c>"] Liquidation fee
         /// </summary>
         [JsonPropertyName("liquidation_fee")]
         public decimal? LiquidationFee { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_currency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_currency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Side
+        /// ["<c>side</c>"] Side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Type
+        /// ["<c>type</c>"] Type
         /// </summary>
         [JsonPropertyName("type")]
         public TradeType Type { get; set; }
         /// <summary>
-        /// Self trade type
+        /// ["<c>self_trade_type</c>"] Self trade type
         /// </summary>
         [JsonPropertyName("self_trade_type")]
         public TradeType? SelfTradeType { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }

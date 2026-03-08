@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
 {
@@ -8,12 +8,12 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampClosePositionsResponse
     {
         /// <summary>
-        /// Closed positions
+        /// ["<c>closed</c>"] Closed positions
         /// </summary>
         [JsonPropertyName("closed")]
         public BitstampPosition[] Closed { get; set; } = [];
         /// <summary>
-        /// Failed
+        /// ["<c>failed</c>"] Failed
         /// </summary>
         [JsonPropertyName("failed")]
         public BitstampPosition[] Failed { get; set; } = [];

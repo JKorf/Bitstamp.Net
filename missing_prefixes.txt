@@ -1,0 +1,330 @@
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAccountBalance.cs:13:currency:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAccountBalance.cs:18:total:Total
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAccountBalance.cs:23:available:Available
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAccountBalance.cs:28:reserved:Reserved
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAccountSymbol.cs:13:name:Name
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAccountSymbol.cs:18:url_symbol:Url symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:14:name:Name
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:19:currency:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:24:type:Asset type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:29:symbol:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:34:decimals:Decimal places
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:39:logo:Logo
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:44:available_supply:Available supply
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:49:deposit:Deposit
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:54:withdrawal:Withdraw enabled
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:59:networks:Networks
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:71:network:Network name
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:76:deposit:Deposit
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:81:withdrawal:Withdraw enabled
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:86:withdrawal_decimals:Withdraw decimal places
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampAsset.cs:91:withdrawal_minimum_amount:Withdraw min amount
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelAllOrderResponse.cs:13:success:Success
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelAllOrderResponse.cs:18:canceled:Canceled
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelOrderResponse.cs:14:id:Order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelOrderResponse.cs:19:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelOrderResponse.cs:24:type:Order side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelOrderResponse.cs:29:price:Price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelOrderResponse.cs:34:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelOrderResponse.cs:39:client_order_id:Client order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelOrderResponse.cs:44:status:Order status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelWithdrawResponse.cs:13:id:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelWithdrawResponse.cs:18:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelWithdrawResponse.cs:23:currency:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelWithdrawResponse.cs:28:account_currency:Account asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCancelWithdrawResponse.cs:33:type:Type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampClosePositionsResponse.cs:13:closed:Closed positions
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampClosePositionsResponse.cs:18:failed:Failed
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCollateralAsset.cs:13:currency:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCollateralAsset.cs:18:haircut:Haircut
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampConversionRate.cs:13:buy:Buy price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampConversionRate.cs:18:sell:Sell price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:14:ripple_iou_transactions:Ripple iou transactions
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:19:deposits:Deposits
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:24:withdrawals:Withdrawals
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:36:currency:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:41:network:Network
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:46:destinationAddress:Destination address
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:51:txid:Transaction id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:56:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:61:datetime:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:73:id:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:78:network:Network
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:83:currency:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:88:txid:Transaction id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:93:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:98:datetime:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:103:status:Status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:108:pending_reason:Pending reason
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampCryptoTransactions.cs:113:destinationAddress:Destination address
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampDepositAddress.cs:13:address:Address
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampDepositAddress.cs:18:memo_id:Memo id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampDepositAddress.cs:23:destination_tag:Destination tag
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampDepositAddress.cs:28:transfer_id:Transfer id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampFiatWithdrawalStatus.cs:13:status:Status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampFundingRate.cs:13:funding_rate:Funding rate
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampFundingRate.cs:18:timestamp:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampFundingRate.cs:23:market:Market
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampFundingRate.cs:28:next_funding_time:Next funding time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampFundingRateHistory.cs:19:funding_rate:Funding rate
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampFundingRateHistory.cs:24:timestamp:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampKline.cs:13:timestamp:Open timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampKline.cs:18:open:Open price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampKline.cs:23:close:Close price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampKline.cs:28:high:Highest price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampKline.cs:33:low:Lowest price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampKline.cs:38:volume:Volume
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampLeverageSetting.cs:14:margin_mode:Margin mode
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampLeverageSetting.cs:19:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampLeverageSetting.cs:24:leverage_current:Leverage current
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampLeverageSetting.cs:29:leverage_max:Leverage max
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:13:account_margin:Account margin
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:18:account_margin_available:Account margin available
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:23:account_margin_reserved:Account margin reserved
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:28:account_margin_currency:Account margin asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:33:assets:Assets
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:38:initial_margin_ratio:Initial margin ratio
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:43:maintenance_margin_ratio:Maintenance margin ratio
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:48:implied_leverage:Implied leverage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:60:asset:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:65:total_amount:Total quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:70:available:Available
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:75:reserved:Reserved
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginInfo.cs:80:margin_available:Margin available
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:13:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:18:tiers:Tiers
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:30:tier:Tier
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:35:size_limit_low:Quantity limit low
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:40:size_limit_high:Quantity limit high
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:45:max_leverage:Max leverage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:50:initial_margin_rate:Initial margin rate
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:55:maintenance_margin_rate:Maintenance margin rate
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:60:close_out_margin_rate:Close out margin rate
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:65:initial_margin_previous_level_max:Initial margin previous level max
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:70:maintenance_margin_previous_level_max:Maintenance margin previous level max
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMarginTiers.cs:75:close_out_margin_previous_level_max:Close out margin previous level max
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMaxTradeQuantity.cs:13:maximum_order_amount:Max order quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMaxTradeQuantity.cs:18:maximum_order_value:Max order value
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMaxTradeQuantity.cs:23:maximum_order_amount_currency:Asset the max quantity is in
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampMaxTradeQuantity.cs:28:maximum_order_value_currency:Asset the max value is in
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:15:id:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:20:client_order_id:Client order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:25:datetime:Create time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:31:type:Order side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:36:price:Price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:41:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:47:amount_at_create:Original Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOpenOrder.cs:52:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:14:id:Order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:19:client_order_id:Client order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:24:datetime:Creation time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:29:type:Order side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:34:subtype:Order type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:39:status:Order status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:44:currency_pair:Trading pair
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:49:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:54:amount_remaining:Quantity remaining
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:59:price:Price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:64:limit_price:Limit price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:69:amount:Order quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:74:margin_mode:Margin mode
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:79:leverage:Leverage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:84:reserved_margin:Reserved margin
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:89:stop_price:Stop price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:94:trigger:Trigger type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:99:activation_price:Activation price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:104:trailing_delta:Trailing delta
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:109:reduce_only:Reduce only
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrder.cs:114:transactions:Trades
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:14:event:Order event
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:19:event_id:Event id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:24:order_source:Order source
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:29:trade_account_id:Trade account id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:34:data:Data
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:46:id:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:51:order_type:Order side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:56:order_subtype:Order type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:61:microtimestamp:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:66:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:71:amount_traded:Quantity traded
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:76:amount_at_create:Quantity at create
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:81:price:Price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:86:is_liquidation:Is liquidation
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:91:trade_account_id:Trade account id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:96:client_order_id:Client order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderEvent.cs:101:stop_price:Stop price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderTrade.cs:15:tid:Trade id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderTrade.cs:20:price:Price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderTrade.cs:25:fee:Fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderTrade.cs:30:datetime:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampOrderTrade.cs:35:amounts:Quantities
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:14:id:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:19:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:24:market_type:Market type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:29:margin_mode:Margin mode
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:34:settlement_currency:Settlement asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:39:entry_price:Entry price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:44:pnl_percentage:Pnl percentage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:49:pnl_realized:Realized profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:54:pnl_settled_since_inception:Pnl settled since inception
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:59:leverage:Leverage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:64:pnl:Profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:69:cumulative_price_pnl:Cumulative price profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:74:cumulative_trading_fees:Cumulative trading fees
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:79:cumulative_liquidation_fees:Cumulative liquidation fees
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:84:cumulative_funding:Cumulative funding
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:89:cumulative_socialized_loss:Cumulative socialized loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:94:size:Open quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:99:pnl_unrealized:Unrealized profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:104:pnl_in_settlement:Profit and loss in settlement
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:109:implied_leverage:Implied leverage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:114:initial_margin:Initial margin
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:119:initial_margin_ratio:Initial margin ratio
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:124:current_margin:Current margin
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:129:collateral_reserved:Collateral reserved
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:134:maintenance_margin:Maintenance margin
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:139:maintenance_margin_ratio:Maintenance margin ratio
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:144:estimated_liquidation_price:Estimated liquidation price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:149:estimated_closing_fee_amount:Estimated closing fee quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:154:mark_price:Mark price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:159:current_value:Current value
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:164:entry_value:Entry value
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:169:strike_price:Strike price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:174:side:Position side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:179:margin_tier:Margin tier
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:184:time_opened:Open time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:189:time_closed:Close time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:194:status:Status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:199:exit_price:Exit price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:204:settlement_price:Settlement price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:209:amount_delta:Quantity delta
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:214:pnl_currency:Profit and loss asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:219:pnl_settled:Settled profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPosition.cs:224:closing_fee_amount:Closing fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:14:id:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:19:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:24:market_type:Market type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:29:margin_mode:Margin mode
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:34:pnl_currency:Profit and loss asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:39:entry_price:Entry price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:44:pnl_percentage:Pnl percentage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:49:pnl_realized:Realized profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:54:pnl_settled:Settled profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:59:leverage:Leverage
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:64:pnl:Profit and loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:69:cumulative_price_pnl:Cumulative price pnl
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:74:cumulative_trading_fees:Cumulative trading fees
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:79:cumulative_liquidation_fees:Cumulative liquidation fees
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:84:cumulative_funding:Cumulative funding
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:89:cumulative_socialized_loss:Cumulative socialized loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:94:amount_delta:Quantity delta
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:99:time_opened:Open time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:104:time_closed:Close time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:109:status:Status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:114:exit_price:Exit price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampPositionHistory.cs:119:settlement_price:Settlement price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:14:order_id:Order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:19:order_type:Order side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:24:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:29:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:34:price:Price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:39:datetime:Data timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:44:orig_order_id:Original order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:49:orig_client_order_id:Original client order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampReplaceResponse.cs:54:status:Order status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:14:transaction_id:Transaction id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:19:position_id:Position id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:24:settlement_time:Settlement time
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:29:settlement_type:Settlement type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:34:settlement_price:Settlement price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:39:market:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:44:market_type:Market type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:49:pnl_currency:Pnl asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:54:pnl_settled:Pnl settled
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:59:pnl_component_price:Pnl component price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:64:pnl_component_fees:Pnl component fees
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:69:pnl_component_funding:Pnl component funding
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:74:pnl_component_socialized_loss:Pnl component socialized loss
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:79:margin_mode:Margin mode
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:84:size:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:89:strike_price:Strike price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:94:fees_component_trading:Fees component trading
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSettleTransaction.cs:99:fees_component_liquidation:Fees component liquidation
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:14:name:Name
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:19:market_symbol:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:24:base_currency:Base asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:29:base_decimals:Base asset decimal places
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:34:counter_currency:Quote asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:39:counter_decimals:Quote asset decimal places
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:44:minimum_order_value:Min order value
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:49:maximum_order_value:Max order value
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:54:minimum_order_amount:Min order quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:59:maximum_order_amount:Max order quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:64:trading:Symbol status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:69:instant_order_counter_decimals:Instant buy/sell quote asset decimal places
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:74:instant_and_market_orders:Status of whether instance/market orders are allowanced
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:79:description:Description
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:84:market_type:Market type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:89:underlying_asset:Underlying asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:94:payoff_type:Payoff type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:99:contract_size:Contract size
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampSymbol.cs:104:isin:International Securities Identification Number for derivatives
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:14:ask:Best ask price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:19:bid:Best bid price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:24:high:24h high price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:29:low:24h low price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:34:last:Last price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:39:open:Day open price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:44:open_24:24h open price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:49:pair:Asset pair
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:54:market:Symbol name
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:59:percent_change_24:Price percentage change 24h
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:64:side:Last trade side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:69:timestamp:Data timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:74:volume:Volume
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:79:vwap:Last hour volume weighted average price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:84:open_interest_value:Open interest value
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:89:open_interest:Open interest
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:94:index_price:Index price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:99:mark_price:Mark price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTicker.cs:104:market_type:Market type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTrade.cs:14:amount:Trade quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTrade.cs:19:date:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTrade.cs:27:price:Trade price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTrade.cs:32:tid:Trade id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTrade.cs:37:type:Order side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTradingFees.cs:15:currency_pair:Pair
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTradingFees.cs:20:fees:Fee info
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTradingFees.cs:32:maker:Maker fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampTradingFees.cs:37:taker:Taker fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:14:trade_id:Trade id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:19:order_id:Order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:24:self_trade_order_id:Self trade order id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:29:timestamp:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:34:fee:Fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:39:liquidation_fee:Liquidation fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:44:fee_currency:Fee asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:49:symbol:Symbol
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:54:side:Side
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:59:type:Type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:64:self_trade_type:Self trade type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:69:price:Price
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTrade.cs:74:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTransaction.cs:16:tid:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTransaction.cs:21:datetime:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTransaction.cs:26:side:Transaction type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampUserTransaction.cs:31:fee:Fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:14:id:Id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:19:datetime:Timestamp
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:24:type:Type
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:29:currency:Asset
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:34:network:Network
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:39:amount:Quantity
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:44:status:Status
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:49:txid:Txid
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:54:address:Address
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawal.cs:59:transaction_id:Transaction id
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawFee.cs:13:currency:Asset name
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawFee.cs:18:network:Network
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawFee.cs:23:fee:Fee
+C:\Projects\Bitstamp.Net\Bitstamp.Net\Objects\Models\BitstampWithdrawId.cs:13:withdrawal_id:Withdrawal id

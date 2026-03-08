@@ -1,4 +1,4 @@
-﻿using Bitstamp.Net.Enums;
+using Bitstamp.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
@@ -9,17 +9,17 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampCryptoTransactions
     {
         /// <summary>
-        /// Ripple iou transactions
+        /// ["<c>ripple_iou_transactions</c>"] Ripple iou transactions
         /// </summary>
         [JsonPropertyName("ripple_iou_transactions")]
         public BitstampCryptoTransaction[] RippleIouTransactions { get; set; } = [];
         /// <summary>
-        /// Deposits
+        /// ["<c>deposits</c>"] Deposits
         /// </summary>
         [JsonPropertyName("deposits")]
         public BitstampCryptoDeposit[] Deposits { get; set; } = [];
         /// <summary>
-        /// Withdrawals
+        /// ["<c>withdrawals</c>"] Withdrawals
         /// </summary>
         [JsonPropertyName("withdrawals")]
         public BitstampCryptoTransaction[] Withdrawals { get; set; } = [];
@@ -31,32 +31,32 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampCryptoTransaction
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Network
+        /// ["<c>network</c>"] Network
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Destination address
+        /// ["<c>destinationAddress</c>"] Destination address
         /// </summary>
         [JsonPropertyName("destinationAddress")]
         public string DestinationAddress { get; set; } = string.Empty;
         /// <summary>
-        /// Transaction id
+        /// ["<c>txid</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("txid")]
         public string TransactionId { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>datetime</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("datetime")]
         public DateTime Timestamp { get; set; }
@@ -68,47 +68,47 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampCryptoDeposit
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Network
+        /// ["<c>network</c>"] Network
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Transaction id
+        /// ["<c>txid</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("txid")]
         public string TransactionId { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>datetime</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("datetime")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public DepositStatus Status { get; set; }
         /// <summary>
-        /// Pending reason
+        /// ["<c>pending_reason</c>"] Pending reason
         /// </summary>
         [JsonPropertyName("pending_reason")]
         public DepositPendingReason PendingReason { get; set; }
         /// <summary>
-        /// Destination address
+        /// ["<c>destinationAddress</c>"] Destination address
         /// </summary>
         [JsonPropertyName("destinationAddress")]
         public string DestinationAddress { get; set; } = string.Empty;

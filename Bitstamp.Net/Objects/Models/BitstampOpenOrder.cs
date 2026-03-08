@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using Bitstamp.Net.Enums;
 using CryptoExchange.Net.Converters.SystemTextJson;
 
@@ -10,44 +10,44 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampOpenOrder
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>client_order_id</c>"] Client order id
         /// </summary>
         [JsonPropertyName("client_order_id")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>datetime</c>"] Create time
         /// </summary>
         [JsonPropertyName("datetime")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>type</c>"] Order side
         /// </summary>
         [JsonPropertyName("type")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
 
         /// <summary>
-        /// Original Quantity
+        /// ["<c>amount_at_create</c>"] Original Quantity
         /// </summary>
         [JsonPropertyName("amount_at_create")]
         public decimal OriginalQuantity { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>market</c>"] Symbol
         /// </summary>
         [JsonPropertyName("market")]
         public string Symbol { get; set; } = string.Empty;

@@ -1,4 +1,4 @@
-﻿using Bitstamp.Net.Enums;
+using Bitstamp.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Objects.Models
@@ -9,47 +9,47 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampReplaceResponse
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long Id { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>order_type</c>"] Order side
         /// </summary>
         [JsonPropertyName("order_type")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>market</c>"] Symbol
         /// </summary>
         [JsonPropertyName("market")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Data timestamp
+        /// ["<c>datetime</c>"] Data timestamp
         /// </summary>
         [JsonPropertyName("datetime")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Original order id
+        /// ["<c>orig_order_id</c>"] Original order id
         /// </summary>
         [JsonPropertyName("orig_order_id")]
         public long OriginalOrderId { get; set; }
         /// <summary>
-        /// Original client order id
+        /// ["<c>orig_client_order_id</c>"] Original client order id
         /// </summary>
         [JsonPropertyName("orig_client_order_id")]
         public string? OriginalClientOrderId { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>status</c>"] Order status
         /// </summary>
         [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
