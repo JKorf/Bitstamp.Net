@@ -11,17 +11,17 @@ namespace Bitstamp.Net.Enums
     public enum TriggerType
     {
         /// <summary>
-        /// Last trade price
+        /// ["<c>LAST_TRADED_PRICE</c>"] Last trade price
         /// </summary>
         [Map("LAST_TRADED_PRICE")]
         LastTradePrice,
         /// <summary>
-        /// Index price
+        /// ["<c>INDEX_PRICE</c>"] Index price
         /// </summary>
         [Map("INDEX_PRICE")]
         IndexPrice,
         /// <summary>
-        /// Mark price
+        /// ["<c>MARK_PRICE</c>"] Mark price
         /// </summary>
         [Map("MARK_PRICE")]
         MarkPrice

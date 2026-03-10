@@ -11,27 +11,27 @@ namespace Bitstamp.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>Open</c>"] Open
         /// </summary>
         [Map("Open")]
         Open,
         /// <summary>
-        /// Finished
+        /// ["<c>Finished</c>"] Finished
         /// </summary>
         [Map("Finished")]
         Finished,
         /// <summary>
-        /// Expired
+        /// ["<c>Expired</c>"] Expired
         /// </summary>
         [Map("Expired")]
         Expired,
         /// <summary>
-        /// Canceled
+        /// ["<c>Canceled</c>"] Canceled
         /// </summary>
         [Map("Canceled")]
         Canceled,
         /// <summary>
-        /// Pending cancel
+        /// ["<c>Cancel pending</c>"] Pending cancel
         /// </summary>
         [Map("Cancel pending")]
         CancelPending

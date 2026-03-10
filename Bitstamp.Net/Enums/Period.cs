@@ -11,17 +11,17 @@ namespace Bitstamp.Net.Enums
     public enum Period
     {
         /// <summary>
-        /// Day
+        /// ["<c>day</c>"] Day
         /// </summary>
         [Map("day")]
         Day,
         /// <summary>
-        /// Hour
+        /// ["<c>hour</c>"] Hour
         /// </summary>
         [Map("hour")]
         Hour,
         /// <summary>
-        /// Minute
+        /// ["<c>minute</c>"] Minute
         /// </summary>
         [Map("minute")]
         Minute

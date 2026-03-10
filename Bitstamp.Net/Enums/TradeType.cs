@@ -11,27 +11,27 @@ namespace Bitstamp.Net.Enums
     public enum TradeType
     {
         /// <summary>
-        /// Market trade
+        /// ["<c>TRADE</c>"] Market trade
         /// </summary>
         [Map("TRADE")]
         Trade,
         /// <summary>
-        /// Liquidation
+        /// ["<c>LIQUIDATION</c>"] Liquidation
         /// </summary>
         [Map("LIQUIDATION")]
         Liquidation,
         /// <summary>
-        /// Auto deleverage
+        /// ["<c>ADL</c>"] Auto deleverage
         /// </summary>
         [Map("ADL")]
         Adl,
         /// <summary>
-        /// Assignment program
+        /// ["<c>ASSIGNMENT_PROGRAM</c>"] Assignment program
         /// </summary>
         [Map("ASSIGNMENT_PROGRAM")]
         AssignmentProgram,
         /// <summary>
-        /// Market wide position closure
+        /// ["<c>MARKET_WIDE_POSITION_CLOSURE</c>"] Market wide position closure
         /// </summary>
         [Map("MARKET_WIDE_POSITION_CLOSURE")]
         MarketWidePositionClosure,

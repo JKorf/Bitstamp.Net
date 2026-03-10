@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum DepositPendingReason
     {
         /// <summary>
-        /// Address verification needed
+        /// ["<c>ADDRESS_VERIFICATION_NEEDED</c>"] Address verification needed
         /// </summary>
         [Map("ADDRESS_VERIFICATION_NEEDED")]
         AddressVerificationNeeded,
         /// <summary>
-        /// Additional information missing
+        /// ["<c>ADDITIONAL_INFORMATION_MISSING</c>"] Additional information missing
         /// </summary>
         [Map("ADDITIONAL_INFORMATION_MISSING")]
         AdditionalInfoMissing,

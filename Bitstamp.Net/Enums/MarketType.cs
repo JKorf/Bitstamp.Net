@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum MarketType
     {
         /// <summary>
-        /// Perpetual futures
+        /// ["<c>PERPETUAL</c>"] Perpetual futures
         /// </summary>
         [Map("PERPETUAL")]
         Perpetual,
         /// <summary>
-        /// Spot
+        /// ["<c>SPOT</c>"] Spot
         /// </summary>
         [Map("SPOT")]
         Spot

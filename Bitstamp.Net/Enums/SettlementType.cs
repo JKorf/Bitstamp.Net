@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum SettlementType
     {
         /// <summary>
-        /// Periodic settlement
+        /// ["<c>PERIODIC</c>"] Periodic settlement
         /// </summary>
         [Map("PERIODIC")]
         Periodic,
         /// <summary>
-        /// Close settlement
+        /// ["<c>CLOSED</c>"] Close settlement
         /// </summary>
         [Map("CLOSED")]
         Closed

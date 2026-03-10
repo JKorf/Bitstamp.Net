@@ -11,17 +11,17 @@ namespace Bitstamp.Net.Enums
     public enum OrderSide
     {
         /// <summary>
-        /// Buy
+        /// ["<c>0</c>"] Buy
         /// </summary>
         [Map("0", "BUY")]
         Buy = 0,
         /// <summary>
-        /// Sell
+        /// ["<c>1</c>"] Sell
         /// </summary>
         [Map("1", "SELL")]
         Sell = 1,
         /// <summary>
-        /// Self trade
+        /// ["<c>SELF</c>"] Self trade
         /// </summary>
         [Map("SELF")]
         SelfTrade,

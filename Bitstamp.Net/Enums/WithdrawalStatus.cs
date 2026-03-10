@@ -11,32 +11,32 @@ namespace Bitstamp.Net.Enums
     public enum WithdrawalStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>0</c>"] Open
         /// </summary>
         [Map("0")]
         Open,
         /// <summary>
-        /// In process
+        /// ["<c>1</c>"] In process
         /// </summary>
         [Map("1")]
         InProcess,
         /// <summary>
-        /// Finished
+        /// ["<c>2</c>"] Finished
         /// </summary>
         [Map("2")]
         Finished,
         /// <summary>
-        /// Canceled
+        /// ["<c>3</c>"] Canceled
         /// </summary>
         [Map("3")]
         Canceled,
         /// <summary>
-        /// Failed
+        /// ["<c>4</c>"] Failed
         /// </summary>
         [Map("4")]
         Failed,
         /// <summary>
-        /// Reversed
+        /// ["<c>11</c>"] Reversed
         /// </summary>
         [Map("11")]
         Reversed

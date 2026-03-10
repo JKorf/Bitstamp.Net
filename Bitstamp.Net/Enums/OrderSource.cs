@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum OrderSource
     {
         /// <summary>
-        /// Orderbook/standard orders
+        /// ["<c>orderbook</c>"] Orderbook/standard orders
         /// </summary>
         [Map("orderbook")]
         Orderbook,
         /// <summary>
-        /// Stop orders
+        /// ["<c>stop_order</c>"] Stop orders
         /// </summary>
         [Map("stop_order")]
         StopOrder

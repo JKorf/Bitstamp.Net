@@ -26,7 +26,7 @@ namespace Bitstamp.Net.Enums
         UnsubscriptionSucceeded,
 
         /// <summary>
-        /// Data was received for an active subscription
+        /// ["<c>data</c>"] Data was received for an active subscription
         /// </summary>
         [Map("data")]
         Data,

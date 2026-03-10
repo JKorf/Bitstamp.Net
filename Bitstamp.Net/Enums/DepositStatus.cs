@@ -11,27 +11,27 @@ namespace Bitstamp.Net.Enums
     public enum DepositStatus
     {
         /// <summary>
-        /// Pending
+        /// ["<c>PENDING</c>"] Pending
         /// </summary>
         [Map("PENDING")]
         Pending,
         /// <summary>
-        /// Finalized
+        /// ["<c>FINALIZED</c>"] Finalized
         /// </summary>
         [Map("FINALIZED")]
         Finalized,
         /// <summary>
-        /// In progress
+        /// ["<c>IN_PROCESSING</c>"] In progress
         /// </summary>
         [Map("IN_PROCESSING")]
         InProgress,
         /// <summary>
-        /// Reverted
+        /// ["<c>REVERTED</c>"] Reverted
         /// </summary>
         [Map("REVERTED")]
         Reverted,
         /// <summary>
-        /// Rejected
+        /// ["<c>REJECTED</c>"] Rejected
         /// </summary>
         [Map("REJECTED")]
         Rejected,

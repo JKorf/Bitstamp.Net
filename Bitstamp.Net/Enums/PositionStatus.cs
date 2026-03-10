@@ -11,22 +11,22 @@ namespace Bitstamp.Net.Enums
     public enum PositionStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>OPEN</c>"] Open
         /// </summary>
         [Map("OPEN")]
         Open,
         /// <summary>
-        /// Waiting for settlement
+        /// ["<c>WAITING_SETTLEMENT</c>"] Waiting for settlement
         /// </summary>
         [Map("WAITING_SETTLEMENT")]
         WaitingSettlement,
         /// <summary>
-        /// Settled
+        /// ["<c>SETTLED</c>"] Settled
         /// </summary>
         [Map("SETTLED")]
         Settled,
         /// <summary>
-        /// Liquidation
+        /// ["<c>LIQUIDATING</c>"] Liquidation
         /// </summary>
         [Map("LIQUIDATING")]
         Liquidation

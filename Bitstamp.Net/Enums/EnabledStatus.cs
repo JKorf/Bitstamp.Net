@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum EnabledStatus
     {
         /// <summary>
-        /// Enabled
+        /// ["<c>ENABLED</c>"] Enabled
         /// </summary>
         [Map("ENABLED")]
         Enabled,
         /// <summary>
-        /// Disabled
+        /// ["<c>DISABLED</c>"] Disabled
         /// </summary>
         [Map("DISABLED")]
         Disabled

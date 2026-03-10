@@ -12,62 +12,62 @@ namespace Bitstamp.Net.Enums
     public enum KlineInterval
     {
         /// <summary>
-        /// One minute
+        /// ["<c>60</c>"] One minute
         /// </summary>
         [Map("60")]
         OneMinute = 60,
         /// <summary>
-        /// Three minutes
+        /// ["<c>180</c>"] Three minutes
         /// </summary>
         [Map("180")]
         ThreeMinutes = 180,
         /// <summary>
-        /// Five minutes
+        /// ["<c>300</c>"] Five minutes
         /// </summary>
         [Map("300")]
         FiveMinutes = 300,
         /// <summary>
-        /// Fifteen minutes
+        /// ["<c>900</c>"] Fifteen minutes
         /// </summary>
         [Map("900")]
         FifteenMinute = 900,
         /// <summary>
-        /// Thirty minutes
+        /// ["<c>1800</c>"] Thirty minutes
         /// </summary>
         [Map("1800")]
         ThirtyMinutes = 1800,
         /// <summary>
-        /// One hour
+        /// ["<c>3600</c>"] One hour
         /// </summary>
         [Map("3600")]
         OneHour = 3600,
         /// <summary>
-        /// Two hours
+        /// ["<c>7200</c>"] Two hours
         /// </summary>
         [Map("7200")]
         TwoHours = 7200,
         /// <summary>
-        /// Four hours
+        /// ["<c>14400</c>"] Four hours
         /// </summary>
         [Map("14400")]
         FourHours = 14400,
         /// <summary>
-        /// Six hours
+        /// ["<c>21600</c>"] Six hours
         /// </summary>
         [Map("21600")]
         SixHours = 21600,
         /// <summary>
-        /// Twelve hours
+        /// ["<c>43200</c>"] Twelve hours
         /// </summary>
         [Map("43200")]
         TwelveHours = 43200,
         /// <summary>
-        /// One day
+        /// ["<c>86400</c>"] One day
         /// </summary>
         [Map("86400")]
         OneDay = 86400,
         /// <summary>
-        /// Three days
+        /// ["<c>259200</c>"] Three days
         /// </summary>
         [Map("259200")]
         ThreeDays = 259200

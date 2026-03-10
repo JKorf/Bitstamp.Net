@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum WithdrawType
     {
         /// <summary>
-        /// Sepa
+        /// ["<c>sepa</c>"] Sepa
         /// </summary>
         [Map("sepa")]
         Sepa,
         /// <summary>
-        /// International
+        /// ["<c>international</c>"] International
         /// </summary>
         [Map("international")]
         International

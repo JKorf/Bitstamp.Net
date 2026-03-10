@@ -11,32 +11,32 @@ namespace Bitstamp.Net.Enums
     public enum OrderEvent
     {
         /// <summary>
-        /// Order created
+        /// ["<c>order_created</c>"] Order created
         /// </summary>
         [Map("order_created")]
         OrderCreated,
         /// <summary>
-        /// Order replaced
+        /// ["<c>order_replaced</c>"] Order replaced
         /// </summary>
         [Map("order_replaced")]
         OrderReplaced,
         /// <summary>
-        /// Order changed
+        /// ["<c>order_changed</c>"] Order changed
         /// </summary>
         [Map("order_changed")]
         OrderChanged,
         /// <summary>
-        /// Order deleted
+        /// ["<c>order_deleted</c>"] Order deleted
         /// </summary>
         [Map("order_deleted")]
         OrderDeleted,
         /// <summary>
-        /// Stop active
+        /// ["<c>stop_active</c>"] Stop active
         /// </summary>
         [Map("stop_active")]
         StopActive,
         /// <summary>
-        /// Stop inactive
+        /// ["<c>stop_inactive</c>"] Stop inactive
         /// </summary>
         [Map("stop_inactive")]
         StopInactive

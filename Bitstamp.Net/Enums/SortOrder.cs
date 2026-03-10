@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum SortOrder
     {
         /// <summary>
-        /// Ascending order
+        /// ["<c>asc</c>"] Ascending order
         /// </summary>
         [Map("asc")]
         Ascending,
         /// <summary>
-        /// Descending order
+        /// ["<c>desc</c>"] Descending order
         /// </summary>
         [Map("desc")]
         Descending

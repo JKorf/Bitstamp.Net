@@ -11,12 +11,12 @@ namespace Bitstamp.Net.Enums
     public enum AssetType
     {
         /// <summary>
-        /// Fiat
+        /// ["<c>fiat</c>"] Fiat
         /// </summary>
         [Map("fiat")]
         Fiat,
         /// <summary>
-        /// Crypto
+        /// ["<c>crypto</c>"] Crypto
         /// </summary>
         [Map("crypto")]
         Crypto
