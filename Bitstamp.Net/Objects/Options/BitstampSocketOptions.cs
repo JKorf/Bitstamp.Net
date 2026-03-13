@@ -5,7 +5,7 @@ namespace Bitstamp.Net.Objects.Options
     /// <summary>
     /// Options for the BitstampSocketClient
     /// </summary>
-    public class BitstampSocketOptions : SocketExchangeOptions<BitstampEnvironment>
+    public class BitstampSocketOptions : SocketExchangeOptions<BitstampEnvironment, BitstampCredentials>
     {
         /// <summary>
         /// Default options for the BitstampRestClient

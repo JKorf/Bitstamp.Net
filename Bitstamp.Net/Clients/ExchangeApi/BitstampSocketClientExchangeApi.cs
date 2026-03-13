@@ -22,7 +22,7 @@ using System.Net.WebSockets;
 namespace Bitstamp.Net.Clients.ExchangeApi
 {
     /// <inheritdoc cref="IBitstampSocketClientExchangeApi" />
-    internal partial class BitstampSocketClientExchangeApi : SocketApiClient, IBitstampSocketClientExchangeApi
+    internal partial class BitstampSocketClientExchangeApi : SocketApiClient<BitstampEnvironment, BitstampAuthenticationProvider, BitstampCredentials>, IBitstampSocketClientExchangeApi
     {
         #region fields
         private readonly BitstampSocketKeyGenerator _keyGenerator;
@@ -85,7 +85,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
             => Task.FromResult<Query?>(null);
 
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitstampAuthenticationProvider CreateAuthenticationProvider(BitstampCredentials credentials)
             => new BitstampAuthenticationProvider(credentials);
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType)

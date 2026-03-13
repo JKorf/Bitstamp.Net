@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace Bitstamp.Net.Clients.ExchangeApi
 {
     /// <inheritdoc cref="IBitstampRestClientExchangeApi" />
-    internal partial class BitstampRestClientExchangeApi : RestApiClient, IBitstampRestClientExchangeApi
+    internal partial class BitstampRestClientExchangeApi : RestApiClient<BitstampEnvironment, BitstampAuthenticationProvider, BitstampCredentials>, IBitstampRestClientExchangeApi
     {
         #region fields
         /// <inheritdoc />
@@ -52,7 +52,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         protected override IMessageSerializer CreateSerializer()
             => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitstampExchange._serializerContext));
 
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitstampAuthenticationProvider CreateAuthenticationProvider(BitstampCredentials credentials)
             => new BitstampAuthenticationProvider(credentials);
 
         /// <inheritdoc />

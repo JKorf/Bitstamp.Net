@@ -47,7 +47,7 @@ namespace Bitstamp.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, BitstampEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, BitstampCredentials credentials, BitstampEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -61,7 +61,7 @@ namespace Bitstamp.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBitstampRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, BitstampEnvironment? environment = null)
+        public IBitstampRestClient GetRestClient(string userIdentifier, BitstampCredentials? credentials = null, BitstampEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -70,7 +70,7 @@ namespace Bitstamp.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBitstampSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, BitstampEnvironment? environment = null)
+        public IBitstampSocketClient GetSocketClient(string userIdentifier, BitstampCredentials? credentials = null, BitstampEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -78,7 +78,7 @@ namespace Bitstamp.Net.Clients
             return client;
         }
 
-        private IBitstampRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, BitstampEnvironment? environment)
+        private IBitstampRestClient CreateRestClient(string userIdentifier, BitstampCredentials? credentials, BitstampEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new BitstampRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -90,7 +90,7 @@ namespace Bitstamp.Net.Clients
             return client;
         }
 
-        private IBitstampSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, BitstampEnvironment? environment)
+        private IBitstampSocketClient CreateSocketClient(string userIdentifier, BitstampCredentials? credentials, BitstampEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new BitstampSocketClient(clientSocketOptions!, _loggerFactory);

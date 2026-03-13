@@ -5,7 +5,7 @@ namespace Bitstamp.Net.Objects.Options
     /// <summary>
     /// Bitstamp socket API options
     /// </summary>
-    public class BitstampSocketApiOptions : SocketApiOptions
+    public class BitstampSocketApiOptions : SocketApiOptions<BitstampCredentials>
     {
         /// <summary>
         /// Interval to send ping message to server

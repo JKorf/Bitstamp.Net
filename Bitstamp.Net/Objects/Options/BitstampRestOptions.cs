@@ -5,7 +5,7 @@ namespace Bitstamp.Net.Objects.Options
     /// <summary>
     /// Options for the BitstampRestClient
     /// </summary>
-    public class BitstampRestOptions : RestExchangeOptions<BitstampEnvironment>
+    public class BitstampRestOptions : RestExchangeOptions<BitstampEnvironment, BitstampCredentials>
     {
         /// <summary>
         /// Default options for the BitstampRestClient
@@ -26,7 +26,7 @@ namespace Bitstamp.Net.Objects.Options
         /// <summary>
         /// Options for the Exchange API
         /// </summary>
-        public RestApiOptions ApiOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<BitstampCredentials> ApiOptions { get; private set; } = new RestApiOptions<BitstampCredentials>();
 
         internal BitstampRestOptions Set(BitstampRestOptions targetOptions)
         {

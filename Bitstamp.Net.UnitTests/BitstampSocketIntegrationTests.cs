@@ -27,7 +27,7 @@ namespace Bitstamp.Net.UnitTests
             return new BitstampSocketClient(Options.Create(new BitstampSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new BitstampCredentials(key, sec) : null
             }), loggerFactory);
         }
 

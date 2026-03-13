@@ -78,7 +78,7 @@ namespace Bitstamp.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, BitstampEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, BitstampCredentials credentials, SpotUserDataTrackerConfig? config = null, BitstampEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitstampUserClientProvider>() ?? new BitstampUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -106,7 +106,7 @@ namespace Bitstamp.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitstampEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, BitstampCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitstampEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitstampUserClientProvider>() ?? new BitstampUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

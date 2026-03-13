@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 namespace Bitstamp.Net.Clients
 {
     /// <inheritdoc cref="IBitstampSocketClient" />
-    public class BitstampSocketClient : BaseSocketClient, IBitstampSocketClient
+    internal class BitstampSocketClient : BaseSocketClient<BitstampEnvironment, BitstampCredentials>, IBitstampSocketClient
     {
         private readonly IBitstampRestClient _restClient;
         private readonly BitstampSocketKeyGenerator _keyGenerator;
@@ -52,7 +52,7 @@ namespace Bitstamp.Net.Clients
         #endregion
 
         /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
+        public override void SetApiCredentials(BitstampCredentials credentials)
         {
             _restClient.SetApiCredentials(credentials);
             ExchangeApi.SetApiCredentials(credentials);
@@ -66,12 +66,5 @@ namespace Bitstamp.Net.Clients
         {
             BitstampSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
-
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            ExchangeApi.SetOptions(options);
-        }
-
     }
 }
