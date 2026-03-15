@@ -27,7 +27,7 @@ namespace Bitstamp.Net
             if (!requestConfig.Authenticated)
                 return;
 
-            var key = "BITSTAMP " + Credential.PublicKey;
+            var key = "BITSTAMP " + Credential.Key;
             var nonce = _nonce ?? Guid.NewGuid().ToString();
             var timestamp = GetMillisecondTimestamp(apiClient);
 
