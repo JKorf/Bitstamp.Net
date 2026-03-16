@@ -12,7 +12,7 @@ namespace Bitstamp.Net
         private static IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitstampExchange._serializerContext));
         private readonly string? _nonce;
 
-        public override ApiCredentialsType[] SupportedCredentialTypes { get; } = [ApiCredentialsType.Hmac];
+        public override ApiCredentialsType[] SupportedCredentialTypes { get; } = [ApiCredentialsType.HMAC];
 
         #region Constructors
         public BitstampAuthenticationProvider(BitstampCredentials credentials, string? nonce = null) : base(credentials)
