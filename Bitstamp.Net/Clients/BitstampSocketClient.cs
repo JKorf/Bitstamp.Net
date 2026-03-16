@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 namespace Bitstamp.Net.Clients
 {
     /// <inheritdoc cref="IBitstampSocketClient" />
-    internal class BitstampSocketClient : BaseSocketClient<BitstampEnvironment, BitstampCredentials>, IBitstampSocketClient
+    public class BitstampSocketClient : BaseSocketClient<BitstampEnvironment, BitstampCredentials>, IBitstampSocketClient
     {
         private readonly IBitstampRestClient _restClient;
         private readonly BitstampSocketKeyGenerator _keyGenerator;
