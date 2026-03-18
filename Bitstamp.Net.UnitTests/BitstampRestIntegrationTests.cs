@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using Bitstamp.Net.Clients;
 using Bitstamp.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 
 namespace Bitstamp.Net.UnitTests
 {

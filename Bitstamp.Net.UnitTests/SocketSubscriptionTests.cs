@@ -8,6 +8,7 @@ using Bitstamp.Net.Clients;
 using Bitstamp.Net.Objects.Models;
 using Bitstamp.Net.Objects.Options;
 using Bitstamp.Net.Objects.Models.Socket;
+using CryptoExchange.Net.Authentication;
 
 namespace Bitstamp.Net.UnitTests
 {

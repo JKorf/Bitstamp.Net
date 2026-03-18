@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 {

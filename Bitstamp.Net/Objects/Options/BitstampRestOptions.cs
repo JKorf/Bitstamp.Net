@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace Bitstamp.Net.Objects.Options
 {
@@ -26,7 +27,7 @@ namespace Bitstamp.Net.Objects.Options
         /// <summary>
         /// Options for the Exchange API
         /// </summary>
-        public RestApiOptions<BitstampCredentials> ApiOptions { get; private set; } = new RestApiOptions<BitstampCredentials>();
+        public RestApiOptions ApiOptions { get; private set; } = new RestApiOptions();
 
         internal BitstampRestOptions Set(BitstampRestOptions targetOptions)
         {

@@ -1,11 +1,12 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace Bitstamp.Net.Objects.Options
 {
     /// <summary>
     /// Bitstamp socket API options
     /// </summary>
-    public class BitstampSocketApiOptions : SocketApiOptions<BitstampCredentials>
+    public class BitstampSocketApiOptions : SocketApiOptions
     {
         /// <summary>
         /// Interval to send ping message to server

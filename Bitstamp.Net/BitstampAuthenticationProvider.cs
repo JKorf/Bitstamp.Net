@@ -7,15 +7,14 @@ using CryptoExchange.Net.Objects;
 
 namespace Bitstamp.Net
 {
-    internal class BitstampAuthenticationProvider : AuthenticationProvider<BitstampCredentials, HMACCredential>
+    internal class BitstampAuthenticationProvider : AuthenticationProvider<BitstampCredentials, BitstampCredentials>
     {
         private static IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitstampExchange._serializerContext));
         private readonly string? _nonce;
 
-        public override ApiCredentialsType[] SupportedCredentialTypes { get; } = [ApiCredentialsType.HMAC];
 
         #region Constructors
-        public BitstampAuthenticationProvider(BitstampCredentials credentials, string? nonce = null) : base(credentials)
+        public BitstampAuthenticationProvider(BitstampCredentials credentials, string? nonce = null) : base(credentials, credentials)
         {
             _nonce = nonce;
         }

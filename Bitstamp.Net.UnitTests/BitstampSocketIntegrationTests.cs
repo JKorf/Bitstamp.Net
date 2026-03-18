@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Bitstamp.Net.Objects.Models.Socket;
+using CryptoExchange.Net.Authentication;
 
 namespace Bitstamp.Net.UnitTests
 {
