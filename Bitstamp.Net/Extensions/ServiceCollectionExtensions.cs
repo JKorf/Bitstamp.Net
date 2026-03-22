@@ -105,8 +105,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IBitstampSocketClient), x => { return new BitstampSocketClient(x.GetRequiredService<IOptions<BitstampSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
-            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
-            services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBitstampOrderBookFactory, BitstampOrderBookFactory>();
             services.AddTransient<IBitstampTrackerFactory, BitstampTrackerFactory>();
             services.AddTransient<ITrackerFactory, BitstampTrackerFactory>();
