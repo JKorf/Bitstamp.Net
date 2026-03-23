@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Bitstamp.Net.Objects.Models.Socket;
+using CryptoExchange.Net.Authentication;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -27,7 +28,7 @@ namespace Bitstamp.Net.UnitTests
             return new BitstampSocketClient(Options.Create(new BitstampSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new BitstampCredentials(key, sec) : null
             }), loggerFactory);
         }
 

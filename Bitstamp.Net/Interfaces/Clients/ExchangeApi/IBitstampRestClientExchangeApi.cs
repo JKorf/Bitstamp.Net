@@ -1,11 +1,12 @@
-﻿using CryptoExchange.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
 {
     /// <summary>
     /// Exchange API
     /// </summary>
-    public interface IBitstampRestClientExchangeApi : IRestApiClient
+    public interface IBitstampRestClientExchangeApi : IRestApiClient<BitstampCredentials>
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

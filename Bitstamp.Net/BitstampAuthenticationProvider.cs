@@ -7,20 +7,16 @@ using CryptoExchange.Net.Objects;
 
 namespace Bitstamp.Net
 {
-    internal class BitstampAuthenticationProvider : AuthenticationProvider<ApiCredentials>
+    internal class BitstampAuthenticationProvider : AuthenticationProvider<BitstampCredentials, BitstampCredentials>
     {
         private static IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitstampExchange._serializerContext));
         private readonly string? _nonce;
 
-        public override ApiCredentialsType[] SupportedCredentialTypes { get; } = [ApiCredentialsType.Hmac];
 
         #region Constructors
-        public BitstampAuthenticationProvider(ApiCredentials credentials, string? nonce = null) : base(credentials)
+        public BitstampAuthenticationProvider(BitstampCredentials credentials, string? nonce = null) : base(credentials, credentials)
         {
             _nonce = nonce;
-
-            if (credentials.CredentialType != ApiCredentialsType.Hmac)
-                throw new Exception("Only Hmac authentication is supported");
         }
         #endregion
 
@@ -30,7 +26,7 @@ namespace Bitstamp.Net
             if (!requestConfig.Authenticated)
                 return;
 
-            var key = "BITSTAMP " + _credentials.Key;
+            var key = "BITSTAMP " + Credential.Key;
             var nonce = _nonce ?? Guid.NewGuid().ToString();
             var timestamp = GetMillisecondTimestamp(apiClient);
 

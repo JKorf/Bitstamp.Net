@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 namespace Bitstamp.Net.Clients
 {
     /// <inheritdoc cref="IBitstampRestClient" />
-    public class BitstampRestClient : BaseRestClient, IBitstampRestClient
+    public class BitstampRestClient : BaseRestClient<BitstampEnvironment, BitstampCredentials>, IBitstampRestClient
     {
         /// <inheritdoc />
         public IBitstampRestClientExchangeApi ExchangeApi { get; }
@@ -42,12 +42,6 @@ namespace Bitstamp.Net.Clients
         #endregion
 
         #region methods
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            ExchangeApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -55,12 +49,6 @@ namespace Bitstamp.Net.Clients
         public static void SetDefaultOptions(Action<BitstampRestOptions> optionsDelegate)
         {
             BitstampRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            ExchangeApi.SetApiCredentials(credentials);
         }
         #endregion
     }

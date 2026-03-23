@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bitstamp.Net.Clients;
 using Bitstamp.Net.Enums;
 using System.Linq;
+using CryptoExchange.Net.Authentication;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -20,7 +21,7 @@ namespace Bitstamp.Net.UnitTests
             var client = new BitstampRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new BitstampCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitstampRestClient>(client, "Endpoints/ExchangeApi/Account", "https://www.bitstamp.net", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.Account.GetWithdrawalsAsync(), "GetWithdrawals");
@@ -42,7 +43,7 @@ namespace Bitstamp.Net.UnitTests
             var client = new BitstampRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new BitstampCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitstampRestClient>(client, "Endpoints/ExchangeApi/ExchangeData", "https://www.bitstamp.net", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetOrderBookAsync("ethusd"), "GetOrderBook", ignoreProperties: [ "timestamp" ]);
@@ -56,7 +57,7 @@ namespace Bitstamp.Net.UnitTests
             var client = new BitstampRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new BitstampCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitstampRestClient>(client, "Endpoints/ExchangeApi/Trading", "https://www.bitstamp.net", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.GetOpenPositionsAsync(), "GetOpenPositions");

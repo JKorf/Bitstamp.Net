@@ -614,7 +614,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         {
             if (status == OrderStatus.Open || status == OrderStatus.CancelPending) return SharedOrderStatus.Open;
             if (status == OrderStatus.Expired || status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == OrderStatus.Finished) return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type)
@@ -787,15 +789,25 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                             x.Quantity,
                             x.Status == DepositStatus.Finalized,
                             x.Timestamp,
-                            x.Status == DepositStatus.Finalized ? SharedTransferStatus.Completed
-                            : x.Status == DepositStatus.InProgress || x.Status == DepositStatus.Pending ? SharedTransferStatus.InProgress
-                            : SharedTransferStatus.Failed)
+                            ParseTransferStatus(x.Status))
                         {
                             Id = x.Id.ToString(),
                             Network = x.Network,
                             TransactionId = x.TransactionId
                         })
                     .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(DepositStatus status)
+        {
+            if (status == DepositStatus.Finalized)
+                return SharedTransferStatus.Completed;
+            if (status == DepositStatus.InProgress || status == DepositStatus.Pending)
+                return SharedTransferStatus.InProgress;
+            if (status == DepositStatus.Reverted || status == DepositStatus.Rejected)
+                return SharedTransferStatus.Failed;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion

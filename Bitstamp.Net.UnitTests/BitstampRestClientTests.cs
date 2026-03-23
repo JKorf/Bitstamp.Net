@@ -15,7 +15,7 @@ namespace Bitstamp.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new BitstampAuthenticationProvider(new ApiCredentials("XXX", "XXX"), "123");
+            var authProvider = new BitstampAuthenticationProvider(new BitstampCredentials("XXX", "XXX"), "123");
             var client = (RestApiClient)new BitstampRestClient().ExchangeApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(

@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using Bitstamp.Net.Clients;
 using Bitstamp.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -25,7 +26,7 @@ namespace Bitstamp.Net.UnitTests
             {
                 AutoTimestamp = false,
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new BitstampCredentials(key, sec) : null
             }));
         }
 

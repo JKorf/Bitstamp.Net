@@ -1,11 +1,12 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace Bitstamp.Net.Objects.Options
 {
     /// <summary>
     /// Options for the BitstampRestClient
     /// </summary>
-    public class BitstampRestOptions : RestExchangeOptions<BitstampEnvironment>
+    public class BitstampRestOptions : RestExchangeOptions<BitstampEnvironment, BitstampCredentials>
     {
         /// <summary>
         /// Default options for the BitstampRestClient

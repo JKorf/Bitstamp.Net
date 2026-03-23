@@ -1,4 +1,5 @@
 ﻿using Bitstamp.Net.Objects.Models.Socket;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -8,7 +9,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
     /// <summary>
     /// Websocket subscriptions for the Bitstamp API 
     /// </summary>
-    public interface IBitstampSocketClientExchangeApi : ISocketApiClient
+    public interface IBitstampSocketClientExchangeApi : ISocketApiClient<BitstampCredentials>
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
