@@ -46,22 +46,38 @@ Bitstamp.Net is available on [GitHub packages](https://github.com/JKorf/Bitstamp
 The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/Bitstamp.Net/releases).
 
 ## How to use
-* REST Endpoints
-	```csharp
-	// Get the ETH/USD ticker via rest request
-	var restClient = new BitstampRestClient();
-	var tickerResult = await restClient.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
-	var lastPrice = tickerResult.Data.LastPrice;
-	```
-* Websocket streams
-	```csharp
-	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new BitstampSocketClient();
-	var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD", (update) => 
-	{
-	  var lastPrice = update.Data.Price;
-	});
-	```
+*Basic request:*
+```csharp
+// Get the ETH/USD ticker via rest request
+var restClient = new BitstampRestClient();
+var tickerResult = await restClient.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
+var lastPrice = tickerResult.Data.LastPrice;
+```
+	
+*Place order:*
+```csharp
+var restClient = new BitstampRestClient(opts => {
+	opts.ApiCredentials = new BitstampCredentials("APIKEY", "APISECRET");
+});
+
+// Place Limit order to go long for 0.1 ETH at 2000
+var orderResult = await restClient.ExchangeApi.Trading.PlaceLimitOrderAsync(
+    "ETH/USD-PERP",
+    OrderSide.Buy,
+    2000,
+    OrderType.Limit,
+    0.1m);
+```
+
+*WebSocket subscription:*
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new BitstampSocketClient();
+var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD", (update) => 
+{
+  var lastPrice = update.Data.Price;
+});
+```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=Bitstamp.Net), or have a look at the examples [here](https://github.com/JKorf/Bitstamp.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
