@@ -42,5 +42,8 @@ namespace Bitstamp.Net
             Secret = secret;
             return this;
         }
+
+        /// <inheritdoc />
+        public override ApiCredentials Copy() => new BitstampCredentials(this);
     }
 }
