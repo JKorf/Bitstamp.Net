@@ -70,7 +70,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
         protected override async Task<CallResult> RevitalizeRequestAsync(Subscription subscription)
         {
-            if (subscription is not BitstampSubscription authSubscription)
+            if (subscription is not BitstampSubscription authSubscription || !authSubscription.RequiresAuthentication)
                 return new CallResult(null);
 
 
