@@ -13,12 +13,12 @@ namespace Bitstamp.Net.Enums
         /// <summary>
         /// ["<c>ENABLED</c>"] Enabled
         /// </summary>
-        [Map("ENABLED")]
+        [Map("ENABLED", "Enabled")]
         Enabled,
         /// <summary>
         /// ["<c>DISABLED</c>"] Disabled
         /// </summary>
-        [Map("DISABLED")]
+        [Map("DISABLED", "Disabled")]
         Disabled
     }
 }
