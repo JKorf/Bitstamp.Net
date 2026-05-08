@@ -24,7 +24,7 @@ var subscription = await socketClient.ExchangeApi.SubscribeToFullOrderBookUpdate
         Console.WriteLine($"Book update: bids={update.Data.Bids.Length}, asks={update.Data.Asks.Length}");
     });
 
-if (!EnsureSuccess(subscription, "subscribe to order book"))
+if (!EnsureSuccessSocket(subscription, "subscribe to order book"))
     return;
 
 await socketClient.UnsubscribeAsync(subscription.Data);
@@ -38,7 +38,7 @@ static bool EnsureSuccess<T>(WebCallResult<T> result, string action)
     return false;
 }
 
-static bool EnsureSuccess<T>(CallResult<T> result, string action)
+static bool EnsureSuccessSocket<T>(CallResult<T> result, string action)
 {
     if (result.Success)
         return true;
