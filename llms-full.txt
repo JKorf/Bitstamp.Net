@@ -1,0 +1,257 @@
+# Bitstamp.Net Full AI Reference
+
+This file is optimized for AI coding assistants. It maps the actual Bitstamp.Net API shape, options, endpoint groups, symbols, and common implementation patterns.
+
+## Identity
+
+- Repository: `JKorf/Bitstamp.Net`
+- Package: `Bitstamp.Net`
+- Current project version: `1.1.2`
+- Base library: `CryptoExchange.Net`
+- REST client: `BitstampRestClient`
+- Socket client: `BitstampSocketClient`
+- Credentials: `BitstampCredentials(string key, string secret)`
+
+Bitstamp.Net is organized around one `ExchangeApi` root.
+
+## Correct Setup
+
+```csharp
+using Bitstamp.Net;
+using Bitstamp.Net.Clients;
+using Bitstamp.Net.Enums;
+
+var restClient = new BitstampRestClient(options =>
+{
+    options.ApiCredentials = new BitstampCredentials("API_KEY", "API_SECRET");
+    options.Environment = BitstampEnvironment.Live;
+});
+
+var socketClient = new BitstampSocketClient(options =>
+{
+    options.ApiCredentials = new BitstampCredentials("API_KEY", "API_SECRET");
+});
+```
+
+## Options
+
+REST options:
+
+- `BitstampRestOptions.Environment`
+- `BitstampRestOptions.ApiCredentials`
+- `BitstampRestOptions.ApiOptions`
+
+Socket options:
+
+- `BitstampSocketOptions.Environment`
+- `BitstampSocketOptions.ApiCredentials`
+- `BitstampSocketOptions.SocketSubscriptionsCombineTarget`, default `10`
+- `BitstampSocketOptions.ApiOptions.PingInterval`, default 30 seconds
+
+Global defaults:
+
+```csharp
+BitstampRestClient.SetDefaultOptions(options =>
+{
+    options.ApiCredentials = new BitstampCredentials("API_KEY", "API_SECRET");
+});
+```
+
+Dependency injection is available through `services.AddBitstamp(...)`.
+
+## REST API Map
+
+### ExchangeData
+
+Use `restClient.ExchangeApi.ExchangeData` for public symbols, tickers, books, trades, funding, and collateral metadata:
+
+- `GetSymbolsAsync()`
+- `GetAssetsAsync()`
+- `GetAllTickersAsync()`
+- `GetTickerAsync(symbol)`
+- `GetHourTickerAsync(symbol)`
+- `GetKlinesAsync(symbol, KlineInterval.OneMinute, limit, startTime, endTime, excludeCurrentCandle)`
+- `GetOrderBookAsync(symbol)`
+- `GetTradesAsync(symbol, Period? period = null)`
+- `GetEurUsdConversionRateAsync()`
+- `GetFundingRateAsync(symbol)`
+- `GetFundingRateHistoryAsync(symbol, startTime, endTime, limit)`
+- `GetMarginTiersAsync()`
+- `GetCollateralAssetsAsync()`
+
+### Account
+
+Use `restClient.ExchangeApi.Account` for authenticated balances, fees, user transactions, deposits, withdrawals, margin info, and leverage:
+
+- `GetAccountBalancesAsync()`
+- `GetAccountBalanceAsync(asset)`
+- `GetWithdrawFeesAsync()`
+- `GetWithdrawFeesAsync(asset, network)`
+- `GetAllFeesAsync()`
+- `GetFeesAsync(symbol)`
+- `GetUserTransactionsAsync(...)`
+- `GetUserTransactionsAsync(symbol, ...)`
+- `GetSymbolsAsync()`
+- `GetMaxTradeQuantityAsync(symbol, marginMode, leverage, orderType, side, ...)`
+- `GetWithdrawalsAsync(id, maxAge, limit, offset)`
+- `WithdrawFiatAsync(...)`
+- `CancelWithdrawalAsync(id)`
+- `GetFiatWithdrawalStatusAsync(id)`
+- `WithdrawCryptoAsync(asset, quantity, address, network, memoId, destinationTag, transferId, beneficiaryThirdparty)`
+- `GetDepositAddressAsync(asset, network)`
+- `GetCryptoTransactionsAsync(includeIous, startTime, endTime, limit, offset)`
+- `GetDepositsAsync(status, startTime, endTime, limit, offset)`
+- `GetMarginInfoAsync()`
+- `GetLeverageSettingsAsync(marginMode, symbol)`
+- `SetLeverageAsync(marginMode, symbol, leverage)`
+
+### Trading
+
+Use `restClient.ExchangeApi.Trading` for spot orders and derivatives positions:
+
+- `PlaceLimitOrderAsync(symbol, side, price, orderType, quantity, limitPrice, dailyOrder, iocOrder, fokOrder, mocOrder, gtdOrder, reduceOnly, leverage, stopPrice, triggerType, activationPrice, trailingDelta, marginMode, expireTime, clientOrderId)`
+- `PlaceMarketOrderAsync(symbol, side, orderType, quantity, reduceOnly, leverage, stopPrice, triggerType, activationPrice, trailingDelta, marginMode, clientOrderId)`
+- `CancelOrderAsync(orderId, clientOrderId)`
+- `GetOrderHistoryAsync(orderSource, symbol, fromEventId, toEventId)`
+- `CancelAllOrdersAsync()`
+- `CancelAllOrdersAsync(symbol)`
+- `GetOrderAsync(orderId, clientOrderId, includeTrades)`
+- `ReplaceOrderAsync(price, quantity, id, clientOrderId, newClientOrderId)`
+- `GetOpenOrdersAsync()`
+- `GetOpenOrdersAsync(symbol)`
+- `GetDerivativesUserTradesAsync(...)`
+- `GetDerivativesUserTradesAsync(symbol, ...)`
+- `GetOpenPositionsAsync()`
+- `GetOpenPositionsAsync(symbol)`
+- `GetPositionStatusAsync(positionId)`
+- `GetPositionHistoryAsync(...)`
+- `GetPositionHistoryAsync(symbol, ...)`
+- `ClosePositionsAsync(symbol, marginMode)`
+- `ClosePositionAsync(positionId)`
+- `GetPositionSettlementTransactionsAsync(...)`
+- `GetPositionSettlementTransactionsAsync(symbol, ...)`
+- `UpdatePositionCollateralAsync(positionId, newCollateralQuantity)`
+
+Order enums:
+
+- `OrderSide.Buy`, `OrderSide.Sell`
+- `OrderType.Limit`, `Market`, `StopMarket`, `StopLimit`, `TakeProfit`, `TakeProfitLimit`, `TrailingStopLoss`, `TrailingTakeProfit`
+- `MarginMode.Cross`, `MarginMode.Isolated`
+- `TriggerType.LastTradePrice`, `IndexPrice`, `MarkPrice`
+- `OrderSource.Orderbook`, `OrderSource.StopOrder`
+
+## Websocket API Map
+
+Use `socketClient.ExchangeApi`.
+
+Public subscriptions:
+
+- `SubscribeToTradeUpdatesAsync(symbol, onMessage)`
+- `SubscribeToFullOrderBookUpdatesAsync(symbol, onMessage)`
+- `SubscribeToOrderBookSnapshotUpdatesAsync(symbol, onMessage)`
+- `SubscribeToFundingRateUpdatesAsync(symbol, onMessage)`
+
+Private subscriptions:
+
+- `SubscribeToOrderUpdatesAsync(symbol, onMessage)`
+- `SubscribeToUserTradeUpdatesAsync(symbol, onMessage)`
+
+Socket callbacks receive `DataEvent<T>`. The order book update model has `Bids`, `Asks`, and `Timestamp`.
+
+## Symbols
+
+Bitstamp symbols are slash-separated:
+
+- `ETH/USD`
+- `BTC/USD`
+- `ETH/USD-PERP`
+
+Use:
+
+```csharp
+var symbols = await restClient.ExchangeApi.ExchangeData.GetSymbolsAsync();
+var ethUsd = symbols.Data.SingleOrDefault(x => x.Name == "ETH/USD");
+```
+
+Avoid:
+
+```text
+ETHUSDT
+ETH_USDT
+ETH-USDT
+tETHUSD
+SpotApiV3
+UsdFuturesApiV3
+FuturesApiV2
+```
+
+## Result Handling
+
+```csharp
+var result = await restClient.ExchangeApi.ExchangeData.GetOrderBookAsync("ETH/USD");
+if (!result.Success)
+{
+    Console.WriteLine($"Bitstamp error: {result.Error}");
+    return;
+}
+
+Console.WriteLine(result.Data.Bids.Length);
+```
+
+For sockets:
+
+```csharp
+var sub = await socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD", update =>
+{
+    Console.WriteLine(update.Data.Price);
+});
+
+if (!sub.Success)
+{
+    Console.WriteLine(sub.Error);
+    return;
+}
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Shared Clients
+
+Bitstamp.Net implements CryptoExchange.Net shared APIs:
+
+- `restClient.ExchangeApi.SharedClient`
+- `socketClient.ExchangeApi.SharedClient`
+
+Supported trading modes include spot and linear perpetuals.
+
+## Local State Helpers
+
+Use built-in helpers instead of manually maintaining complex local state:
+
+- `BitstampOrderBookFactory`
+- `BitstampSymbolOrderBook`
+- `BitstampTrackerFactory`
+- `BitstampUserSpotDataTracker`
+- `BitstampUserFuturesDataTracker`
+
+## Known Nonexistent Patterns
+
+These are wrong for Bitstamp.Net:
+
+```csharp
+client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
+client.UsdFuturesApi.Trading.PlaceOrderAsync(...);
+client.ExchangeApi.Account.GetBalancesAsync();
+new BitstampCredentials("key", "secret", "passphrase");
+BinPeriod.OneMinute;
+```
+
+Use:
+
+```csharp
+client.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
+client.ExchangeApi.Trading.PlaceLimitOrderAsync("ETH/USD", OrderSide.Buy, 2000m, OrderType.Limit, 0.1m);
+client.ExchangeApi.Account.GetAccountBalancesAsync();
+new BitstampCredentials("key", "secret");
+KlineInterval.OneMinute;
+```
