@@ -1,11 +1,11 @@
-﻿using Bitstamp.Net.Clients.MessageHandlers;
+﻿using System.Net.WebSockets;
+using Bitstamp.Net.Clients.MessageHandlers;
 using Bitstamp.Net.Enums;
 using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using Bitstamp.Net.Objects.Models;
 using Bitstamp.Net.Objects.Models.Socket;
 using Bitstamp.Net.Objects.Options;
 using Bitstamp.Net.Objects.Sockets;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
@@ -17,7 +17,6 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
 using Microsoft.Extensions.Logging;
-using System.Net.WebSockets;
 
 namespace Bitstamp.Net.Clients.ExchangeApi
 {
@@ -46,7 +45,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             RegisterPeriodicQuery(
                "ping",
                options.ApiOptions.PingInterval,
-               x => new BitstampQuery<BitstampSubscriptionData>(Enums.SocketEventType.Heartbeat, null, null),
+               x => new BitstampPingQuery(),
                 (connection, result) =>
                {
                    if (result.Error?.ErrorType == ErrorType.Timeout)
