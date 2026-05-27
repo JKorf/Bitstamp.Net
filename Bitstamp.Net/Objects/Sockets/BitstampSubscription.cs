@@ -11,7 +11,6 @@ namespace Bitstamp.Net.Objects.Sockets
     internal abstract class BitstampSubscription : Subscription
     {
         public BitstampSocketAuthToken? AuthToken { get; set; }
-        public bool RequiresAuthentication { get; }
 
         public BitstampSubscription(ILogger logger, bool requiresAuthentication)
             : base(logger, requiresAuthentication)

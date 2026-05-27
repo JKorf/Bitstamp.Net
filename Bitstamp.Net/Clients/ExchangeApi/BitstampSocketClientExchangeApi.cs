@@ -1,11 +1,11 @@
-﻿using Bitstamp.Net.Clients.MessageHandlers;
+﻿using System.Net.WebSockets;
+using Bitstamp.Net.Clients.MessageHandlers;
 using Bitstamp.Net.Enums;
 using Bitstamp.Net.Interfaces.Clients.ExchangeApi;
 using Bitstamp.Net.Objects.Models;
 using Bitstamp.Net.Objects.Models.Socket;
 using Bitstamp.Net.Objects.Options;
 using Bitstamp.Net.Objects.Sockets;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
@@ -17,7 +17,6 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
 using Microsoft.Extensions.Logging;
-using System.Net.WebSockets;
 
 namespace Bitstamp.Net.Clients.ExchangeApi
 {
@@ -40,13 +39,13 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         internal BitstampSocketClientExchangeApi(ILogger logger, BitstampSocketOptions options, BitstampSocketKeyGenerator keyGenerator)
             : base(logger, options.Environment.SocketBaseAddress, options, options.ApiOptions)
         {
-            AddSystemSubscription(new BitstampReconnectSubsciption(logger));
+            AddSystemSubscription(new BitstampReconnectSubsciption(logger, keyGenerator));
             _keyGenerator = keyGenerator;
 
             RegisterPeriodicQuery(
                "ping",
                options.ApiOptions.PingInterval,
-               x => new BitstampQuery<BitstampSubscriptionData>(Enums.SocketEventType.Heartbeat, null, null),
+               x => new BitstampPingQuery(),
                 (connection, result) =>
                {
                    if (result.Error?.ErrorType == ErrorType.Timeout)
@@ -70,9 +69,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
         protected override async Task<CallResult> RevitalizeRequestAsync(Subscription subscription)
         {
-            if (subscription is not BitstampSubscription authSubscription || !authSubscription.RequiresAuthentication)
+            if (subscription is not BitstampSubscription authSubscription || !authSubscription.Authenticated)
                 return new CallResult(null);
-
 
             var newToken = await _keyGenerator.GenerateWebsocketKeyAsync().ConfigureAwait(false);
             if (!newToken.Success)
