@@ -4,6 +4,12 @@ using Bitstamp.Net.Clients;
 // REST
 var restClient = new BitstampRestClient();
 var ticker = await restClient.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
+if (!ticker.Success)
+{
+    Console.WriteLine($"Failed to get ticker: {ticker.Error}");
+    return;
+}
+
 Console.WriteLine($"Rest client ticker price for ETH/USD: {ticker.Data.LastPrice}");
 
 Console.WriteLine();
@@ -16,5 +22,11 @@ var subscription = await socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("
 {
     Console.WriteLine($"Websocket client trade price for ETH/USD: {update.Data.Price}");
 });
+
+if (!subscription.Success)
+{
+    Console.WriteLine($"Failed to subscribe to trade updates: {subscription.Error}");
+    return;
+}
 
 Console.ReadLine();

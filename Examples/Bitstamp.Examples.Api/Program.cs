@@ -1,3 +1,4 @@
+using Bitstamp.Net;
 using Bitstamp.Net.Interfaces.Clients;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -14,7 +15,7 @@ builder.Services.AddBitstamp();
 /*
 builder.Services.AddBitstamp(options =>
 {
-    options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
+    options.ApiCredentials = new BitstampCredentials("<APIKEY>", "<APISECRET>");
     options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
@@ -29,7 +30,9 @@ app.MapGet("/{Symbol}", async ([FromServices] IBitstampRestClient client, string
 {
     var symbolName = WebUtility.UrlDecode(symbol); // Fix `/` replacing
     var result = await client.ExchangeApi.ExchangeData.GetTickerAsync(symbolName);
-    return result.Data.LastPrice;
+    return result.Success
+        ? Results.Ok(result.Data.LastPrice)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
@@ -37,7 +40,9 @@ app.MapGet("/{Symbol}", async ([FromServices] IBitstampRestClient client, string
 app.MapGet("/Balances", async ([FromServices] IBitstampRestClient client) =>
 {
     var result = await client.ExchangeApi.Account.GetAccountBalancesAsync();
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 

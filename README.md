@@ -81,6 +81,14 @@ var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToTradeUpdatesA
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=Bitstamp.Net), or have a look at the examples [here](https://github.com/JKorf/Bitstamp.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
+## AI documentation
+For AI coding assistants and quick onboarding:
+* [AGENTS.md](AGENTS.md) skill-style instructions for Bitstamp.Net usage
+* [`llms.txt`](llms.txt) provides concise AI context
+* [`llms-full.txt`](llms-full.txt) provides detailed patterns, pitfalls and endpoint routing
+* [`docs/ai-api-map.md`](docs/ai-api-map.md) maps common intents to client members
+* [`Examples/ai-friendly`](Examples/ai-friendly) contains compact examples that are compiled by the test suite
+
 ## CryptoExchange.Net
 Bitstamp.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
@@ -165,6 +173,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.2.0 - 26 May 2026
+    * Updated CryptoExchange.Net to version 11.2.0
+
 * Version 1.1.2 - 09 Apr 2026
     * Updated CryptoExchange.Net to version 11.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Fixed authentication check in RevitalizeRequestAsync method
