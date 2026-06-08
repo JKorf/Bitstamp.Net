@@ -1,6 +1,6 @@
-﻿using Bitstamp.Net.Objects.Models;
+﻿using System.Text.Json.Serialization;
+using Bitstamp.Net.Objects.Models;
 using Bitstamp.Net.Objects.Models.Socket;
-using System.Text.Json.Serialization;
 
 namespace Bitstamp.Net.Converters
 {
@@ -58,6 +58,7 @@ namespace Bitstamp.Net.Converters
     [JsonSerializable(typeof(BitstampSocketData<BitstampTradeUpdate>))]
     [JsonSerializable(typeof(BitstampSocketData<BitstampUserTradeUpdate>))]
     [JsonSerializable(typeof(BitstampSocketData<BitstampFundingRateUpdate>))]
+    [JsonSerializable(typeof(BitstampSocketData<BitstampPingResponse>))]
 
     [JsonSerializable(typeof(IDictionary<string, object>))]
     [JsonSerializable(typeof(Dictionary<string, string[]>))]

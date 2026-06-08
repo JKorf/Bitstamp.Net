@@ -18,6 +18,9 @@ namespace Bitstamp.Net.Objects.Sockets
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
+        public void InvalidateKey()
+            => _lastKeyValidUntil = DateTime.MinValue;
+
         public async Task<CallResult<BitstampSocketAuthToken>> GenerateWebsocketKeyAsync()
         {
             if (ValidKeyExists())

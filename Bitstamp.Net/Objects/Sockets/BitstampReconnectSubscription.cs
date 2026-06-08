@@ -9,14 +9,22 @@ namespace Bitstamp.Net.Objects.Sockets
 {
     internal class BitstampReconnectSubsciption : SystemSubscription
     {
-        public BitstampReconnectSubsciption(ILogger logger) : base(logger, false)
+        private readonly BitstampSocketKeyGenerator _keyGenerator;
+        
+        public BitstampReconnectSubsciption(ILogger logger, BitstampSocketKeyGenerator keyGenerator) : base(logger, false)
         {
+            _keyGenerator = keyGenerator;
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitstampSocketData<BitstampErrorData>>("bts:request_reconnect", HandleMessage);
         }
 
         public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitstampSocketData<BitstampErrorData> message)
         {
             _logger.LogWarning("Received reconnect request from server, reconnecting");
+
+            // A forced reconnect will invalidate the previously used websocket auth token
+            // So ensure the next connection attempt will get a fresh token
+            _keyGenerator.InvalidateKey();
+
             Task.Run(() => connection.TriggerReconnectAsync().ContinueWith(r =>
             {
                 if (r.Exception != null)
