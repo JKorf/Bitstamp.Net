@@ -70,7 +70,7 @@ namespace Bitstamp.Net.UnitTests
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.GetOrderHistoryAsync(OrderSource.Orderbook, "123"), "GetOrderHistory", ignoreProperties: ["id_str", "datetime", "amount_str", "price_str"]);
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestHeaders.SingleOrDefault(x => x.Key == "X-Auth-Signature").Key != null;
         }

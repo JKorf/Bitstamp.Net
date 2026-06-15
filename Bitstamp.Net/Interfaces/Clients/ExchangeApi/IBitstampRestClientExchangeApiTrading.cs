@@ -41,7 +41,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="expireTime">["<c>expire_time</c>"] Expire time for GTD orders</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampOrder>> PlaceLimitOrderAsync(
+        Task<HttpResult<BitstampOrder>> PlaceLimitOrderAsync(
             string symbol,
             OrderSide side,
             decimal price,
@@ -88,7 +88,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="marginMode">["<c>margin_mode</c>"] Margin mode</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampOrder>> PlaceMarketOrderAsync(
+        Task<HttpResult<BitstampOrder>> PlaceMarketOrderAsync(
             string symbol,
             OrderSide side,
             OrderType? orderType = null,
@@ -115,7 +115,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="orderId">["<c>id</c>"] Order id, either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCancelOrderResponse>> CancelOrderAsync(long? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampCancelOrderResponse>> CancelOrderAsync(long? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order history
@@ -131,7 +131,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="fromEventId">["<c>since_id</c>"] Filter by from event id</param>
         /// <param name="toEventId">["<c>until_id</c>"] Filter by to event id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampOrderEvent[]>> GetOrderHistoryAsync(OrderSource orderSource, string symbol, string? fromEventId = null, string? toEventId = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampOrderEvent[]>> GetOrderHistoryAsync(OrderSource orderSource, string symbol, string? fromEventId = null, string? toEventId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open orders
@@ -143,7 +143,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCancelAllOrderResponse>> CancelAllOrdersAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampCancelAllOrderResponse>> CancelAllOrdersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open orders on a symbol
@@ -156,7 +156,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCancelAllOrderResponse>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampCancelAllOrderResponse>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get order info
@@ -171,7 +171,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id, either this or orderId should be provided</param>
         /// <param name="includeTrades">["<c>omit_transactions</c>"] Whether to include trades</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampOrder>> GetOrderAsync(long? orderId = null, string? clientOrderId = null, bool? includeTrades = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampOrder>> GetOrderAsync(long? orderId = null, string? clientOrderId = null, bool? includeTrades = null, CancellationToken ct = default);
 
         /// <summary>
         /// Replace an open order
@@ -188,7 +188,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="clientOrderId">["<c>orig_client_order_id</c>"] Client order id, either this or orderId should be provided</param>
         /// <param name="newClientOrderId">["<c>client_order_id</c>"] New client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampReplaceResponse>> ReplaceOrderAsync(
+        Task<HttpResult<BitstampReplaceResponse>> ReplaceOrderAsync(
             decimal price,
             decimal quantity,
             long? id = null,
@@ -206,7 +206,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampOpenOrder[]>> GetOpenOrdersAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampOpenOrder[]>> GetOpenOrdersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get open orders for a symbol
@@ -219,7 +219,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampOpenOrder[]>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampOpenOrder[]>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get user trades for derivatives
@@ -237,7 +237,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="endTime">["<c>until_timestamp</c>"] Filter by end time</param>
         /// <param name="afterId">["<c>after_id</c>"] Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(
+        Task<HttpResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(
             long? orderId = null,
             long? afterId = null, 
             SortOrder? sort = null, 
@@ -263,7 +263,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="endTime">["<c>until_timestamp</c>"] Filter by end time</param>
         /// <param name="afterId">["<c>after_id</c>"] Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(
+        Task<HttpResult<BitstampUserTrade[]>> GetDerivativesUserTradesAsync(
             string symbol,
             long? orderId = null,
             long? afterId = null,
@@ -284,7 +284,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampPosition[]>> GetOpenPositionsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampPosition[]>> GetOpenPositionsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get open positions for a symbol
@@ -297,7 +297,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD-PERP`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampPosition[]>> GetOpenPositionsAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampPosition[]>> GetOpenPositionsAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get position status
@@ -310,7 +310,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="positionId">["<c>positionId</c>"] Position id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampPosition>> GetPositionStatusAsync(string positionId, CancellationToken ct = default);
+        Task<HttpResult<BitstampPosition>> GetPositionStatusAsync(string positionId, CancellationToken ct = default);
 
         /// <summary>
         /// Get position history
@@ -326,7 +326,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(
+        Task<HttpResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(
             string? sinceId = null, 
             SortOrder? sort = null, 
             int? limit = null,
@@ -347,7 +347,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(
+        Task<HttpResult<BitstampPositionHistory[]>> GetPositionHistoryAsync(
             string symbol,
             string? sinceId = null,
             SortOrder? sort = null,
@@ -367,7 +367,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="symbol">["<c>market</c>"] The symbol, for example `ETHUSD-PERP`</param>
         /// <param name="marginMode">["<c>margin_mode</c>"] Margin mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampClosePositionsResponse>> ClosePositionsAsync(string? symbol = null, MarginMode? marginMode = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampClosePositionsResponse>> ClosePositionsAsync(string? symbol = null, MarginMode? marginMode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Close position
@@ -380,7 +380,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="positionId">["<c>position_id</c>"] The position id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampPosition>> ClosePositionAsync(string positionId, CancellationToken ct = default);
+        Task<HttpResult<BitstampPosition>> ClosePositionAsync(string positionId, CancellationToken ct = default);
 
         /// <summary>
         /// Get position settlement transaction history
@@ -398,7 +398,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampSettleTransaction[]>> GetPositionSettlementTransactionsAsync(
+        Task<HttpResult<BitstampSettleTransaction[]>> GetPositionSettlementTransactionsAsync(
             string? sinceId = null,
             string? sort = null, 
             DateTime? startTime = null,
@@ -424,7 +424,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampSettleTransaction[]>> GetPositionSettlementTransactionsAsync(
+        Task<HttpResult<BitstampSettleTransaction[]>> GetPositionSettlementTransactionsAsync(
             string symbol, 
             string? sinceId = null,
             string? sort = null,
@@ -446,7 +446,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="positionId">["<c>position_id</c>"] The position id</param>
         /// <param name="newCollateralQuantity">["<c>new_account</c>"] New collateral quantity</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> UpdatePositionCollateralAsync(string positionId, decimal newCollateralQuantity, CancellationToken ct = default);
+        Task<HttpResult> UpdatePositionCollateralAsync(string positionId, decimal newCollateralQuantity, CancellationToken ct = default);
 
     }
 }

@@ -7,14 +7,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Bitstamp.Net.Objects.Sockets
 {
-    internal class BitstampReconnectSubsciption : SystemSubscription
+    internal class BitstampReconnectSubscription : SystemSubscription
     {
         private readonly BitstampSocketKeyGenerator _keyGenerator;
         
-        public BitstampReconnectSubsciption(ILogger logger, BitstampSocketKeyGenerator keyGenerator) : base(logger, false)
+        public BitstampReconnectSubscription(ILogger logger, BitstampSocketKeyGenerator keyGenerator) : base(logger, false)
         {
             _keyGenerator = keyGenerator;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitstampSocketData<BitstampErrorData>>("bts:request_reconnect", HandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<BitstampSocketData<BitstampErrorData>>("bts:request_reconnect", HandleMessage);
         }
 
         public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitstampSocketData<BitstampErrorData> message)
@@ -31,7 +31,7 @@ namespace Bitstamp.Net.Objects.Sockets
                     _logger.LogError(r.Exception, "Error while reconnecting");
             }));
 
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

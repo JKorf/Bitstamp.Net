@@ -37,7 +37,7 @@ namespace Bitstamp.Net.Clients
         {
             Initialize(options.Value);
 
-            ExchangeApi = AddApiClient(new BitstampRestClientExchangeApi(_logger, httpClient, options.Value));
+            ExchangeApi = AddApiClient(new BitstampRestClientExchangeApi(loggerFactory, httpClient, options.Value));
         }
         #endregion
 

@@ -16,6 +16,12 @@ namespace Bitstamp.Net
     public static class BitstampExchange
     {
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitstampSourceGenerationContext>();
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.Number,
+            Bool = BoolSerialization.String,
+            DateTimes = DateTimeSerialization.MillisecondsNumber
+        };
 
         /// <summary>
         /// Platform metadata

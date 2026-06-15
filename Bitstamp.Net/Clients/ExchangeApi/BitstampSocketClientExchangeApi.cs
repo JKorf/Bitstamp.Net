@@ -36,10 +36,10 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         /// <summary>
         /// Create a new instance of BitstampSocketClient with default options
         /// </summary>
-        internal BitstampSocketClientExchangeApi(ILogger logger, BitstampSocketOptions options, BitstampSocketKeyGenerator keyGenerator)
-            : base(logger, options.Environment.SocketBaseAddress, options, options.ApiOptions)
+        internal BitstampSocketClientExchangeApi(ILoggerFactory? loggerFactory, BitstampSocketOptions options, BitstampSocketKeyGenerator keyGenerator)
+            : base(loggerFactory, BitstampExchange.Metadata.Id, options.Environment.SocketBaseAddress, options, options.ApiOptions)
         {
-            AddSystemSubscription(new BitstampReconnectSubsciption(logger, keyGenerator));
+            AddSystemSubscription(new BitstampReconnectSubscription(_logger, keyGenerator));
             _keyGenerator = keyGenerator;
 
             RegisterPeriodicQuery(
@@ -70,14 +70,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         protected override async Task<CallResult> RevitalizeRequestAsync(Subscription subscription)
         {
             if (subscription is not BitstampSubscription authSubscription || !authSubscription.Authenticated)
-                return new CallResult(null);
+                return CallResult.Ok();
 
             var newToken = await _keyGenerator.GenerateWebsocketKeyAsync().ConfigureAwait(false);
             if (!newToken.Success)
-                return newToken.AsDataless();
+                return newToken;
 
             authSubscription.AuthToken = newToken.Data;
-            return new CallResult(null);
+            return CallResult.Ok();
         }
 
         protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
@@ -94,7 +94,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #endregion
 
         #region Subscriptions
-        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampTradeUpdate>> handler, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampTradeUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, BitstampSocketData<BitstampTradeUpdate>>((receiveTime, originalData, data) =>
             {
@@ -113,7 +113,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             return SubscribeAsync(subscription, ct);
         }
 
-        public Task<CallResult<UpdateSubscription>> SubscribeToFullOrderBookUpdatesAsync(string symbol, Action<DataEvent<BitstampOrderBookUpdate>> handler, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToFullOrderBookUpdatesAsync(string symbol, Action<DataEvent<BitstampOrderBookUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, BitstampSocketData<BitstampOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
@@ -132,7 +132,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             return SubscribeAsync(subscription, ct);
         }
 
-        public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookSnapshotUpdatesAsync(string symbol, Action<DataEvent<BitstampOrderBookUpdate>> handler, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookSnapshotUpdatesAsync(string symbol, Action<DataEvent<BitstampOrderBookUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, BitstampSocketData<BitstampOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
@@ -151,7 +151,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             return SubscribeAsync(subscription, ct);
         }
 
-        public Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BitstampFundingRateUpdate>> handler, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BitstampFundingRateUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, BitstampSocketData<BitstampFundingRateUpdate>>((receiveTime, originalData, data) =>
             {
@@ -171,11 +171,11 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         }
 
 
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<DataEvent<BitstampOrderUpdate>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<DataEvent<BitstampOrderUpdate>> handler, CancellationToken ct = default)
         {
             var authToken = await _keyGenerator.GenerateWebsocketKeyAsync().ConfigureAwait(false);
             if (!authToken.Success)
-                return new CallResult<UpdateSubscription>(authToken.Error!);
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, authToken.Error!);
 
             var internalHandler = new Action<DateTime, string?, BitstampSocketData<BitstampOrderUpdate>>((receiveTime, originalData, data) =>
             {
@@ -205,11 +205,11 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 _ => OrderEvent.OrderChanged
             };
 
-        public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampUserTradeUpdate>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampUserTradeUpdate>> handler, CancellationToken ct = default)
         {
             var authToken = await _keyGenerator.GenerateWebsocketKeyAsync().ConfigureAwait(false);
             if (!authToken.Success)
-                return new CallResult<UpdateSubscription>(authToken.Error!);
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, authToken.Error!);
 
             var internalHandler = new Action<DateTime, string?, BitstampSocketData<BitstampUserTradeUpdate>>((receiveTime, originalData, data) =>
             {

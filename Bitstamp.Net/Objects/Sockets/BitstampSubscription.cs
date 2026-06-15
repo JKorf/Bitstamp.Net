@@ -30,7 +30,7 @@ namespace Bitstamp.Net.Objects.Sockets
                 _channel += $"-{authToken.UserId}";
 
             _handler = handler;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitstampSocketData<T>>(_channel, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<BitstampSocketData<T>>(_channel, DoHandleMessage);
 
             AuthToken = authToken;
         }
@@ -40,7 +40,7 @@ namespace Bitstamp.Net.Objects.Sockets
             if (message != null && message.Event is not Enums.SocketEventType.SubscriptionSucceeded)
                 _handler?.Invoke(receiveTime, originalData, message);
 
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

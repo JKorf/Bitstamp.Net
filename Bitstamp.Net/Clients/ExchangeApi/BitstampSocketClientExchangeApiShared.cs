@@ -10,21 +10,22 @@ namespace Bitstamp.Net.Clients.ExchangeApi
     internal partial class BitstampSocketClientExchangeApi : IBitstampSocketClientExchangeApiShared
     {
         private const string _topicId = "Bitstamp";
+        private const string _exchangeName = "Bitstamp";
 
-        public string Exchange => BitstampExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
+        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
 
         #region Trade client
 
-        EndpointOptions<SubscribeTradeRequest> ITradeSocketClient.SubscribeTradeOptions { get; } = new EndpointOptions<SubscribeTradeRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<DataEvent<SharedTrade[]>> handler, CancellationToken ct)
+        SubscribeTradeOptions ITradeSocketClient.SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false);
+        async Task<WebSocketResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<DataEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
-            var validationError = ((ITradeSocketClient)this).SubscribeTradeOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = SharedClient.SubscribeTradeOptions.ValidateRequest(request, this);
             if (validationError != null)
-                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+                return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToTradeUpdatesAsync(request.Symbol!.GetSymbol(FormatSymbol), update =>
             {
@@ -38,23 +39,23 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 ]));
             }, ct).ConfigureAwait(false);
 
-            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+            return result;
         }
         #endregion
 
         #region Order Book client
-        SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(false, [100]);
-        async Task<ExchangeResult<UpdateSubscription>> IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
+        SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, [100]);
+        async Task<WebSocketResult<UpdateSubscription>> IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
-            var validationError = ((IOrderBookSocketClient)this).SubscribeOrderBookOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = SharedClient.SubscribeOrderBookOptions.ValidateRequest(request, this);
             if (validationError != null)
-                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+                return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToOrderBookSnapshotUpdatesAsync(
                 request.Symbol!.GetSymbol(FormatSymbol),
                 update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
-            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+            return result;
         }
         #endregion
     }

@@ -13,15 +13,15 @@ namespace Bitstamp.Net.Objects.Sockets
         public BitstampPingQuery()
             : base(new BitstampSocketData<BitstampPingResponse>(SocketEventType.Heartbeat, null), true)
         {
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitstampSocketData<BitstampPingResponse>>("bts:heartbeat", HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<BitstampSocketData<BitstampPingResponse>>("bts:heartbeat", HandleMessage);
         }
 
         public CallResult<BitstampSocketData<BitstampPingResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitstampSocketData<BitstampPingResponse> message)
         {
             if (message.Data?.Status != "success")
-                return new CallResult<BitstampSocketData<BitstampPingResponse>>(new ServerError("Ping failed", new(ErrorType.Unknown, $"Ping failed. Status: {message.Data?.Status}")));
+                return CallResult<BitstampSocketData<BitstampPingResponse>>.Fail(new ServerError("Ping failed", new(ErrorType.Unknown, $"Ping failed. Status: {message.Data?.Status}")), originalData);
 
-            return new CallResult<BitstampSocketData<BitstampPingResponse>>(message, originalData, null);
+            return CallResult<BitstampSocketData<BitstampPingResponse>>.Ok(message, originalData);
         }
     }
 }

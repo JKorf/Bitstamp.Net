@@ -23,7 +23,7 @@ namespace Bitstamp.Net
         #region Methods
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration requestConfig)
         {
-            if (!requestConfig.Authenticated)
+            if (!requestConfig.RequestDefinition.Authenticated)
                 return;
 
             var key = "BITSTAMP " + Credential.Key;
@@ -56,13 +56,13 @@ namespace Bitstamp.Net
                     contentType = Constants.FormContentHeader;
             }
 
-            var pathAndQuery = requestConfig.Path + requestConfig.GetQueryString(true);
+            var pathAndQuery = requestConfig.RequestDefinition.Path + requestConfig.GetQueryString(true);
             if (!pathAndQuery.EndsWith("/"))
                 pathAndQuery += "/";
 
             var signatureText = key +
-                requestConfig.Method +
-                new Uri(requestConfig.BaseAddress).Host +
+                requestConfig.RequestDefinition.Method +
+                new Uri(requestConfig.RequestDefinition.BaseAddress).Host +
                 pathAndQuery +
                 contentType +
                 nonce +
