@@ -29,7 +29,7 @@ if (!EnsureSuccessSocket(subscription, "subscribe to order book"))
 
 await socketClient.UnsubscribeAsync(subscription.Data);
 
-static bool EnsureSuccess<T>(WebCallResult<T> result, string action)
+static bool EnsureSuccess<T>(HttpResult<T> result, string action)
 {
     if (result.Success)
         return true;
@@ -38,7 +38,7 @@ static bool EnsureSuccess<T>(WebCallResult<T> result, string action)
     return false;
 }
 
-static bool EnsureSuccessSocket<T>(CallResult<T> result, string action)
+static bool EnsureSuccessSocket<T>(WebSocketResult<T> result, string action)
 {
     if (result.Success)
         return true;

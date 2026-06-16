@@ -159,7 +159,7 @@ Always check `subscription.Success` before using `subscription.Data`. Unsubscrib
 
 ## Result Handling
 
-REST calls return `WebCallResult<T>` and socket subscriptions return `CallResult<UpdateSubscription>`.
+REST calls return `HttpResult<T>` and socket subscriptions return `WebSocketResult<UpdateSubscription>`.
 
 ```csharp
 var result = await client.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
