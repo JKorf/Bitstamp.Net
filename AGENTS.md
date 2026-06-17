@@ -7,6 +7,8 @@ applyTo: "**/*"
 
 Bitstamp.Net is a CryptoExchange.Net-based client for the Bitstamp REST and websocket APIs. Use this guide when generating code or documentation for this repository.
 
+For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on the `ExchangeApi` surfaces. Use `.SharedClient.Discover()` to inspect supported shared features at runtime.
+
 ## Package And Client Shape
 
 - NuGet package id: `Bitstamp.Net`
@@ -159,7 +161,7 @@ Always check `subscription.Success` before using `subscription.Data`. Unsubscrib
 
 ## Result Handling
 
-REST calls return `HttpResult<T>` and socket subscriptions return `WebSocketResult<UpdateSubscription>`.
+REST calls return `HttpResult<T>` and socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`.
 
 ```csharp
 var result = await client.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");

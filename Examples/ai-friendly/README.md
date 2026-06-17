@@ -8,9 +8,9 @@ These examples are intentionally small console programs that AI assistants can c
 | --- | --- |
 | `01-market-and-account.cs` | Public market data, balances, symbols and result handling |
 | `02-trading-and-positions.cs` | Limit orders, open orders, cancellation and derivatives positions |
-| `03-websocket.cs` | Public and private websocket subscriptions |
-| `04-shared-client.cs` | CryptoExchange.Net shared client access from Bitstamp.Net |
-| `05-error-handling.cs` | Reusable REST/socket result handling helpers |
+| `03-websocket.cs` | Public and private websocket subscriptions with teardown |
+| `04-shared-client.cs` | CryptoExchange.Net shared client access, capability discovery, and shared symbols |
+| `05-error-handling.cs` | Reusable `HttpResult`, `WebSocketResult`, and `ExchangeCallResult` result handling notes |
 
 ## Bitstamp Shape To Remember
 

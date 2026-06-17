@@ -15,6 +15,7 @@ var socketClient = new BitstampSocketClient(options =>
 const string spotSymbol = "ETH/USD";
 const string derivativeSymbol = "ETH/USD-PERP";
 
+// Subscription methods return WebSocketResult<UpdateSubscription>.
 var tradeSubscription = await socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync(
     spotSymbol,
     update =>

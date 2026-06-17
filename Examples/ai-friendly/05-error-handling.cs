@@ -1,6 +1,6 @@
 // 05-error-handling.cs
 //
-// Demonstrates: reusable Bitstamp.Net REST and socket result handling.
+// Demonstrates: reusable Bitstamp.Net REST, socket, and shared helper result handling.
 //
 // Setup: dotnet add package Bitstamp.Net
 
@@ -10,6 +10,10 @@ using CryptoExchange.Net.Objects.Sockets;
 
 var restClient = new BitstampRestClient();
 var socketClient = new BitstampSocketClient();
+
+// REST methods return HttpResult<T> or HttpResult.
+// WebSocket subscriptions return WebSocketResult<UpdateSubscription>.
+// Shared non-I/O symbol/cache helpers return ExchangeCallResult<T>.
 
 var book = await restClient.ExchangeApi.ExchangeData.GetOrderBookAsync("ETH/USD");
 if (!EnsureSuccess(book, "load order book"))

@@ -12,7 +12,7 @@ This file is optimized for AI coding assistants. It maps the actual Bitstamp.Net
 - Socket client: `BitstampSocketClient`
 - Credentials: `BitstampCredentials(string key, string secret)`
 
-Bitstamp.Net is organized around one `ExchangeApi` root.
+Bitstamp.Net is organized around one `ExchangeApi` root. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`.
 
 ## Correct Setup
 
@@ -223,6 +223,16 @@ Bitstamp.Net implements CryptoExchange.Net shared APIs:
 - `socketClient.ExchangeApi.SharedClient`
 
 Supported trading modes include spot and linear perpetuals.
+
+Use `SharedClient.Discover()` before routing optional shared features across exchanges:
+
+```csharp
+var info = restClient.ExchangeApi.SharedClient.Discover();
+var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
+Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+```
+
+Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers, such as symbol support checks, return `ExchangeCallResult<T>`.
 
 ## Local State Helpers
 
