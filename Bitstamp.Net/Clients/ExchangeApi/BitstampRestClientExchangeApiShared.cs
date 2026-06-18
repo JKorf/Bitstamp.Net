@@ -831,13 +831,33 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                     .Select(x =>
-                        new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == WithdrawalStatus.Finished, x.Timestamp)
+                        new SharedWithdrawal(
+                            x.Asset,
+                            x.Address,
+                            x.Quantity, 
+                            x.Status == WithdrawalStatus.Finished,
+                            x.Timestamp,
+                            GetWithdrawalStatus(x))
                         {
                             Id = x.Id.ToString(),
                             Network = x.Network,
                             TransactionId = x.TransactionId
                         })
                     .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus GetWithdrawalStatus(BitstampWithdrawal x)
+        {
+            if (x.Status == WithdrawalStatus.Canceled || x.Status == WithdrawalStatus.Failed)
+                return SharedTransferStatus.Failed;
+
+            if (x.Status == WithdrawalStatus.Finished)
+                return SharedTransferStatus.Completed;
+
+            if (x.Status == WithdrawalStatus.InProcess || x.Status == WithdrawalStatus.Open)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
