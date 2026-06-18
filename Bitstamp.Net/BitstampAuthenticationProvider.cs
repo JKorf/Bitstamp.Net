@@ -31,7 +31,7 @@ namespace Bitstamp.Net
             var timestamp = GetMillisecondTimestamp(apiClient);
 
             string bodyContent = "";
-            if (requestConfig.BodyParameters?.Any() == true)
+            if (requestConfig.BodyParameters != null && !requestConfig.BodyParameters.Empty)
             {
                 if (requestConfig.BodyFormat is RequestBodyFormat.Json)
                     bodyContent = _serializer.Serialize(requestConfig.BodyParameters);
