@@ -9,14 +9,13 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampSocketClientExchangeApi : IBitstampSocketClientExchangeApiShared
     {
-        private const string _topicId = "Bitstamp";
         private const string _exchangeName = "Bitstamp";
 
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
-        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
+        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitstampExchange.Metadata, this);
 
         #region Trade client
 
@@ -32,7 +31,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 if (update.UpdateType == SocketUpdateType.Snapshot)
                     return;
 
-                handler(update.ToType<SharedTrade[]>([new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol), update.Symbol!, update.Data.Quantity, update.Data.Price, update.Data.Timestamp)
+                handler(update.ToType<SharedTrade[]>([new SharedTrade(request.Symbol, update.Symbol!, update.Data.Quantity, update.Data.Price, update.Data.Timestamp)
                 {
                     Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
                 }

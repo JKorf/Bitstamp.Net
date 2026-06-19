@@ -18,7 +18,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
-        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
+        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitstampExchange.Metadata, this);
 
         #region Kline client
 
@@ -109,19 +109,19 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         QuantityDecimals = s.BaseDecimals
                     }).ToArray());
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, response.Data!);
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, response.Data!);
             return response;
         }
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicSpotId))
+            if (!ExchangeSymbolCache.HasCached(_topicSpotId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<SharedSymbol[]>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicSpotId, baseAsset));
+            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicSpotId, EnvironmentName, null, baseAsset));
         }
 
         async Task<ExchangeCallResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(SharedSymbol symbol)
@@ -129,26 +129,26 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (symbol.TradingMode != TradingMode.Spot)
                 throw new ArgumentException(nameof(symbol), "Only Spot symbols allowed");
 
-            if (!ExchangeSymbolCache.HasCached(_topicSpotId))
+            if (!ExchangeSymbolCache.HasCached(_topicSpotId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, symbol));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, EnvironmentName, null, symbol));
         }
 
         async Task<ExchangeCallResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(string symbolName)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicSpotId))
+            if (!ExchangeSymbolCache.HasCached(_topicSpotId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, symbolName));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, EnvironmentName, null, symbolName));
         }
         #endregion
 
@@ -167,7 +167,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedSpotTicker>(result);
 
             return HttpResult.Ok(result, new SharedSpotTicker(
-                    ExchangeSymbolCache.ParseSymbol(_topicSpotId, result.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, result.Data.Symbol),
                     symbol,
                     result.Data.LastPrice,
                     result.Data.HighPrice,
@@ -192,7 +192,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, result.Data.Where(x => x.MarketType == MarketType.Spot).Select(x => 
                 new SharedSpotTicker(
-                    ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol),
                     x.Symbol!,
                     x.LastPrice,
                     x.HighPrice,
@@ -365,7 +365,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedSpotOrder>(orders);
 
             return HttpResult.Ok(orders, new SharedSpotOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, orders.Data.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, orders.Data.Symbol),
                 orders.Data.Symbol,
                 orders.Data.Id.ToString(),
                 ParseOrderType(orders.Data.OrderType),
@@ -403,7 +403,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             return HttpResult.Ok(orders, orders.Data.Where(x => !x.Symbol.EndsWith("-perp", StringComparison.InvariantCultureIgnoreCase))
                 .Select(x => 
                     new SharedSpotOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol),
+                        ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
                         x.Id.ToString(),
                         SharedOrderType.Limit,
@@ -542,7 +542,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(trades, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                     .Select(x => new SharedUserTrade(
-                        ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol),
+                        ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
                         x.OrderId!.ToString()!,
                         x.Id.ToString(),
@@ -614,7 +614,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedSpotOrder>(order);
 
             return HttpResult.Ok(order, new SharedSpotOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, order.Data.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, order.Data.Symbol),
                 order.Data.Symbol,
                 order.Data.Id.ToString(),
                 ParseOrderType(order.Data.OrderType),
@@ -977,19 +977,19 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         ContractSize = s.ContractSize
                     }).ToArray());
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, response.Data!);
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, EnvironmentName, null, response.Data!);
             return response;
         }
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
+            if (!ExchangeSymbolCache.HasCached(_topicFuturesId, EnvironmentName, null))
             {
                 var symbols = await ((IFuturesSymbolRestClient)this).GetFuturesSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<SharedSymbol[]>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicFuturesId, baseAsset));
+            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicFuturesId, EnvironmentName, null, baseAsset));
         }
 
         async Task<ExchangeCallResult<bool>> IFuturesSymbolRestClient.SupportsFuturesSymbolAsync(SharedSymbol symbol)
@@ -997,26 +997,26 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (symbol.TradingMode == TradingMode.Spot)
                 throw new ArgumentException(nameof(symbol), "Only Futures symbols allowed");
 
-            if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
+            if (!ExchangeSymbolCache.HasCached(_topicFuturesId, EnvironmentName, null))
             {
                 var symbols = await ((IFuturesSymbolRestClient)this).GetFuturesSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, symbol));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, EnvironmentName, null, symbol));
         }
 
         async Task<ExchangeCallResult<bool>> IFuturesSymbolRestClient.SupportsFuturesSymbolAsync(string symbolName)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
+            if (!ExchangeSymbolCache.HasCached(_topicFuturesId, EnvironmentName, null))
             {
                 var symbols = await ((IFuturesSymbolRestClient)this).GetFuturesSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, symbolName));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, EnvironmentName, null, symbolName));
         }
         #endregion
 
@@ -1035,7 +1035,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedFuturesTicker>(result);
 
             return HttpResult.Ok(result, new SharedFuturesTicker(
-                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, result.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, result.Data.Symbol),
                     symbol,
                     result.Data.LastPrice,
                     result.Data.HighPrice,
@@ -1061,7 +1061,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, result.Data.Where(x => x.MarketType == MarketType.Perpetual).Select(x =>
                 new SharedFuturesTicker(
-                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                     x.Symbol!,
                     x.LastPrice,
                     x.HighPrice,
@@ -1186,7 +1186,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x =>
                         new SharedPositionHistory(
-                            ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                            ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.QuantityDelta >= 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
                             x.EntryPrice,
@@ -1282,7 +1282,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedFuturesOrder>(orders);
 
             return HttpResult.Ok(orders, new SharedFuturesOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, orders.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, orders.Data.Symbol),
                     orders.Data.Symbol,
                     orders.Data.Id.ToString(),
                     ParseOrderType(orders.Data.OrderType),
@@ -1321,7 +1321,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(orders, orders.Data.Where(x => x.Symbol.EndsWith("-perp", StringComparison.InvariantCultureIgnoreCase)).Select(x => 
                     new SharedFuturesOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                        ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
                         x.Id.ToString(),
                         SharedOrderType.Limit,
@@ -1451,7 +1451,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                     .Select(x => new SharedUserTrade(
-                        ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                        ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
                         x.OrderId!.ToString()!,
                         x.TradeId.ToString(),
@@ -1501,7 +1501,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, result.Data.Select(x => 
                     new SharedPosition(
-                        ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                        ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
                         Math.Abs(x.Quantity),
                         default)

@@ -33,7 +33,8 @@ namespace Bitstamp.Net
                 "https://www.bitstamp.com",
                 ["https://www.bitstamp.net/api/"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BitstampEnvironment.All
                 );
 
         /// <summary>
