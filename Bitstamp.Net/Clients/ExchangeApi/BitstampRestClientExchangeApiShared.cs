@@ -15,6 +15,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         private const string _exchangeName = "Bitstamp";
 
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot, TradingMode.PerpetualLinear };
+        public TradingMode[] SupportedFuturesTradingModes => SupportedTradingModes.Except(new[] { TradingMode.Spot }).ToArray();
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -273,7 +274,12 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 if (!result.Success)
                     return HttpResult.Fail<SharedBalance[]>(result);
 
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Total)).ToArray());
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedBalance(
+                        TradingMode.Spot, 
+                        x.Asset, 
+                        x.Available,
+                        x.Total)).ToArray());
             }
             else
             {
@@ -283,7 +289,12 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
                 var resultList = new List<SharedBalance>();
                 foreach (var item in result.Data.Assets)
-                    resultList.Add(new SharedBalance(item.Asset, item.Available, item.TotalQuantity));                
+                    resultList.Add(
+                        new SharedBalance(
+                            SupportedFuturesTradingModes,
+                            item.Asset,
+                            item.Available,
+                            item.TotalQuantity));                
 
                 return HttpResult.Ok(result, resultList.ToArray());
             }
