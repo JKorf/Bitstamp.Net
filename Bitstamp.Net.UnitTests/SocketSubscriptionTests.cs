@@ -27,7 +27,7 @@ namespace Bitstamp.Net.UnitTests
 
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<BitstampSocketClient>(client, "Subscriptions/ExchangeApi", "wss://ws.bitstamp.com");
+            var tester = new SocketSubscriptionValidator<BitstampSocketClient>(client, "Subscriptions/ExchangeApi", "wss://ws.bitstamp.net");
             await tester.ValidateConcurrentAsync<BitstampTradeUpdate>(
                 (client, handler) => client.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD", handler),
                 (client, handler) => client.ExchangeApi.SubscribeToTradeUpdatesAsync("BTC/USD", handler),

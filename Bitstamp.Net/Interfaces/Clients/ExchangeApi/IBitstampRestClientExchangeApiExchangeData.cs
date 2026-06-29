@@ -20,7 +20,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get assets supported
@@ -32,7 +32,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampAsset[]>> GetAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get 24h ticker data for all symbols
@@ -44,7 +44,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampTicker[]>> GetAllTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampTicker[]>> GetAllTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get 24h ticker data
@@ -57,7 +57,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get ticker data for the last hour
@@ -70,7 +70,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampTicker>> GetHourTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampTicker>> GetHourTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline/candlestick data
@@ -88,7 +88,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="endTime">["<c>end</c>"] Filter by end time</param>
         /// <param name="excludeCurrentCandle">["<c>exclude_current_candle</c>"] Whether to exclude the current in-progress candle</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampKline[]>> GetKlinesAsync(
+        Task<HttpResult<BitstampKline[]>> GetKlinesAsync(
             string symbol,
             KlineInterval interval,
             int? limit = null,
@@ -108,7 +108,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampOrderBookUpdate>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampOrderBookUpdate>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get recent trades
@@ -122,7 +122,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="period">["<c>time</c>"] The period to get trades for</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampTrade[]>> GetTradesAsync(string symbol, Period? period = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampTrade[]>> GetTradesAsync(string symbol, Period? period = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get Euro / USD conversion rate
@@ -134,7 +134,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampConversionRate>> GetEurUsdConversionRateAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampConversionRate>> GetEurUsdConversionRateAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get current funding rate info
@@ -147,7 +147,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD-PERP`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate history
@@ -163,7 +163,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="endTime">["<c>until_timestamp</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampFundingRateHistory[]>> GetFundingRateHistoryAsync(
+        Task<HttpResult<BitstampFundingRateHistory[]>> GetFundingRateHistoryAsync(
             string symbol,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -180,7 +180,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampMarginTiers[]>> GetMarginTiersAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampMarginTiers[]>> GetMarginTiersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get collateral assets
@@ -192,7 +192,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCollateralAsset[]>> GetCollateralAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampCollateralAsset[]>> GetCollateralAssetsAsync(CancellationToken ct = default);
 
     }
 }

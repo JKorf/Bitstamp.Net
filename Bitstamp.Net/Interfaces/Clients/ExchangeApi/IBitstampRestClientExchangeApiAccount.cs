@@ -19,7 +19,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampAccountBalance[]>> GetAccountBalancesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampAccountBalance[]>> GetAccountBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get user account balance
@@ -32,7 +32,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="asset">["<c>asset</c>"] Asset name</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampAccountBalance>> GetAccountBalanceAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<BitstampAccountBalance>> GetAccountBalanceAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdraw fees
@@ -44,7 +44,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampWithdrawFee[]>> GetWithdrawFeesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampWithdrawFee[]>> GetWithdrawFeesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get withdraw fees
@@ -58,7 +58,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="asset">["<c>asset</c>"] Asset name</param>
         /// <param name="network">["<c>network</c>"] Network</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampWithdrawFee>> GetWithdrawFeesAsync(string asset, string? network = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampWithdrawFee>> GetWithdrawFeesAsync(string asset, string? network = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get trading fees
@@ -70,7 +70,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampTradingFees[]>> GetAllFeesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampTradingFees[]>> GetAllFeesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trading fees for a symbol
@@ -83,7 +83,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH/USD`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampTradingFees>> GetFeesAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitstampTradingFees>> GetFeesAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get user transaction history
@@ -101,7 +101,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="endTime">["<c>until_timestamp</c>"] Filter by end time</param>
         /// <param name="sinceId">["<c>since_id</c>"] Filter results since id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(
+        Task<HttpResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(
             SortOrder? sort = null,
             long? sinceId = null, 
             DateTime? startTime = null,
@@ -127,7 +127,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="endTime">["<c>until_timestamp</c>"] Filter by end time</param>
         /// <param name="sinceId">["<c>since_id</c>"] Filter results since id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(
+        Task<HttpResult<BitstampUserTransaction[]>> GetUserTransactionsAsync(
             string symbol,
             SortOrder? sort = null, 
             long? sinceId = null, 
@@ -147,7 +147,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampAccountSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampAccountSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get max tradable quantity for the parameters
@@ -169,7 +169,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="trailingDelta">["<c>trailing_delta</c>"] Trailing delta</param>
         /// <param name="additionalCollateral">["<c>additional_collateral</c>"] Additional collateral asset->quantity</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampMaxTradeQuantity>> GetMaxTradeQuantityAsync(
+        Task<HttpResult<BitstampMaxTradeQuantity>> GetMaxTradeQuantityAsync(
             string symbol,
             MarginMode marginMode,
             decimal leverage,
@@ -196,7 +196,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampWithdrawal[]>> GetWithdrawalsAsync(
+        Task<HttpResult<BitstampWithdrawal[]>> GetWithdrawalsAsync(
             string? id = null, 
             long? maxAge = null, 
             int? limit = null, 
@@ -231,7 +231,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="comment">["<c>comment</c>"]</param>
         /// <param name="intermediateBankRouting">["<c>intermed_routing_num_or_bic</c>"] Intermediary bank routing number / bic</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampWithdrawId>> WithdrawFiatAsync(
+        Task<HttpResult<BitstampWithdrawId>> WithdrawFiatAsync(
             decimal quantity,
             string asset,
             string name,
@@ -263,7 +263,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="id">["<c>id</c>"] Withdrawal id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCancelWithdrawResponse>> CancelWithdrawalAsync(string id, CancellationToken ct = default);
+        Task<HttpResult<BitstampCancelWithdrawResponse>> CancelWithdrawalAsync(string id, CancellationToken ct = default);
 
         /// <summary>
         /// Get fiat withdrawal status
@@ -276,7 +276,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="id">["<c>id</c>"] The withdrawal id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampFiatWithdrawalStatus>> GetFiatWithdrawalStatusAsync(string id, CancellationToken ct = default);
+        Task<HttpResult<BitstampFiatWithdrawalStatus>> GetFiatWithdrawalStatusAsync(string id, CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw crypto. Only non-thirdparty withdrawals supported atm
@@ -296,7 +296,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="transferId">["<c>transfer_id</c>"] Transfer id</param>
         /// <param name="beneficiaryThirdparty">["<c>beneficiary_thirdparty</c>"] If the address you are withdrawing to is in your name (regardless of if this is a hosted or unhosted wallet), this should be set to False. If you are withdrawing to a third party, set it to True.</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampWithdrawId>> WithdrawCryptoAsync(
+        Task<HttpResult<BitstampWithdrawId>> WithdrawCryptoAsync(
             string asset,
             decimal quantity,
             string address,
@@ -319,7 +319,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="asset">["<c>asset</c>"] The asset, for example `ETH`</param>
         /// <param name="network">["<c>network</c>"] Network</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampDepositAddress>> GetDepositAddressAsync(string asset, string? network = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampDepositAddress>> GetDepositAddressAsync(string asset, string? network = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get crypto transactions
@@ -336,7 +336,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCryptoTransactions>> GetCryptoTransactionsAsync(
+        Task<HttpResult<BitstampCryptoTransactions>> GetCryptoTransactionsAsync(
             bool? includeIous = null,
             DateTime? startTime = null, 
             DateTime? endTime = null,
@@ -359,7 +359,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampCryptoDeposit[]>> GetDepositsAsync(
+        Task<HttpResult<BitstampCryptoDeposit[]>> GetDepositsAsync(
             DepositStatus? status = null,
             DateTime? startTime = null, 
             DateTime? endTime = null, 
@@ -377,7 +377,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampMarginInfo>> GetMarginInfoAsync(CancellationToken ct = default);
+        Task<HttpResult<BitstampMarginInfo>> GetMarginInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get leverage settings
@@ -391,7 +391,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="marginMode">["<c>margin_mode</c>"] Margin mode</param>
         /// <param name="symbol">["<c>market</c>"] Symbol name</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampLeverageSetting[]>> GetLeverageSettingsAsync(MarginMode? marginMode = null, string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BitstampLeverageSetting[]>> GetLeverageSettingsAsync(MarginMode? marginMode = null, string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set leverage
@@ -406,7 +406,7 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="symbol">["<c>market</c>"] Symbol</param>
         /// <param name="leverage">["<c>leverage</c>"] Leverage setting</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitstampLeverageSetting>> SetLeverageAsync(MarginMode marginMode, string symbol, decimal leverage, CancellationToken ct = default);
+        Task<HttpResult<BitstampLeverageSetting>> SetLeverageAsync(MarginMode marginMode, string symbol, decimal leverage, CancellationToken ct = default);
 
     }
 }

@@ -14,16 +14,16 @@ namespace Bitstamp.Net.Objects.Sockets
         public BitstampQuery(SocketEventType type, string? channel, BitstampSocketAuthToken? token = null)
             : base(new BitstampSocketData<BitstampSubscriptionData>(type, channel == null ? null : new BitstampSubscriptionData(channel, token?.Token)), true)
         {
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitstampSocketData<T>>("query_" + channel, HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<BitstampSocketData<T>>("query_" + channel, HandleMessage);
         }
 
 
         public CallResult<BitstampSocketData<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitstampSocketData<T> message)
         {
             if (message.Event == SocketEventType.Error && message.Data is BitstampSubscriptionData subData)
-                return new CallResult<BitstampSocketData<T>>(new ServerError(subData.Code?.ToString() ?? string.Empty, new(ErrorType.Unknown, subData.Message)));
+                return CallResult.Fail<BitstampSocketData<T>>(new ServerError(subData.Code?.ToString() ?? string.Empty, new(ErrorType.Unknown, subData.Message)), originalData);
 
-            return new CallResult<BitstampSocketData<T>>(message, originalData, null);
+            return CallResult.Ok<BitstampSocketData<T>>(message, originalData);
         }
     }
 }

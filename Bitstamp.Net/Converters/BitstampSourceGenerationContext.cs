@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Bitstamp.Net.Objects.Models;
 using Bitstamp.Net.Objects.Models.Socket;
+using CryptoExchange.Net.Objects;
 
 namespace Bitstamp.Net.Converters
 {
@@ -65,6 +66,8 @@ namespace Bitstamp.Net.Converters
     [JsonSerializable(typeof(string))]
     [JsonSerializable(typeof(string[]))]
     [JsonSerializable(typeof(bool))]
+    [JsonSerializable(typeof(Parameters))]
+    [JsonSerializable(typeof(Parameters[]))]
     internal partial class BitstampSourceGenerationContext : JsonSerializerContext
     { }
 }

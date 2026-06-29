@@ -16,6 +16,12 @@ namespace Bitstamp.Net
     public static class BitstampExchange
     {
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitstampSourceGenerationContext>();
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.Number,
+            Bool = BoolSerialization.String,
+            DateTimes = DateTimeSerialization.MillisecondsNumber
+        };
 
         /// <summary>
         /// Platform metadata
@@ -27,7 +33,8 @@ namespace Bitstamp.Net
                 "https://www.bitstamp.com",
                 ["https://www.bitstamp.net/api/"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BitstampEnvironment.All
                 );
 
         /// <summary>
@@ -99,7 +106,7 @@ namespace Bitstamp.Net
         /// <summary>
         /// Rate limiter configuration for the Bitstamp API
         /// </summary>
-        public static BitstampRateLimiters RateLimiter { get; } = new BitstampRateLimiters();
+        public static BitstampRateLimiters RateLimiter { get; set; } = new BitstampRateLimiters();
     }
 
     /// <summary>
@@ -118,13 +125,19 @@ namespace Bitstamp.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal BitstampRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public BitstampRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             Rest = new RateLimitGate("Rest")
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/"), 400, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed))

@@ -24,21 +24,24 @@ namespace Bitstamp.Net.Objects.Sockets
         public async Task<CallResult<BitstampSocketAuthToken>> GenerateWebsocketKeyAsync()
         {
             if (ValidKeyExists())
-                return new CallResult<BitstampSocketAuthToken>(_lastKey!);
+                return CallResult<BitstampSocketAuthToken>.Ok(_lastKey!);
 
             await _semaphore.WaitAsync().ConfigureAwait(false);
             if (ValidKeyExists())
             {
                 _semaphore.Release();
-                return new CallResult<BitstampSocketAuthToken>(_lastKey!);
+                return CallResult<BitstampSocketAuthToken>.Ok(_lastKey!);
             }
 
             try
             {
                 var newKey = await ((BitstampRestClientExchangeApiAccount)_client.ExchangeApi.Account).GenerateWebsocketAuthTokenAsync().ConfigureAwait(false);
+                if (!newKey.Success)
+                    return CallResult<BitstampSocketAuthToken>.Fail(newKey.Error);
+
                 _lastKey = newKey.Data;
                 _lastKeyValidUntil = DateTime.UtcNow.AddSeconds((newKey.Data?.ValidSeconds ?? 0) - 10); // New key will be instant invalid if no valid response is returned
-                return newKey;
+                return CallResult.Ok(newKey.Data!);
             }
             finally
             {

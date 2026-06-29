@@ -36,8 +36,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public IBitstampRestClientExchangeApiTrading Trading { get; }
 
-        public BitstampRestClientExchangeApi(ILogger logger, HttpClient? httpClient, BitstampRestOptions options) :
-            base(logger, httpClient, options.Environment.RestBaseAddress, options, options.ApiOptions)
+        public BitstampRestClientExchangeApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BitstampRestOptions options) :
+            base(loggerFactory, BitstampExchange.Metadata.Id, httpClient, options.Environment.RestBaseAddress, options, options.ApiOptions)
         {
             RequestBodyFormat = RequestBodyFormat.FormData;
             RequestBodyEmptyContent = "";
@@ -62,21 +62,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public IBitstampRestClientExchangeApiShared SharedClient => this;
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
-            return await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            return await base.SendAsync<T>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
         }
 
-
-        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
-            => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        internal async Task<HttpResult> SendAsync(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            return await base.SendAsync(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            return await base.SendAsync<Unit>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
         }
     }
 }

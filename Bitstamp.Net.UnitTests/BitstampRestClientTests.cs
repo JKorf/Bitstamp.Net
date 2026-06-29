@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Bitstamp.Net;
 using Bitstamp.Net.Clients;
+using System.Data.Common;
+using CryptoExchange.Net.Objects;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -28,12 +30,11 @@ namespace Bitstamp.Net.UnitTests
                     return headers["X-Auth-Signature"].ToString();
                 },
                 "6DCA01A0817446CBC44CD792EF743262A7342A15C2DF805BC89D30DBE099EEFA",
-                new Dictionary<string, object>
+                new Parameters(BitstampExchange._parameterSerializationSettings)
                 {
                     { "side", 0 },
                 },
                 DateTimeConverter.ParseFromDouble(1499827319559),
-                true,
                 false);
         }
 

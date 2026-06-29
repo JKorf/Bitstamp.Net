@@ -47,7 +47,7 @@ namespace Bitstamp.Net.Clients
             })));
             _keyGenerator = new BitstampSocketKeyGenerator(_restClient);
 
-            ExchangeApi = AddApiClient(new BitstampSocketClientExchangeApi(_logger, options.Value, _keyGenerator));
+            ExchangeApi = AddApiClient(new BitstampSocketClientExchangeApi(loggerFactory, options.Value, _keyGenerator));
         }
         #endregion
 

@@ -61,13 +61,13 @@ namespace Bitstamp.Net.SymbolOrderBooks
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
             var subResult = await _socketClient.ExchangeApi.SubscribeToFullOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
-            if (!subResult)
-                return subResult;
+            if (!subResult.Success)
+                return CallResult.Fail<UpdateSubscription>(subResult.Error);
 
             if (ct.IsCancellationRequested)
             {
                 await subResult.Data.CloseAsync().ConfigureAwait(false);
-                return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
             }
 
             Status = OrderBookStatus.Syncing;
@@ -76,14 +76,14 @@ namespace Bitstamp.Net.SymbolOrderBooks
             await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(2000), ct).ConfigureAwait(false);
 
             var bookResult = await _restClient.ExchangeApi.ExchangeData.GetOrderBookAsync(Symbol).ConfigureAwait(false);
-            if (!bookResult)
+            if (!bookResult.Success)
             {
                 await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                return new CallResult<UpdateSubscription>(bookResult.Error!);
+                return CallResult.Fail<UpdateSubscription>(bookResult.Error!);
             }
 
             SetSnapshot(bookResult.Data.Timestamp.Ticks, bookResult.Data.Bids, bookResult.Data.Asks);            
-            return new CallResult<UpdateSubscription>(subResult.Data);
+            return CallResult<UpdateSubscription>.Ok(subResult.Data);
         }
 
         private void HandleUpdate(DataEvent<BitstampOrderBookUpdate> @event)
@@ -92,17 +92,17 @@ namespace Bitstamp.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             // Wait 1000ms until the first update has been received
             await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(2000), ct).ConfigureAwait(false);
 
             var bookResult = await _restClient.ExchangeApi.ExchangeData.GetOrderBookAsync(Symbol).ConfigureAwait(false);
-            if (!bookResult)
-                return new CallResult<bool>(bookResult.Error!);
+            if (!bookResult.Success)
+                return CallResult.Fail<bool>(bookResult.Error!);
 
             SetSnapshot(bookResult.Data.Timestamp.Ticks, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<bool>(true);
+            return CallResult.Ok();
         }
 
         /// <inheritdoc />

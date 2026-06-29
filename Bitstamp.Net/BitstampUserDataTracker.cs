@@ -18,7 +18,6 @@ namespace Bitstamp.Net
             SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.ExchangeApi.SharedClient,
-                null,
                 restClient.ExchangeApi.SharedClient,
                 null,
                 restClient.ExchangeApi.SharedClient,
@@ -45,7 +44,6 @@ namespace Bitstamp.Net
             string? userIdentifier,
             FuturesUserDataTrackerConfig? config) : base(logger,
                 restClient.ExchangeApi.SharedClient,
-                null,
                 restClient.ExchangeApi.SharedClient,
                 null,
                 restClient.ExchangeApi.SharedClient,
