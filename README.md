@@ -89,6 +89,8 @@ For AI coding assistants and quick onboarding:
 * [`docs/ai-api-map.md`](docs/ai-api-map.md) maps common intents to client members
 * [`Examples/ai-friendly`](Examples/ai-friendly) contains compact examples that are compiled by the test suite
 
+See [cryptoexchange-skills-hub](https://github.com/JKorf/cryptoexchange-skills-hub) for installable skills.
+
 ## CryptoExchange.Net
 Bitstamp.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
@@ -205,38 +207,3 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Added setter to BitstampExchange.RateLimiter to allow custom rate limit settings
     * Various small performance improvements
     * Fixed websocket connection attempts counting towards rate limit even when server could not be reached
-
-* Version 1.3.0 - 08 Jun 2026
-    * Updated CryptoExchange.Net to version 11.2.2
-    * Fixed socket reconnection handling
-    * Fixed user client provider not caching new client when previous client was disposed
-
-* Version 1.2.0 - 26 May 2026
-    * Updated CryptoExchange.Net to version 11.2.0
-
-* Version 1.1.2 - 09 Apr 2026
-    * Updated CryptoExchange.Net to version 11.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Fixed authentication check in RevitalizeRequestAsync method
-
-* Version 1.1.1 - 24 Mar 2026
-    * Fix issue in credentials copying
-
-* Version 1.1.0 - 24 Mar 2026
-    * Updated CryptoExchange.Net to version 11.0.1, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Updated class for supplying API credentials from ApiCredentials to BitstampCredentials
-    * Updated Shared order status parsing to default to Unknown value if not parsable
-
-    * Notes for updating:
-        * Update ApiCredentials to BitstampCredentials for authentication, i.e. `ApiCredentials = new ApiCredentials(..)` => `ApiCredentials = new BitstampCredentials(..)`
-
-* Version 1.0.2 - 09 Mar 2026
-    * Fixed deserialization error for certain error responses
-    * Updated xml comments to include json fields
-
-* Version 1.0.1 - 06 Mar 2026
-    * Fixed CryptoExchange.Net reference
-    * Fixed Shared symbol enabled status
-
-* Version 1.0.0 - 06 Mar 2026
-    * Initial release
-
