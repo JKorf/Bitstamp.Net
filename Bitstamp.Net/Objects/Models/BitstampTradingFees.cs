@@ -10,6 +10,11 @@ namespace Bitstamp.Net.Objects.Models
     public record BitstampTradingFees
     {
         /// <summary>
+        /// ["<c>market</c>"] Market
+        /// </summary>
+        [JsonPropertyName("market")]
+        public string Market { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>currency_pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("currency_pair")]
