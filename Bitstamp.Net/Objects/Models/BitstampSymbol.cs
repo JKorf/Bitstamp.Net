@@ -103,5 +103,20 @@ namespace Bitstamp.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("isin")]
         public string? Isin { get; set; }
+        /// <summary>
+        /// ["<c>max_leverage</c>"] Max leverage
+        /// </summary>
+        [JsonPropertyName("max_leverage")]
+        public decimal? MaxLeverage { get; set; }
+        /// <summary>
+        /// ["<c>asset_class</c>"] Asset class
+        /// </summary>
+        [JsonPropertyName("asset_class")]
+        public AssetClass AssetClass { get; set; }
+        /// <summary>
+        /// ["<c>has_market_hours</c>"] Has market hours
+        /// </summary>
+        [JsonPropertyName("has_market_hours")]
+        public bool? HasMarketHours { get; set; }
     }
 }

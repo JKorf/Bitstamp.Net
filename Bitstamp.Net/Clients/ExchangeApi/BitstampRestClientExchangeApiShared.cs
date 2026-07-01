@@ -985,7 +985,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         MaxTradeQuantity = s.MaximumOrderQuantity,
                         PriceDecimals = s.QuoteDecimals,
                         QuantityDecimals = s.BaseDecimals,
-                        ContractSize = s.ContractSize
+                        ContractSize = s.ContractSize,
+                        MaxLongLeverage = s.MaxLeverage,
+                        MaxShortLeverage = s.MaxLeverage
                     }).ToArray());
 
             ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, EnvironmentName, null, response.Data!);
