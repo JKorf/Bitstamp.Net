@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bitstamp.Net.Clients;
 using Bitstamp.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
+using System.Collections.Generic;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -44,50 +45,60 @@ namespace Bitstamp.Net.UnitTests
         [Test]
         public async Task TestAccount()
         {
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAccountBalancesAsync(default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAccountBalanceAsync("usd", default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetWithdrawFeesAsync(default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetWithdrawFeesAsync("usdc", default, default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAllFeesAsync(default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetFeesAsync("ethusd", default), true);
+            var warnings = new List<Exception>();
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetAccountBalancesAsync(default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetAccountBalanceAsync("usd", default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetWithdrawFeesAsync(default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetWithdrawFeesAsync("usdc", default, default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetAllFeesAsync(default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetFeesAsync("ethusd", default), true);
+            // GetUserTransactionsAsync has custom converter
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetUserTransactionsAsync(default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetUserTransactionsAsync("ethusd", default, default, default, default, default, default, default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetSymbolsAsync(default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetWithdrawalsAsync(default, default, default, default, default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetDepositAddressAsync("usdc", default, default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetCryptoTransactionsAsync(default, default, default, default, default, default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetDepositsAsync(default, default, default, default, default, default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetSymbolsAsync(default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetWithdrawalsAsync(default, default, default, default, default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetDepositAddressAsync("usdc", default, default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetCryptoTransactionsAsync(default, default, default, default, default, default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Account.GetDepositsAsync(default, default, default, default, default, default), true);
             //await RunAndCheckResult(client => client.ExchangeApi.Account.GetMarginInfoAsync(default), true);
             //await RunAndCheckResult(client => client.ExchangeApi.Account.GetLeverageSettingsAsync(default, default, default), true);
+            foreach (var warning in warnings)
+                Assert.Warn(warning.Message);
         }
 
         [Test]
         public async Task TestExchangeData()
         {
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetSymbolsAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetAssetsAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetAllTickersAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetTickerAsync("ethusd", default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetHourTickerAsync("ethusd", default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetKlinesAsync("ethusd", Enums.KlineInterval.OneHour, default, default, default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetOrderBookAsync("ethusd", default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetTradesAsync("ethusd", default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetEurUsdConversionRateAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetFundingRateAsync("ethusd-perp", default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetFundingRateHistoryAsync("ethusd-perp", default, default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetMarginTiersAsync(default), false);
-            //await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetCollateralAssetsAsync(default), false);
+            var warnings = new List<Exception>();
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetSymbolsAsync(default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetAssetsAsync(default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetAllTickersAsync(default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetTickerAsync("ethusd", default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetHourTickerAsync("ethusd", default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetKlinesAsync("ethusd", Enums.KlineInterval.OneHour, default, default, default, default, default), false, "data.ohlc");
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetOrderBookAsync("ethusd", default), false, ignoreProperties: ["timestamp"]);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetTradesAsync("ethusd", default, default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetEurUsdConversionRateAsync(default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetFundingRateAsync("ethusd-perp", default), false);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetFundingRateHistoryAsync("ethusd-perp", default, default, default, default), false, "funding_rate_history");
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetMarginTiersAsync(default), false);
+            //await RunAndCheckResult(warnings, client => client.ExchangeApi.ExchangeData.GetCollateralAssetsAsync(default), false);
+            foreach (var warning in warnings)
+                Assert.Warn(warning.Message);
         }
 
         [Test]
         public async Task TestTrading()
         {
-            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetOrderHistoryAsync(Enums.OrderSource.Orderbook, "ETH/USD", default, default, default), true);
-            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetOpenOrdersAsync(default), true);
-            //await RunAndCheckResult(client => client.ExchangeApi.Trading.GetDerivativesUserTradesAsync(default, default, default, default, default, default, default), true);
-            //await RunAndCheckResult(client => client.ExchangeApi.Trading.GetOpenPositionsAsync(default), true);
-            //await RunAndCheckResult(client => client.ExchangeApi.Trading.GetPositionHistoryAsync(default, default, default, default, default), true);
-            //await RunAndCheckResult(client => client.ExchangeApi.Trading.GetPositionSettlementTransactionsAsync(default, default, default, default, default, default, default), true);
+            var warnings = new List<Exception>();
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Trading.GetOrderHistoryAsync(Enums.OrderSource.Orderbook, "ETH/USD", default, default, default), true);
+            await RunAndCheckResult(warnings, client => client.ExchangeApi.Trading.GetOpenOrdersAsync(default), true);
+            //await RunAndCheckResult(warnings, client => client.ExchangeApi.Trading.GetDerivativesUserTradesAsync(default, default, default, default, default, default, default), true);
+            //await RunAndCheckResult(warnings, client => client.ExchangeApi.Trading.GetOpenPositionsAsync(default), true);
+            //await RunAndCheckResult(warnings, client => client.ExchangeApi.Trading.GetPositionHistoryAsync(default, default, default, default, default), true);
+            //await RunAndCheckResult(warnings, client => client.ExchangeApi.Trading.GetPositionSettlementTransactionsAsync(default, default, default, default, default, default, default), true);
+            foreach (var warning in warnings)
+                Assert.Warn(warning.Message);
         }
     }
 }
