@@ -106,7 +106,7 @@ namespace Bitstamp.Net.Objects.Models
         /// ["<c>pending_reason</c>"] Pending reason
         /// </summary>
         [JsonPropertyName("pending_reason")]
-        public DepositPendingReason PendingReason { get; set; }
+        public DepositPendingReason? PendingReason { get; set; }
         /// <summary>
         /// ["<c>destinationAddress</c>"] Destination address
         /// </summary>
