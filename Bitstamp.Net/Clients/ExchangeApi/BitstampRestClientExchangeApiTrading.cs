@@ -46,7 +46,6 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             {
                 { "price", price },
             };
-#warning test amount/price decimal or string
             parameters.Add("subtype", orderType);
             parameters.Add("amount", quantity);
             parameters.Add("limit_price", limitPrice);
