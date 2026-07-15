@@ -21,6 +21,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitstampExchange.Metadata, this);
 
+        private static HashSet<string> _exchangeSupportedFiat = ["EUR", "USD", "GBP", "SGD"];
+
         #region Kline client
 
         GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, false, true, true, 1000, false,
@@ -89,6 +91,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
         #region Spot Symbol client
 
+        SharedSymbolCatalog? ISpotSymbolRestClient.SpotSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_topicSpotId, EnvironmentName, null);
         GetSpotSymbolsOptions ISpotSymbolRestClient.GetSpotSymbolsOptions { get; } = new GetSpotSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedSpotSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
@@ -100,19 +103,52 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotSymbol[]>(result);
 
-            var response = HttpResult.Ok(result, result.Data.Where(x => x.MarketType == MarketType.Spot).Select(s => 
-                    new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.Status == EnabledStatus.Enabled)
-                    {
-                        MinTradeQuantity = s.MinimumOrderQuantity,
-                        MinNotionalValue = s.MinimumOrderValue,
-                        MaxTradeQuantity = s.MaximumOrderQuantity,
-                        PriceDecimals = s.QuoteDecimals,
-                        QuantityDecimals = s.BaseDecimals
-                    }).ToArray());
+            var data = result.Data
+                .Where(x => x.MarketType == MarketType.Spot)
+                .Select(x => ParseSymbol(x))
+                .ToArray();
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, response.Data!);
-            return response;
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
         }
+
+        private SharedSpotSymbol ParseSymbol(BitstampSymbol s) 
+        {
+            var result = new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.Status == EnabledStatus.Enabled)
+            {
+                MinTradeQuantity = s.MinimumOrderQuantity,
+                MinNotionalValue = s.MinimumOrderValue,
+                MaxTradeQuantity = s.MaximumOrderQuantity,
+                PriceDecimals = s.QuoteDecimals,
+                QuantityDecimals = s.BaseDecimals,
+                DisplayName = s.Name
+            };
+
+            if (_exchangeSupportedFiat.Contains(s.QuoteAsset))
+            {
+                result.QuoteAssetType = SharedAssetType.Fiat;
+            }
+            else
+            {
+                result.QuoteAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(s.QuoteAsset))
+                    result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            if (_exchangeSupportedFiat.Contains(s.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.Fiat;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(s.BaseAsset))
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            return result;
+        }
+
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
         {
             if (!ExchangeSymbolCache.HasCached(_topicSpotId, EnvironmentName, null))
@@ -961,6 +997,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
         #region Futures Symbol client
 
+        SharedSymbolCatalog? IFuturesSymbolRestClient.FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_topicFuturesId, EnvironmentName, null);
         GetFuturesSymbolsOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedFuturesSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
@@ -972,27 +1009,61 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (!result.Success)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(result);
 
-            var response = HttpResult.Ok(result, result.Data.Where(x => x.MarketType == MarketType.Perpetual).Select(s =>
-                    new SharedFuturesSymbol(
-                        TradingMode.PerpetualLinear, 
+            var data = result.Data
+                .Where(x => x.MarketType == MarketType.Perpetual)
+                .Select(x => ParseFuturesSymbol(x))
+                .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedFuturesSymbol ParseFuturesSymbol(BitstampSymbol s)
+        {
+            var result = new SharedFuturesSymbol(
+                        TradingMode.PerpetualLinear,
                         s.BaseAsset,
                         s.QuoteAsset,
                         s.Name,
                         s.Status == EnabledStatus.Enabled)
-                    {
-                        MinTradeQuantity = s.MinimumOrderQuantity,
-                        MinNotionalValue = s.MinimumOrderValue,
-                        MaxTradeQuantity = s.MaximumOrderQuantity,
-                        PriceDecimals = s.QuoteDecimals,
-                        QuantityDecimals = s.BaseDecimals,
-                        ContractSize = s.ContractSize,
-                        MaxLongLeverage = s.MaxLeverage,
-                        MaxShortLeverage = s.MaxLeverage
-                    }).ToArray());
+            {
+                MinTradeQuantity = s.MinimumOrderQuantity,
+                MinNotionalValue = s.MinimumOrderValue,
+                MaxTradeQuantity = s.MaximumOrderQuantity,
+                PriceDecimals = s.QuoteDecimals,
+                QuantityDecimals = s.BaseDecimals,
+                ContractSize = s.ContractSize,
+                MaxLongLeverage = s.MaxLeverage,
+                MaxShortLeverage = s.MaxLeverage,
+                DisplayName = s.Name,
+                QuoteAssetType = SharedAssetType.Fiat
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, EnvironmentName, null, response.Data!);
-            return response;
+            if (s.AssetClass == AssetClass.Etf)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Stock;
+            }
+            else if (s.AssetClass == AssetClass.Commodities 
+                || s.BaseAsset == "PAXG") // PAXG is pegged against gold, treat as a metal
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else if (s.AssetClass == AssetClass.Fx)
+            {
+                result.BaseAssetType = SharedAssetType.Fiat;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(s.BaseAsset))
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            return result;
         }
+
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
         {
             if (!ExchangeSymbolCache.HasCached(_topicFuturesId, EnvironmentName, null))
