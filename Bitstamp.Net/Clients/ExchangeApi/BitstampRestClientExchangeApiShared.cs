@@ -1042,7 +1042,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (s.AssetClass == AssetClass.Etf)
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
-                result.BaseAssetSubType = SharedAssetSubType.Stock;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
             }
             else if (s.AssetClass == AssetClass.Commodities 
                 || s.BaseAsset == "PAXG") // PAXG is pegged against gold, treat as a metal
