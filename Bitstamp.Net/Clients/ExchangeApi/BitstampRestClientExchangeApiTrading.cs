@@ -144,7 +144,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public Task<HttpResult<BitstampCancelAllOrderResponse>> CancelAllOrdersAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v2/cancel_all_order/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v2/cancel_all_orders/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
             return _baseClient.SendAsync<BitstampCancelAllOrderResponse>(request, null, ct);
         }
 
@@ -155,7 +155,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public Task<HttpResult<BitstampCancelAllOrderResponse>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, $"/api/v2/cancel_all_order/{BitstampExchange.SymbolToPathParameter(symbol)}/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, $"/api/v2/cancel_all_orders/{BitstampExchange.SymbolToPathParameter(symbol)}/", BitstampExchange.RateLimiter.Rest, 1, true, forcePathEndWithSlash: true);
             return _baseClient.SendAsync<BitstampCancelAllOrderResponse>(request, null, ct);
         }
 
