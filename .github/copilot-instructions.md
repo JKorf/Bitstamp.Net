@@ -39,6 +39,7 @@ There is no passphrase.
 - Check `result.Success` before reading `result.Data`.
 - Use `Account.GetAccountBalancesAsync()` for balances.
 - Use `Trading.PlaceLimitOrderAsync` and `Trading.PlaceMarketOrderAsync` for orders.
+- Shared spot/futures symbol requests support asset-type/subtype filters and return display names plus asset classification; successful requests populate `SpotSymbolCatalog` / `FuturesSymbolCatalog`.
 
 ## Frequent Endpoint Mapping
 

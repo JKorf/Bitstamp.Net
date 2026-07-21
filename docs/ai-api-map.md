@@ -97,11 +97,15 @@ Use SharedApis for exchange-agnostic code across Bitstamp.Net and other CryptoEx
 | Shared socket client | `new BitstampSocketClient().ExchangeApi.SharedClient` |
 | Discover shared capabilities | `client.ExchangeApi.SharedClient.Discover()` |
 | Shared spot symbols | `ISpotSymbolRestClient.GetSpotSymbolsAsync(new GetSymbolsRequest())` |
+| Cached spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` after a successful spot symbol request |
 | Shared spot ticker | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared futures symbols | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(new GetSymbolsRequest())` |
+| Cached futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` after a successful futures symbol request |
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
+
+`GetSymbolsRequest` can filter spot and futures symbols by base/quote asset type and subtype. Results include `DisplayName`, asset types (`Crypto`, `Fiat`, or `TradFi`), and applicable subtypes (`StableCoin`, `Equity`, or `Commodity`).
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 

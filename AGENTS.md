@@ -26,6 +26,8 @@ For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.Share
   - `restClient.ExchangeApi.SharedClient`
   - `socketClient.ExchangeApi.SharedClient`
 
+Shared spot and futures symbol requests support `GetSymbolsRequest` asset-type and subtype filters. Returned symbols include `DisplayName` plus `Crypto`, `Fiat`, or `TradFi` asset classification and applicable `StableCoin`, `Equity`, or `Commodity` subtypes. After a successful symbol request, use `ISpotSymbolRestClient.SpotSymbolCatalog` or `IFuturesSymbolRestClient.FuturesSymbolCatalog` for the cached catalog.
+
 Do not invent Binance/Bitget-style roots such as `SpotApi`, `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, `CoinFuturesApi`, or `PerpetualFuturesApi`. Bitstamp.Net exposes a single `ExchangeApi` root.
 
 ## Credentials And Options

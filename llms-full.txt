@@ -6,8 +6,8 @@ This file is optimized for AI coding assistants. It maps the actual Bitstamp.Net
 
 - Repository: `JKorf/Bitstamp.Net`
 - Package: `Bitstamp.Net`
-- Current project version: `1.1.2`
-- Base library: `CryptoExchange.Net`
+- Current project version: `2.2.0`
+- Base library: `CryptoExchange.Net` `12.2.0`
 - REST client: `BitstampRestClient`
 - Socket client: `BitstampSocketClient`
 - Credentials: `BitstampCredentials(string key, string secret)`
@@ -233,6 +233,8 @@ Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supporte
 ```
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers, such as symbol support checks, return `ExchangeCallResult<T>`.
+
+`ISpotSymbolRestClient.GetSpotSymbolsAsync` and `IFuturesSymbolRestClient.GetFuturesSymbolsAsync` apply the asset-type and subtype filters in `GetSymbolsRequest`. Returned symbols include `DisplayName`, asset types (`Crypto`, `Fiat`, or `TradFi`), and applicable subtypes (`StableCoin`, `Equity`, or `Commodity`). A successful request also populates `ISpotSymbolRestClient.SpotSymbolCatalog` or `IFuturesSymbolRestClient.FuturesSymbolCatalog`; the catalog is unavailable before its corresponding symbol request.
 
 ## Local State Helpers
 
