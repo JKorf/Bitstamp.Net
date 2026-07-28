@@ -11,7 +11,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
     {
         private const string _exchangeName = "Bitstamp";
 
-        public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
+        public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot, TradingMode.PerpetualLinear };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -31,7 +31,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 if (update.UpdateType == SocketUpdateType.Snapshot)
                     return;
 
-                handler(update.ToType<SharedTrade[]>([new SharedTrade(request.Symbol, update.Symbol!, update.Data.Quantity, update.Data.Price, update.Data.Timestamp)
+                handler(update.ToType<SharedTrade[]>([new SharedTrade(request.Symbol, update.Symbol!, new SharedOrderQuantity(update.Data.Quantity), update.Data.Price, update.Data.Timestamp)
                 {
                     Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
                 }

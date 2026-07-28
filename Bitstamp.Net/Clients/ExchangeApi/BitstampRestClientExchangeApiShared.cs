@@ -83,7 +83,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                            x.HighPrice,
                            x.LowPrice,
                            x.OpenPrice,
-                           x.Volume))
+                           new SharedOrderQuantity(x.Volume)))
                    .ToArray(), nextPageRequest);
         }
 
@@ -209,10 +209,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                     result.Data.LastPrice,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
-                    result.Data.Volume,
+                    new SharedOrderQuantity(result.Data.Volume, result.Data.Vwap * result.Data.Volume),
                     result.Data.PercentageChange24Hrs)
             {
-                QuoteVolume = result.Data.Vwap * result.Data.Volume
             });
         }
 
@@ -234,10 +233,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                     x.LastPrice,
                     x.HighPrice,
                     x.LowPrice,
-                    x.Volume,
+                    new SharedOrderQuantity(x.Volume, x.Vwap * x.Volume),
                     x.PercentageChange24Hrs)
             {
-                QuoteVolume = x.Vwap * x.Volume
             }).ToArray());
         }
 
@@ -287,7 +285,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Take(request.Limit ?? 1000).Select(x =>
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray());
@@ -325,12 +323,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
                 var resultList = new List<SharedBalance>();
                 foreach (var item in result.Data.Assets)
+                {
                     resultList.Add(
                         new SharedBalance(
                             SupportedFuturesTradingModes,
                             item.Asset,
                             item.Available,
-                            item.TotalQuantity));                
+                            item.TotalQuantity));
+                }
 
                 return HttpResult.Ok(result, resultList.ToArray());
             }
@@ -1124,7 +1124,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                     result.Data.LastPrice,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
-                    result.Data.Volume,
+                    new SharedOrderQuantity(result.Data.Volume, result.Data.Vwap * result.Data.Volume),
                     result.Data.PercentageChange24Hrs)
                 {
                     MarkPrice = result.Data.MarkPrice,
@@ -1150,7 +1150,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                     x.LastPrice,
                     x.HighPrice,
                     x.LowPrice,
-                    x.Volume,
+                    new SharedOrderQuantity(x.Volume, x.Vwap * x.Volume),
                     x.PercentageChange24Hrs)
                 {
                     MarkPrice = x.MarkPrice,
