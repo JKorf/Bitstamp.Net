@@ -259,9 +259,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 request.Symbol,
                 symbol,
                 resultTicker.Data.Asks[0].Price,
-                resultTicker.Data.Asks[0].Quantity,
+                new SharedOrderQuantity(resultTicker.Data.Asks[0].Quantity),
                 resultTicker.Data.Bids[0].Price,
-                resultTicker.Data.Bids[0].Quantity));
+                new SharedOrderQuantity(resultTicker.Data.Bids[0].Quantity)));
         }
 
         #endregion
@@ -545,7 +545,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 orders.Data.Id.ToString(),
                 x.TradeId.ToString(),
                 orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantities.TryGetValue(request.Symbol!.BaseAsset, out var quantity) ? quantity: 0,
+                new SharedOrderQuantity(x.Quantities.TryGetValue(request.Symbol!.BaseAsset, out var quantity) ? quantity: 0),
                 x.Price,
                 x.Timestamp)
             {
@@ -594,7 +594,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         x.OrderId!.ToString()!,
                         x.Id.ToString(),
                         GetSide(request.Symbol, x),
-                        GetSide(request.Symbol, x) == SharedOrderSide.Buy ? x.ReceivedQuantity : Math.Abs(x.SentQuantity),
+                        GetSide(request.Symbol, x) == SharedOrderSide.Buy ? new SharedOrderQuantity(x.ReceivedQuantity) : new SharedOrderQuantity(Math.Abs(x.SentQuantity)),
                         x.Price,
                         x.Timestamp)
                     {
@@ -841,7 +841,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, result.Data.Asks, result.Data.Bids));
         }
         #endregion
 
@@ -1224,7 +1224,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOpenInterest>(result);
 
-            return HttpResult.Ok(result, new SharedOpenInterest(result.Data.OpenInterest ?? 0));
+            return HttpResult.Ok(result, new SharedOpenInterest(new SharedOrderQuantity(result.Data.OpenInterest ?? 0)));
         }
 
         #endregion
@@ -1275,7 +1275,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                             x.QuantityDelta >= 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
                             x.EntryPrice,
                             x.ExitPrice,
-                            x.QuantityDelta,
+                            new SharedOrderQuantity(x.QuantityDelta),
                             x.RealizedPnl,
                             x.CloseTime)
                         {
@@ -1492,7 +1492,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 orders.Data.Id.ToString(),
                 x.TradeId.ToString(),
                 orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantities.TryGetValue(request.Symbol!.BaseAsset, out var quantity) ? quantity : 0,
+                new SharedOrderQuantity(x.Quantities.TryGetValue(request.Symbol!.BaseAsset, out var quantity) ? quantity : 0),
                 x.Price,
                 x.Timestamp)
             {
@@ -1540,7 +1540,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         x.OrderId!.ToString()!,
                         x.TradeId.ToString(),
                         x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        x.Quantity,
+                        new SharedOrderQuantity(x.Quantity),
                         x.Price,
                         x.Timestamp)
                     {
@@ -1587,7 +1587,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                     new SharedPosition(
                         ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
-                        Math.Abs(x.Quantity),
+                        new SharedOrderQuantity(Math.Abs(x.Quantity)),
                         default)
             {
                 UnrealizedPnl = x.UnrealizedPnl,

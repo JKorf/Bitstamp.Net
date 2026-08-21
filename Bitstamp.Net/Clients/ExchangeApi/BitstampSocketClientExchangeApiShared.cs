@@ -52,7 +52,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             var result = await SubscribeToOrderBookSnapshotUpdatesAsync(
                 request.Symbol!.GetSymbol(FormatSymbol),
-                update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+                update => handler(update.ToType(new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
