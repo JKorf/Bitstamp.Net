@@ -6,8 +6,8 @@ This file is optimized for AI coding assistants. It maps the actual Bitstamp.Net
 
 - Repository: `JKorf/Bitstamp.Net`
 - Package: `Bitstamp.Net`
-- Current project version: `2.3.0`
-- Base library: `CryptoExchange.Net` `12.2.0`
+- Current project version: `2.4.0`
+- Base library: `CryptoExchange.Net` `12.5.0`
 - REST client: `BitstampRestClient`
 - Socket client: `BitstampSocketClient`
 - Credentials: `BitstampCredentials(string key, string secret)`
