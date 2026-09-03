@@ -1,13 +1,14 @@
+using Bitstamp.Net;
+using Bitstamp.Net.Clients;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Testing;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Net.Http;
-using Bitstamp.Net;
-using Bitstamp.Net.Clients;
 using System.Data.Common;
-using CryptoExchange.Net.Objects;
+using System.Net.Http;
 
 namespace Bitstamp.Net.UnitTests
 {
@@ -43,6 +44,25 @@ namespace Bitstamp.Net.UnitTests
         {
             CryptoExchange.Net.Testing.TestHelpers.CheckForMissingRestInterfaces<BitstampRestClient>();
             CryptoExchange.Net.Testing.TestHelpers.CheckForMissingSocketInterfaces<BitstampSocketClient>();
+        }
+
+
+        [Test]
+        public void TestRestSharedApiDiscoveryMatchesAggregate()
+        {
+            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new BitstampRestClient().ExchangeApi.SharedApi);
+
+            Assert.That(missingOptions, Is.Empty);
+            Assert.That(missingInterfaces, Is.Empty);
+        }
+
+        [Test]
+        public void TestSocketSharedApiDiscoveryMatchesAggregate()
+        {
+            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new BitstampSocketClient().ExchangeApi.SharedApi);
+
+            Assert.That(missingOptions, Is.Empty);
+            Assert.That(missingInterfaces, Is.Empty);
         }
     }
 }

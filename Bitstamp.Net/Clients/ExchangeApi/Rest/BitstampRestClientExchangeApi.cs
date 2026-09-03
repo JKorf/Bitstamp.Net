@@ -17,16 +17,12 @@ namespace Bitstamp.Net.Clients.ExchangeApi
     internal partial class BitstampRestClientExchangeApi : RestApiClient<BitstampEnvironment, BitstampAuthenticationProvider, BitstampCredentials>, IBitstampRestClientExchangeApi
     {
         #region fields
-        /// <inheritdoc />
-        public new BitstampRestOptions ClientOptions => (BitstampRestOptions)base.ClientOptions;
+        private readonly BitstampRestClientExchangeSharedApi _sharedApi;
 
         protected override ErrorMapping ErrorMapping { get; } = BitstampErrors.RestErrorMapping;
 
         protected override IRestMessageHandler MessageHandler { get; } = new BitstampRestMessageHandler(BitstampErrors.RestErrorMapping);
         #endregion
-
-        /// <inheritdoc />
-        public string ExchangeName => "Bitstamp";
 
 
         /// <inheritdoc />
@@ -47,6 +43,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             Account = new BitstampRestClientExchangeApiAccount(this);
             ExchangeData = new BitstampRestClientExchangeApiExchangeData(this);
             Trading = new BitstampRestClientExchangeApiTrading(this);
+
+            _sharedApi = new BitstampRestClientExchangeSharedApi(this);
         }
 
         protected override IMessageSerializer CreateSerializer()
@@ -60,7 +58,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 => BitstampExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        public IBitstampRestClientExchangeApiShared SharedClient => this;
+        public IBitstampRestClientExchangeApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IBitstampRestClientExchangeSharedApi SharedApi => _sharedApi;
 
         internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {

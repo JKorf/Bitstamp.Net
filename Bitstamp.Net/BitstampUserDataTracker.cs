@@ -1,4 +1,5 @@
 ﻿using Bitstamp.Net.Interfaces.Clients;
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Trackers.UserData;
 using CryptoExchange.Net.Trackers.UserData.Objects;
 using Microsoft.Extensions.Logging;
@@ -17,11 +18,15 @@ namespace Bitstamp.Net
             string? userIdentifier,
             SpotUserDataTrackerConfig? config) : base(
                 logger,
-                restClient.ExchangeApi.SharedClient,
-                restClient.ExchangeApi.SharedClient,
+                restClient.ExchangeApi.SharedApi,
+                restClient.ExchangeApi.SharedApi,
                 null,
-                restClient.ExchangeApi.SharedClient,
+
+                restClient.ExchangeApi.SharedApi,
+                restClient.ExchangeApi.SharedApi,
                 null,
+
+                restClient.ExchangeApi.SharedApi,
                 null,
                 userIdentifier,
                 config ?? new SpotUserDataTrackerConfig())
@@ -43,12 +48,18 @@ namespace Bitstamp.Net
             IBitstampRestClient restClient,
             string? userIdentifier,
             FuturesUserDataTrackerConfig? config) : base(logger,
-                restClient.ExchangeApi.SharedClient,
-                restClient.ExchangeApi.SharedClient,
+                restClient.ExchangeApi.SharedApi,
+                restClient.ExchangeApi.SharedApi,
                 null,
-                restClient.ExchangeApi.SharedClient,
+
+                restClient.ExchangeApi.SharedApi,
+                restClient.ExchangeApi.SharedApi,
                 null,
+
+                restClient.ExchangeApi.SharedApi,
                 null,
+
+                restClient.ExchangeApi.SharedApi,
                 null,
                 userIdentifier,
                 config ?? new FuturesUserDataTrackerConfig())

@@ -27,8 +27,14 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         IBitstampRestClientExchangeApiTrading Trading { get; }
 
         /// <summary>
-        /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// [V1] Get the shared rest requests client. For new implementations prefer using <see cref="SharedApi"/>
         /// </summary>
         IBitstampRestClientExchangeApiShared SharedClient { get; }
+        /// <summary>
+        /// [V2] Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        IBitstampRestClientExchangeSharedApi SharedApi { get; }
     }
 }
