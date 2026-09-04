@@ -10,8 +10,12 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampRestClientExchangeSharedApi
     {
-        #region Balance client
+        #region Get Balances
+
         public GetBalancesOptions GetBalancesOptions { get; } = new GetBalancesOptions(_exchangeName, AccountTypeFilter.Spot, AccountTypeFilter.Margin);
+
+        async Task<ICallResult<SharedBalance[]>> IGetBalances.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
+            => await GetBalancesAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedBalance[]>> GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
@@ -54,5 +58,6 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

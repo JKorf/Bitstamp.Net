@@ -10,8 +10,12 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampRestClientExchangeSharedApi
     {
-        #region Funding Rate client
+        #region Get Funding Rate History
+
         public GetFundingRateHistoryOptions GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(_exchangeName, false, true, true, 1000, false);
+
+        async Task<ICallResult<SharedFundingRate[]>> IGetFundingRateHistory.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetFundingRateHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedFundingRate[]>> GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -48,6 +52,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         new SharedFundingRate(x.FundingRate, x.Timestamp))
                     .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

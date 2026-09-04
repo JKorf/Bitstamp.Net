@@ -10,7 +10,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampRestClientExchangeSharedApi
     {
-        #region Kline client
+        #region Get Klines
 
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, false, true, true, 1000, false,
             SharedKlineInterval.OneMinute,
@@ -26,6 +26,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             SharedKlineInterval.OneDay)
         {
         };
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedKline[]>> GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -75,5 +78,6 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

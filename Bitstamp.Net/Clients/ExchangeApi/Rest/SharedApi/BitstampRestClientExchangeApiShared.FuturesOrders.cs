@@ -10,7 +10,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampRestClientExchangeSharedApi
     {
-        #region Futures Order client
+        #region Place Futures Order
 
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, false);
 
@@ -24,6 +24,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 SharedQuantityType.BaseAsset,
                 SharedQuantityType.BaseAsset,
                 SharedQuantityType.BaseAsset);
+
+        async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
+            => await PlaceFuturesOrderAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedId>> PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
@@ -73,7 +76,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             }
         }
 
+        #endregion
+
+        #region Get Futures Order
+
         public GetFuturesOrderOptions GetFuturesOrderOptions { get; } = new GetFuturesOrderOptions(_exchangeName, true);
+        async Task<ICallResult<SharedFuturesOrder>> IGetFuturesOrder.GetFuturesOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetFuturesOrderAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedFuturesOrder>> GetFuturesOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
             var validationError = GetFuturesOrderOptions.ValidateRequest(request, this);
@@ -109,7 +119,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 });
         }
 
+        #endregion
+
+        #region Get Open Futures Orders
+
         public GetOpenFuturesOrdersOptions GetOpenFuturesOrdersOptions { get; } = new GetOpenFuturesOrdersOptions(_exchangeName, true);
+        async Task<ICallResult<SharedFuturesOrder[]>> IGetOpenFuturesOrders.GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
+            => await GetOpenFuturesOrdersAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedFuturesOrder[]>> GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
         {
             var validationError = GetOpenFuturesOrdersOptions.ValidateRequest(request, this);
@@ -144,7 +161,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 }).ToArray());
         }
 
+        #endregion
+
+        #region Get Closed Futures Orders
+
         public GetFuturesClosedOrdersOptions GetClosedFuturesOrdersOptions { get; } = new GetFuturesClosedOrdersOptions(_exchangeName, true, true, false, 500);
+        async Task<ICallResult<SharedFuturesOrder[]>> IGetClosedFuturesOrders.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetClosedFuturesOrdersAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedFuturesOrder[]>> GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = GetClosedFuturesOrdersOptions.ValidateRequest(request, this);
@@ -196,7 +220,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                     .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
+        #region Get Futures Order Trades
+
         public GetFuturesOrderTradesOptions GetFuturesOrderTradesOptions { get; } = new GetFuturesOrderTradesOptions(_exchangeName, true);
+        async Task<ICallResult<SharedUserTrade[]>> IGetFuturesOrderTrades.GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
+            => await GetFuturesOrderTradesAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedUserTrade[]>> GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
             var validationError = GetFuturesOrderTradesOptions.ValidateRequest(request, this);
@@ -225,11 +256,18 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             })?.ToArray() ?? []);
         }
 
+        #endregion
+
+        #region Get Futures User Trade History
+
         Task<HttpResult<SharedUserTrade[]>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, PageRequest? nextPageToken, CancellationToken ct)
             => GetFuturesUserTradeHistoryAsync(request, nextPageToken, ct);
         GetFuturesUserTradeHistoryOptions IFuturesOrderRestClient.GetFuturesUserTradesOptions => GetFuturesUserTradeHistoryOptions;
 
         public GetFuturesUserTradeHistoryOptions GetFuturesUserTradeHistoryOptions { get; } = new GetFuturesUserTradeHistoryOptions(_exchangeName, false, true, true, 1000);
+        async Task<ICallResult<SharedUserTrade[]>> IGetFuturesUserTradeHistory.GetFuturesUserTradeHistoryAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetFuturesUserTradeHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedUserTrade[]>> GetFuturesUserTradeHistoryAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = GetFuturesUserTradeHistoryOptions.ValidateRequest(request, this);
@@ -278,7 +316,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                     .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
+        #region Cancel Futures Order
+
         public CancelFuturesOrderOptions CancelFuturesOrderOptions { get; } = new CancelFuturesOrderOptions(_exchangeName, true);
+        async Task<ICallResult<SharedId>> ICancelFuturesOrder.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesOrderAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedId>> CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
             var validationError = CancelFuturesOrderOptions.ValidateRequest(request, this);
@@ -295,7 +340,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             return HttpResult.Ok(order, new SharedId(order.Data.Id.ToString()));
         }
 
+        #endregion
+
+        #region Get Positions
+
         public GetPositionsOptions GetPositionsOptions { get; } = new GetPositionsOptions(_exchangeName, true);
+        async Task<ICallResult<SharedPosition[]>> IGetPositions.GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
+            => await GetPositionsAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedPosition[]>> GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
         {
             var validationError = GetPositionsOptions.ValidateRequest(request, this);
@@ -327,6 +379,10 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             }).ToArray());
         }
 
+        #endregion
+
+        #region Close Position
+
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
             RequiredRequestParameters = new List<ParameterDescription>
@@ -335,6 +391,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 new ParameterDescription(nameof(ClosePositionRequest.Quantity), typeof(decimal), "Quantity of the position is required", 0.1m)
             }
         };
+        async Task<ICallResult<SharedId>> IClosePosition.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
+            => await ClosePositionAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedId>> ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {
             var validationError = ClosePositionOptions.ValidateRequest(request, this);
@@ -352,6 +411,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             var id = result.Data.Closed.FirstOrDefault()?.Id ?? result.Data.Failed.FirstOrDefault()?.Id;
             return HttpResult.Ok(result, new SharedId(id?.ToString() ?? string.Empty));
         }
+
         #endregion
     }
 }

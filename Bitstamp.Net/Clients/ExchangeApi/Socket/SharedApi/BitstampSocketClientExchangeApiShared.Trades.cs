@@ -9,7 +9,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampSocketClientExchangeSharedApi
     {
-        #region Trade client
+        #region Subscribe To Trade Updates
 
         public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<DataEvent<SharedTrade[]>> handler, CancellationToken ct)
@@ -32,6 +32,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return result;
         }
+
         #endregion
     }
 }

@@ -10,8 +10,12 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampRestClientExchangeSharedApi
     {
-        #region Fee Client
+        #region Get Fees
+
         public GetFeeOptions GetFeeOptions { get; } = new GetFeeOptions(_exchangeName, true);
+
+        async Task<ICallResult<SharedFee>> IGetFees.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
+            => await GetFeesAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedFee>> GetFeesAsync(GetFeeRequest request, CancellationToken ct)
         {
@@ -27,6 +31,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             // Return
             return HttpResult.Ok(result, new SharedFee(result.Data.Fees.MakerFee, result.Data.Fees.TakerFee));
         }
+
         #endregion
     }
 }

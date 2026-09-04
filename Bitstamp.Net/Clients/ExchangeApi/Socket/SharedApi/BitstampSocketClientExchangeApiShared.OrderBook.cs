@@ -9,7 +9,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampSocketClientExchangeSharedApi
     {
-        #region Order Book client
+        #region Subscribe To Order Book Updates
+
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, [100]);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
@@ -23,6 +24,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
             return result;
         }
+
         #endregion
     }
 }

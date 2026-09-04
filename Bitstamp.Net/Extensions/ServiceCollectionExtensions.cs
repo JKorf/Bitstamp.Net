@@ -1,4 +1,4 @@
-﻿using Bitstamp.Net;
+using Bitstamp.Net;
 using Bitstamp.Net.Clients;
 using Bitstamp.Net.Interfaces;
 using Bitstamp.Net.Interfaces.Clients;
@@ -114,6 +114,11 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<ILoggerFactory>(),
                 x.GetRequiredService<IOptions<BitstampRestOptions>>(),
                 x.GetRequiredService<IOptions<BitstampSocketOptions>>()));
+
+            services.AddTransient<IBitstampSharedApiClient, BitstampSharedApiClient>();
+
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitstampRestClient>().ExchangeApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitstampSocketClient>().ExchangeApi.SharedApi);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitstampRestClient>().ExchangeApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitstampSocketClient>().ExchangeApi.SharedClient);

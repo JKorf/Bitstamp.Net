@@ -10,7 +10,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 {
     internal partial class BitstampRestClientExchangeSharedApi
     {
-        #region Position History client
+        #region Get Position History
 
         public GetPositionHistoryOptions GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(_exchangeName, false, true, false, 1000)
         {
@@ -19,6 +19,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 new ParameterDescription(nameof(GetPositionHistoryRequest.Symbol), typeof(SharedSymbol), "The symbol to get position history for", "ETH-USDT")
             }
         };
+        async Task<ICallResult<SharedPositionHistory[]>> IGetPositionHistory.GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetPositionHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedPositionHistory[]>> GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = GetPositionHistoryOptions.ValidateRequest(request, this);
@@ -65,6 +68,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                         })
                     .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }
