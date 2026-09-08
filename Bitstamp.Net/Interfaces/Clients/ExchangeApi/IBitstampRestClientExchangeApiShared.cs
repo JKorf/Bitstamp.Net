@@ -53,8 +53,8 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         ICancelSpotOrderRest,
         IGetSpotOrderTradesRest,
         IGetSpotUserTradeHistoryRest,
-        IGetSpotTickerRest,
-        IGetAllSpotTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IGetWithdrawalHistoryRest,
         IWithdrawRest,
         IGetFeesRest,
@@ -63,8 +63,6 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         IGetBookTickerRest,
         IGetFundingRateHistoryRest,
         IGetFuturesSymbolsRest,
-        IGetFuturesTickerRest,
-        IGetAllFuturesTickersRest,
         IGetLeverageRest,
         ISetLeverageRest,
         IGetOpenInterestRest,
@@ -77,6 +75,6 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         IGetFuturesOrderTradesRest,
         IGetFuturesUserTradeHistoryRest,
         IGetPositionsRest,
-        IClosePositionRest
+        ICloseFullPositionRest
     { }
 }

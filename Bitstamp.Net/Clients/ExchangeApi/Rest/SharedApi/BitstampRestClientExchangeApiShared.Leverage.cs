@@ -46,10 +46,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
         public SetLeverageOptions SetLeverageOptions { get; } = new SetLeverageOptions(_exchangeName)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(SetLeverageRequest.MarginMode), typeof(SharedMarginMode), "Margin mode", SharedMarginMode.Cross)
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<SetLeverageRequest>.Required(x => x.MarginMode)
+            ]
         };
         async Task<ICallResult<SharedLeverage>> ISetLeverage.SetLeverageAsync(SetLeverageRequest request, CancellationToken ct)
             => await SetLeverageAsync(request, ct).ConfigureAwait(false);

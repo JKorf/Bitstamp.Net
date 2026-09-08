@@ -382,17 +382,34 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         #endregion
 
         #region Close Position
+        async Task<ICallResult<SharedId>> ICloseFullPosition.CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+            => await CloseFullPositionAsync(request, ct).ConfigureAwait(false);
+
+        public CloseFullPositionOptions CloseFullPositionOptions { get; } = new CloseFullPositionOptions(_exchangeName, true)
+        {
+        };
+
+        public async Task<HttpResult<SharedId>> CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+        {
+            var validationError = CloseFullPositionOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedId>(Exchange, validationError);
+
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
+            var result = await _api.Trading.ClosePositionsAsync(
+                symbol,
+                request.MarginMode == null ? null : request.MarginMode == SharedMarginMode.Isolated ? MarginMode.Isolated : MarginMode.Cross,
+                ct: ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedId>(result);
+
+            var id = result.Data.Closed.FirstOrDefault()?.Id ?? result.Data.Failed.FirstOrDefault()?.Id;
+            return HttpResult.Ok(result, new SharedId(id?.ToString() ?? string.Empty));
+        }
 
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(ClosePositionRequest.PositionSide), typeof(SharedPositionSide), "The position side to close", SharedPositionSide.Long),
-                new ParameterDescription(nameof(ClosePositionRequest.Quantity), typeof(decimal), "Quantity of the position is required", 0.1m)
-            }
         };
-        async Task<ICallResult<SharedId>> IClosePosition.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
-            => await ClosePositionAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedId>> ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {

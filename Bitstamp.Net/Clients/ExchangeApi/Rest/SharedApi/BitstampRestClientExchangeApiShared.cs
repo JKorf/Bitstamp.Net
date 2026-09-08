@@ -36,8 +36,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             SetCapabilities(
                 GetKlinesOptions,
                 GetSpotSymbolsOptions,
-                GetSpotTickerOptions,
-                GetAllSpotTickersOptions,
+                GetTickerOptions,
+                GetAllTickersOptions,
                 GetBookTickerOptions,
                 GetRecentTradesOptions,
                 GetBalancesOptions,
@@ -60,8 +60,6 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 GetFeeOptions,
                 GetFundingRateHistoryOptions,
                 GetFuturesSymbolsOptions,
-                GetFuturesTickerOptions,
-                GetAllFuturesTickersOptions,
                 GetLeverageOptions,
                 SetLeverageOptions,
                 GetOpenInterestOptions,
@@ -74,7 +72,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 GetFuturesUserTradeHistoryOptions,
                 CancelFuturesOrderOptions,
                 GetPositionsOptions,
-                ClosePositionOptions
+                CloseFullPositionOptions
                 );
         }
     }
