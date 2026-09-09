@@ -12,8 +12,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
     {
         #region Place Futures Order
 
-        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, false);
-
+        
         public SharedFeeDeductionType FuturesFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
         public SharedFeeAssetType FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
         public SharedOrderType[] FuturesSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market, SharedOrderType.LimitMaker };
@@ -25,6 +24,14 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 SharedQuantityType.BaseAsset,
                 SharedQuantityType.BaseAsset);
 
+        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, false)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.StopLossPrice),
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.TakeProfitPrice),
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.PositionSide),
+                ]
+        };
         async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
             => await PlaceFuturesOrderAsync(request, ct).ConfigureAwait(false);
 
@@ -165,7 +172,13 @@ namespace Bitstamp.Net.Clients.ExchangeApi
 
         #region Get Closed Futures Orders
 
-        public GetFuturesClosedOrdersOptions GetClosedFuturesOrdersOptions { get; } = new GetFuturesClosedOrdersOptions(_exchangeName, true, true, false, 500);
+        public GetFuturesClosedOrdersOptions GetClosedFuturesOrdersOptions { get; } = new GetFuturesClosedOrdersOptions(_exchangeName, true, true, false, 500)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetClosedOrdersRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetClosedOrdersRequest>.NotSupported(x => x.EndTime)
+                ]
+        };
         async Task<ICallResult<SharedFuturesOrder[]>> IGetClosedFuturesOrders.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
             => await GetClosedFuturesOrdersAsync(request, pageRequest, ct).ConfigureAwait(false);
 

@@ -64,5 +64,22 @@ namespace Bitstamp.Net.UnitTests
             Assert.That(missingOptions, Is.Empty);
             Assert.That(missingInterfaces, Is.Empty);
         }
+
+        [Test]
+        public void TestRestSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new BitstampRestClient().ExchangeApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
+        }
+
+        [Test]
+        public void TestSocketSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new BitstampSocketClient().ExchangeApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
+        }
+
     }
 }

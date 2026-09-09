@@ -42,7 +42,12 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             => GetDepositHistoryAsync(request, nextPageToken, ct);
         GetDepositHistoryOptions IDepositRestClient.GetDepositsOptions => GetDepositHistoryOptions;
 
-        public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, false, true, false, 1000);
+        public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, false, true, true, 1000)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetDepositsRequest>.NotSupported(x => x.Asset)
+                ]
+        };
         async Task<ICallResult<SharedDeposit[]>> IGetDepositHistory.GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => await GetDepositHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 

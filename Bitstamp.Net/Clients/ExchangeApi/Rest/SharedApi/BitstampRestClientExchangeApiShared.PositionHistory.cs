@@ -15,7 +15,9 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         public GetPositionHistoryOptions GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(_exchangeName, false, true, false, 1000)
         {
             ParameterRuleOverwrites = [
-                RequestParameterRuleOverride<GetPositionHistoryRequest>.Required(x => x.Symbol)
+                RequestParameterRuleOverride<GetPositionHistoryRequest>.Required(x => x.Symbol),
+                RequestParameterRuleOverride<GetPositionHistoryRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetPositionHistoryRequest>.NotSupported(x => x.EndTime),
             ]
         };
         async Task<ICallResult<SharedPositionHistory[]>> IGetPositionHistory.GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
