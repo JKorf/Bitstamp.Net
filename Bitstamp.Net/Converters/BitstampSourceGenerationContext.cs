@@ -58,6 +58,7 @@ namespace Bitstamp.Net.Converters
     [JsonSerializable(typeof(BitstampSocketData<BitstampOrderBookUpdate>))]
     [JsonSerializable(typeof(BitstampSocketData<BitstampTradeUpdate>))]
     [JsonSerializable(typeof(BitstampSocketData<BitstampUserTradeUpdate>))]
+    [JsonSerializable(typeof(BitstampSocketData<BitstampSelfTradeUpdate>))]
     [JsonSerializable(typeof(BitstampSocketData<BitstampFundingRateUpdate>))]
     [JsonSerializable(typeof(BitstampSocketData<BitstampPingResponse>))]
 
