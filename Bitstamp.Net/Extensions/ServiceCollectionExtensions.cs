@@ -55,8 +55,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = BitstampEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return services.AddBitstampCore(options.SocketClientLifeTime);
         }
@@ -84,8 +85,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? BitstampEnvironment.Live;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return services.AddBitstampCore(options.SocketClientLifeTime);
         }
@@ -119,6 +121,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.RegisterSharedApi(x => x.GetRequiredService<IBitstampRestClient>().ExchangeApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IBitstampSocketClient>().ExchangeApi.SharedApi);
+
+            services.RegisterSharedApiClientCapabilities<IBitstampSharedApiClient>();
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitstampRestClient>().ExchangeApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitstampSocketClient>().ExchangeApi.SharedClient);

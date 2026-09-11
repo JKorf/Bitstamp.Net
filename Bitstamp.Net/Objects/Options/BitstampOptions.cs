@@ -8,5 +8,9 @@ namespace Bitstamp.Net.Objects.Options
     /// </summary>
     public class BitstampOptions : LibraryOptions<BitstampRestOptions, BitstampSocketOptions, BitstampCredentials, BitstampEnvironment>
     {
+        /// <summary>
+        /// Options for Shared API usage
+        /// </summary>
+        public SharedApiClientOptions SharedApi { get; set; } = new();
     }
 }
