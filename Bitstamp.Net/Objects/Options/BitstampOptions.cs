@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
+using CryptoExchange.Net.SharedApis;
 
 namespace Bitstamp.Net.Objects.Options
 {
@@ -11,6 +12,6 @@ namespace Bitstamp.Net.Objects.Options
         /// <summary>
         /// Options for Shared API usage
         /// </summary>
-        public SharedApiClientOptions SharedApi { get; set; } = new();
+        public SharedApiOptions SharedApi { get; set; } = new();
     }
 }
