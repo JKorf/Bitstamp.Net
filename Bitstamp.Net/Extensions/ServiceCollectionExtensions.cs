@@ -8,6 +8,7 @@ using CryptoExchange.Net;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -117,16 +118,15 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<BitstampRestOptions>>(),
                 x.GetRequiredService<IOptions<BitstampSocketOptions>>()));
 
-            services.AddTransient<IBitstampSharedApiClient, BitstampSharedApiClient>();
-
-            services.RegisterSharedApi(x => x.GetRequiredService<IBitstampRestClient>().ExchangeApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IBitstampSocketClient>().ExchangeApi.SharedApi);
-
-            services.RegisterSharedApiClientCapabilities<IBitstampSharedApiClient>();
-
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitstampRestClient>().ExchangeApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitstampSocketClient>().ExchangeApi.SharedClient);
 
+            services.RegisterSharedApiClient<
+                IBitstampSharedApiClient,
+                BitstampSharedApiClient>(sharedApis => sharedApis
+                    .Add(client => client.Rest)
+                    .Add(client => client.Socket)
+                    );
             return services;
         }
     }
