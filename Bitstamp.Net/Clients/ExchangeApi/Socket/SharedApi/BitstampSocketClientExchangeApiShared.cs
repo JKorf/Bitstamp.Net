@@ -21,7 +21,7 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         public BitstampSocketClientExchangeSharedApi(BitstampSocketClientExchangeApi api)
            : base(
                  SharedTransport.Socket,
-                 api.Exchange,
+                 api,
                  [TradingMode.Spot, TradingMode.PerpetualLinear],
                  () => api.Authenticated,
                  api.FormatSymbol)
