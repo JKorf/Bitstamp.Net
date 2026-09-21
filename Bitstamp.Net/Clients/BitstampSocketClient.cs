@@ -44,6 +44,7 @@ namespace Bitstamp.Net.Clients
             {
                 o.Environment = options.Value.Environment;
                 o.ApiCredentials = options.Value.ApiCredentials;
+                o.Proxy = options.Value.Proxy;
             })));
             _keyGenerator = new BitstampSocketKeyGenerator(_restClient);
 
@@ -55,7 +56,15 @@ namespace Bitstamp.Net.Clients
         public override void SetApiCredentials(BitstampCredentials credentials)
         {
             _restClient.SetApiCredentials(credentials);
+            _keyGenerator.InvalidateKey();
             ExchangeApi.SetApiCredentials(credentials);
+        }
+
+        /// <inheritdoc />
+        public override void Dispose()
+        {
+            base.Dispose();
+            _restClient.Dispose();
         }
 
         /// <summary>
