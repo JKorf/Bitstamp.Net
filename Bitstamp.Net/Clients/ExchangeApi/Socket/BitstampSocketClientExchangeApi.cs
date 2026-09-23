@@ -24,6 +24,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
     internal partial class BitstampSocketClientExchangeApi : SocketApiClient<BitstampEnvironment, BitstampAuthenticationProvider, BitstampCredentials>, IBitstampSocketClientExchangeApi
     {
         #region fields
+        private readonly BitstampSocketClientExchangeSharedApi _sharedApi;
+
         private readonly BitstampSocketKeyGenerator _keyGenerator;
         /// <inheritdoc />
         public new BitstampSocketOptions ClientOptions => (BitstampSocketOptions)base.ClientOptions;
@@ -41,6 +43,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         {
             AddSystemSubscription(new BitstampReconnectSubscription(_logger, keyGenerator));
             _keyGenerator = keyGenerator;
+
+            _sharedApi = new BitstampSocketClientExchangeSharedApi(this);
 
             RegisterPeriodicQuery(
                "ping",
@@ -65,7 +69,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
         protected override IMessageSerializer CreateSerializer()
             => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitstampExchange._serializerContext));
 
-        public IBitstampSocketClientExchangeApiShared SharedClient => this;
+        public IBitstampSocketClientExchangeApiShared SharedClient => _sharedApi;
+        public IBitstampSocketClientExchangeSharedApi SharedApi => _sharedApi;
 
         protected override async Task<CallResult> RevitalizeRequestAsync(Subscription subscription)
         {

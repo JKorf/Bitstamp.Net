@@ -7,7 +7,7 @@ applyTo: "**/*"
 
 Bitstamp.Net is a CryptoExchange.Net-based client for the Bitstamp REST and websocket APIs. Use this guide when generating code or documentation for this repository.
 
-For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on the `ExchangeApi` surfaces. Use `.SharedClient.Discover()` to inspect supported shared features at runtime.
+Use the exchange-level `IBitstampSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Package And Client Shape
 
@@ -23,10 +23,10 @@ For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.Share
 - Socket API:
   - `socketClient.ExchangeApi`
 - Shared clients:
-  - `restClient.ExchangeApi.SharedClient`
-  - `socketClient.ExchangeApi.SharedClient`
+  - `restClient.ExchangeApi.SharedApi`
+  - `socketClient.ExchangeApi.SharedApi`
 
-Shared spot and futures symbol requests support `GetSymbolsRequest` asset-type and subtype filters. Returned symbols include `DisplayName` plus `Crypto`, `Fiat`, or `TradFi` asset classification and applicable `StableCoin`, `Equity`, or `Commodity` subtypes. After a successful symbol request, use `ISpotSymbolRestClient.SpotSymbolCatalog` or `IFuturesSymbolRestClient.FuturesSymbolCatalog` for the cached catalog.
+Shared spot and futures symbol requests support `GetSymbolsRequest` asset-type and subtype filters. Returned symbols include `DisplayName` plus `Crypto`, `Fiat`, or `TradFi` asset classification and applicable `StableCoin`, `Equity`, or `Commodity` subtypes. After a successful symbol request, use `IGetSpotSymbolsRest.SpotSymbolCatalog` or `IGetFuturesSymbolsRest.FuturesSymbolCatalog` for the cached catalog.
 
 Do not invent Binance/Bitget-style roots such as `SpotApi`, `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, `CoinFuturesApi`, or `PerpetualFuturesApi`. Bitstamp.Net exposes a single `ExchangeApi` root.
 

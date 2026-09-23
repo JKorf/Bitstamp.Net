@@ -12,9 +12,16 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
     public interface IBitstampSocketClientExchangeApi : ISocketApiClient<BitstampCredentials>
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// [V1] Get the shared socket subscription client. For new implementations prefer using <see cref="SharedApi"/>
         /// </summary>
         IBitstampSocketClientExchangeApiShared SharedClient { get; }
+
+        /// <summary>
+        /// [V2] Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        IBitstampSocketClientExchangeSharedApi SharedApi { get; }
 
         /// <summary>
         /// Subscribe to live trade updates

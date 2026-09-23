@@ -219,22 +219,20 @@ await socketClient.UnsubscribeAsync(sub.Data);
 
 Bitstamp.Net implements CryptoExchange.Net shared APIs:
 
-- `restClient.ExchangeApi.SharedClient`
-- `socketClient.ExchangeApi.SharedClient`
+- `restClient.ExchangeApi.SharedApi`
+- `socketClient.ExchangeApi.SharedApi`
 
 Supported trading modes include spot and linear perpetuals.
 
-Use `SharedClient.Discover()` before routing optional shared features across exchanges:
+Use the exchange-level `IBitstampSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ```csharp
-var info = restClient.ExchangeApi.SharedClient.Discover();
-var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
-Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+// Use the exchange-level `IBitstampSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 ```
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers, such as symbol support checks, return `ExchangeCallResult<T>`.
 
-`ISpotSymbolRestClient.GetSpotSymbolsAsync` and `IFuturesSymbolRestClient.GetFuturesSymbolsAsync` apply the asset-type and subtype filters in `GetSymbolsRequest`. Returned symbols include `DisplayName`, asset types (`Crypto`, `Fiat`, or `TradFi`), and applicable subtypes (`StableCoin`, `Equity`, or `Commodity`). A successful request also populates `ISpotSymbolRestClient.SpotSymbolCatalog` or `IFuturesSymbolRestClient.FuturesSymbolCatalog`; the catalog is unavailable before its corresponding symbol request.
+`IGetSpotSymbolsRest.GetSpotSymbolsAsync` and `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync` apply the asset-type and subtype filters in `GetSymbolsRequest`. Returned symbols include `DisplayName`, asset types (`Crypto`, `Fiat`, or `TradFi`), and applicable subtypes (`StableCoin`, `Equity`, or `Commodity`). A successful request also populates `IGetSpotSymbolsRest.SpotSymbolCatalog` or `IGetFuturesSymbolsRest.FuturesSymbolCatalog`; the catalog is unavailable before its corresponding symbol request.
 
 ## Local State Helpers
 
