@@ -43,6 +43,12 @@ namespace Bitstamp.Net.Enums
         [Map("trade")]
         Trade,
 
+        /// <summary>
+        /// ["<c>self_trade</c>"] Order quantities were offset by self-trading prevention.
+        /// </summary>
+        [Map("self_trade")]
+        SelfTrade,
+
         [Map("funding_rate_saved")]
         FundingRateSaved
     }

@@ -78,5 +78,15 @@ namespace Bitstamp.Net.Interfaces.Clients.ExchangeApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampUserTradeUpdate>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to prevented self-trades on the private-live_trades channel. These events are not executions.
+        /// <see href="https://www.bitstamp.net/websocket/v2/#:~:text=Private%20Live%20Trades"/>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example <c>BTC/USD</c>.</param>
+        /// <param name="handler">Handler for the two order ids and prevented quantity.</param>
+        /// <param name="ct">Cancellation token for establishing the subscription.</param>
+        /// <returns>The subscription and its connection status.</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToSelfTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampSelfTradeUpdate>> handler, CancellationToken ct = default);
     }
 }

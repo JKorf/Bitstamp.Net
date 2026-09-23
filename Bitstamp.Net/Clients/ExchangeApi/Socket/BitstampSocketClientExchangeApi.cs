@@ -233,6 +233,26 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             var subscription = BuildSubscription("private-my_trades", BitstampExchange.SymbolToPathParameter(symbol), internalHandler, authToken.Data);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSelfTradeUpdatesAsync(string symbol, Action<DataEvent<BitstampSelfTradeUpdate>> handler, CancellationToken ct = default)
+        {
+            var authToken = await _keyGenerator.GenerateWebsocketKeyAsync().ConfigureAwait(false);
+            if (!authToken.Success)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, authToken.Error!);
+
+            var internalHandler = new Action<DateTime, string?, BitstampSocketData<BitstampSelfTradeUpdate>>((receiveTime, originalData, data) =>
+            {
+                if (data.Event != SocketEventType.SelfTrade)
+                    return;
+                var timestamp = data.Data!.Timestamp;
+                UpdateTimeOffset(timestamp);
+                handler(new DataEvent<BitstampSelfTradeUpdate>(BitstampExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    .WithUpdateType(SocketUpdateType.Update).WithDataTimestamp(timestamp, GetTimeOffset()).WithSymbol(symbol).WithStreamId(data.Channel!));
+            });
+            var subscription = BuildSubscription("private-live_trades", BitstampExchange.SymbolToPathParameter(symbol), internalHandler, authToken.Data);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
         #endregion
     }
 }
