@@ -12,9 +12,9 @@ This map helps AI assistants route common user intents to the actual Bitstamp.Ne
 | Authenticated account data | `restClient.ExchangeApi.Account` |
 | Orders and positions | `restClient.ExchangeApi.Trading` |
 | Websocket subscriptions | `socketClient.ExchangeApi` |
-| Shared REST abstraction | `restClient.ExchangeApi.SharedClient` |
-| Shared socket abstraction | `socketClient.ExchangeApi.SharedClient` |
-| Discover shared capabilities | `client.ExchangeApi.SharedClient.Discover()` |
+| Shared REST abstraction | `restClient.ExchangeApi.SharedApi` |
+| Shared socket abstraction | `socketClient.ExchangeApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IBitstampSharedApiClient.GetCapability(...)` |
 
 ## Market Data
 
@@ -93,15 +93,15 @@ Use SharedApis for exchange-agnostic code across Bitstamp.Net and other CryptoEx
 
 | Intent | Pattern |
 | --- | --- |
-| Shared REST client | `new BitstampRestClient().ExchangeApi.SharedClient` |
-| Shared socket client | `new BitstampSocketClient().ExchangeApi.SharedClient` |
-| Discover shared capabilities | `client.ExchangeApi.SharedClient.Discover()` |
-| Shared spot symbols | `ISpotSymbolRestClient.GetSpotSymbolsAsync(new GetSymbolsRequest())` |
-| Cached spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` after a successful spot symbol request |
-| Shared spot ticker | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
-| Shared futures symbols | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(new GetSymbolsRequest())` |
-| Cached futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` after a successful futures symbol request |
-| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+| Shared REST client | `new BitstampRestClient().ExchangeApi.SharedApi` |
+| Shared socket client | `new BitstampSocketClient().ExchangeApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IBitstampSharedApiClient.GetCapability(...)` |
+| Shared spot symbols | `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest())` |
+| Cached spot symbol catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` after a successful spot symbol request |
+| Shared spot ticker | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared futures symbols | `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest())` |
+| Cached futures symbol catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` after a successful futures symbol request |
+| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
 

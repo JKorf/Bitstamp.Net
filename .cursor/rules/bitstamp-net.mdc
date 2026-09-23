@@ -19,7 +19,7 @@ Use the real Bitstamp.Net structure:
 - `BitstampRestClient.ExchangeApi.Account`
 - `BitstampRestClient.ExchangeApi.Trading`
 - `BitstampSocketClient.ExchangeApi`
-- `ExchangeApi.SharedClient` for CryptoExchange.Net shared abstractions
+- `ExchangeApi.SharedApi` for CryptoExchange.Net shared abstractions
 
 Shared spot/futures symbol requests support `GetSymbolsRequest` asset-type/subtype filters. Results include display names and asset classification; after a successful request, the corresponding `SpotSymbolCatalog` or `FuturesSymbolCatalog` is available.
 
