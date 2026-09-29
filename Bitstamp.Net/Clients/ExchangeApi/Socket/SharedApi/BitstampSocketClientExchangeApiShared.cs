@@ -33,5 +33,8 @@ namespace Bitstamp.Net.Clients.ExchangeApi
                 SubscribeOrderBookOptions
                 );
         }
+
+        /// <inheritdoc />
+        public Task UnsubscribeAllAsync() => _api.UnsubscribeAllAsync();
     }
 }
