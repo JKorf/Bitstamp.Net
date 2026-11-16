@@ -1,211 +1,51 @@
----
-description: "AI assistant guide for Bitstamp.Net"
-applyTo: "**/*"
----
+# Working on Bitstamp.Net
 
-# Bitstamp.Net AI Coding Guide
+For library development, use this file. For code that consumes the library, read the [Bitstamp.Net skill](.claude/skills/bitstamp-net/SKILL.md). [llms.txt](llms.txt) indexes the remaining documentation.
 
-Bitstamp.Net is a CryptoExchange.Net-based client for the Bitstamp REST and websocket APIs. Use this guide when generating code or documentation for this repository.
+## Repository layout
 
-Use the exchange-level `IBitstampSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
+- [Client interfaces](Bitstamp.Net/Interfaces/Clients/): public endpoint signatures and XML documentation.
+- [Clients](Bitstamp.Net/Clients/): REST, WebSocket, and Shared API implementations, grouped by API and transport.
+- [Models](Bitstamp.Net/Objects/Models/), [options](Bitstamp.Net/Objects/Options/), and [enums](Bitstamp.Net/Enums/): wire models and configuration.
+- [Unit tests](Bitstamp.Net.UnitTests/): request/response fixtures, subscription validation, and example compilation.
+- [AI-friendly examples](Examples/ai-friendly/): complete consumer programs.
 
-## Package And Client Shape
+## Build and validation
 
-- NuGet package id: `Bitstamp.Net`
-- Root namespace: `Bitstamp.Net`
-- REST client: `BitstampRestClient`
-- Socket client: `BitstampSocketClient`
-- Only API root: `ExchangeApi`
-- REST sub-clients:
-  - `restClient.ExchangeApi.ExchangeData`
-  - `restClient.ExchangeApi.Account`
-  - `restClient.ExchangeApi.Trading`
-- Socket API:
-  - `socketClient.ExchangeApi`
-- Shared clients:
-  - `restClient.ExchangeApi.SharedApi`
-  - `socketClient.ExchangeApi.SharedApi`
+Run commands from the repository root. Use the SDK configured in the [build workflow](.github/workflows/dotnet.yml); targets and dependencies are defined in the [library project](Bitstamp.Net/Bitstamp.Net.csproj).
 
-Shared spot and futures symbol requests support `GetSymbolsRequest` asset-type and subtype filters. Returned symbols include `DisplayName` plus `Crypto`, `Fiat`, or `TradFi` asset classification and applicable `StableCoin`, `Equity`, or `Commodity` subtypes. After a successful symbol request, use `IGetSpotSymbolsRest.SpotSymbolCatalog` or `IGetFuturesSymbolsRest.FuturesSymbolCatalog` for the cached catalog.
-
-Do not invent Binance/Bitget-style roots such as `SpotApi`, `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, `CoinFuturesApi`, or `PerpetualFuturesApi`. Bitstamp.Net exposes a single `ExchangeApi` root.
-
-## Credentials And Options
-
-Bitstamp credentials are HMAC key and secret only:
-
-```csharp
-var restClient = new BitstampRestClient(options =>
-{
-    options.ApiCredentials = new BitstampCredentials("API_KEY", "API_SECRET");
-});
+```sh
+dotnet restore Bitstamp.Net.sln
+dotnet build Bitstamp.Net.sln --no-restore
+dotnet test Bitstamp.Net.UnitTests/Bitstamp.Net.UnitTests.csproj --no-build --filter "FullyQualifiedName!~IntegrationTests"
 ```
 
-There is no passphrase/memo parameter.
+Debug builds select a subset of frameworks. To check every supported target:
 
-Useful options:
-
-- `BitstampRestOptions.Environment` defaults to `BitstampEnvironment.Live`
-- `BitstampRestOptions.ApiOptions` configures REST API-level behavior
-- `BitstampSocketOptions.Environment` defaults to `BitstampEnvironment.Live`
-- `BitstampSocketOptions.SocketSubscriptionsCombineTarget` defaults to `10`
-- `BitstampSocketOptions.ApiOptions.PingInterval` defaults to 30 seconds
-- Use `BitstampRestClient.SetDefaultOptions(...)` and `BitstampSocketClient.SetDefaultOptions(...)` for application-wide defaults
-- Use `services.AddBitstamp(...)` for dependency injection
-
-## Symbol Rules
-
-Bitstamp symbols use slash-separated market names:
-
-- Spot example: `ETH/USD`
-- Derivatives/perpetual example: `ETH/USD-PERP`
-
-Do not rewrite symbols into Binance/Bitget/Bitfinex formats:
-
-- `ETHUSDT`
-- `ETH_USDT`
-- `ETH-USDT`
-- `ETH/USDT` when the Bitstamp market is `ETH/USD`
-- `tETHUSD`
-
-Use `ExchangeData.GetSymbolsAsync()` or account `GetSymbolsAsync()` to discover available symbols.
-
-## REST Endpoint Routing
-
-Market data and public exchange data:
-
-- `GetSymbolsAsync()`
-- `GetAssetsAsync()`
-- `GetAllTickersAsync()`
-- `GetTickerAsync(symbol)`
-- `GetHourTickerAsync(symbol)`
-- `GetKlinesAsync(symbol, KlineInterval.OneMinute, ...)`
-- `GetOrderBookAsync(symbol)`
-- `GetTradesAsync(symbol, Period? period = null)`
-- `GetEurUsdConversionRateAsync()`
-- `GetFundingRateAsync(symbol)`
-- `GetFundingRateHistoryAsync(symbol, ...)`
-- `GetMarginTiersAsync()`
-- `GetCollateralAssetsAsync()`
-
-Account endpoints:
-
-- `GetAccountBalancesAsync()`
-- `GetAccountBalanceAsync(asset)`
-- `GetWithdrawFeesAsync()`
-- `GetWithdrawFeesAsync(asset, network)`
-- `GetAllFeesAsync()`
-- `GetFeesAsync(symbol)`
-- `GetUserTransactionsAsync(...)`
-- `GetSymbolsAsync()` for markets tradable by the authenticated user
-- `GetMaxTradeQuantityAsync(...)`
-- `GetWithdrawalsAsync(...)`
-- `WithdrawFiatAsync(...)`
-- `CancelWithdrawalAsync(id)`
-- `GetFiatWithdrawalStatusAsync(id)`
-- `WithdrawCryptoAsync(asset, quantity, address, ...)`
-- `GetDepositAddressAsync(asset, network)`
-- `GetCryptoTransactionsAsync(...)`
-- `GetDepositsAsync(...)`
-- `GetMarginInfoAsync()`
-- `GetLeverageSettingsAsync(...)`
-- `SetLeverageAsync(marginMode, symbol, leverage)`
-
-Trading endpoints:
-
-- `PlaceLimitOrderAsync(symbol, side, price, orderType, quantity, ...)`
-- `PlaceMarketOrderAsync(symbol, side, orderType, quantity, ...)`
-- `CancelOrderAsync(orderId, clientOrderId)`
-- `GetOrderHistoryAsync(orderSource, symbol, ...)`
-- `CancelAllOrdersAsync()`
-- `CancelAllOrdersAsync(symbol)`
-- `GetOrderAsync(orderId, clientOrderId, includeTrades)`
-- `ReplaceOrderAsync(price, quantity, id, clientOrderId, newClientOrderId)`
-- `GetOpenOrdersAsync()`
-- `GetOpenOrdersAsync(symbol)`
-- `GetDerivativesUserTradesAsync(...)`
-- `GetOpenPositionsAsync()`
-- `GetOpenPositionsAsync(symbol)`
-- `GetPositionStatusAsync(positionId)`
-- `GetPositionHistoryAsync(...)`
-- `ClosePositionsAsync(symbol, marginMode)`
-- `ClosePositionAsync(positionId)`
-- `GetPositionSettlementTransactionsAsync(...)`
-- `UpdatePositionCollateralAsync(positionId, newCollateralQuantity)`
-
-## Websocket Routing
-
-Use `socketClient.ExchangeApi`.
-
-Public socket subscriptions:
-
-- `SubscribeToTradeUpdatesAsync(symbol, ...)`
-- `SubscribeToFullOrderBookUpdatesAsync(symbol, ...)`
-- `SubscribeToOrderBookSnapshotUpdatesAsync(symbol, ...)`
-- `SubscribeToFundingRateUpdatesAsync(symbol, ...)`
-
-Private socket subscriptions:
-
-- `SubscribeToOrderUpdatesAsync(symbol, ...)`
-- `SubscribeToUserTradeUpdatesAsync(symbol, ...)`
-
-Always check `subscription.Success` before using `subscription.Data`. Unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
-
-## Enums To Use
-
-- Klines: `KlineInterval.OneMinute`, `ThreeMinutes`, `FiveMinutes`, `FifteenMinute`, `ThirtyMinutes`, `OneHour`, `OneDay`
-- Orders: `OrderSide.Buy`, `OrderSide.Sell`
-- Order types: `OrderType.Limit`, `Market`, `StopMarket`, `StopLimit`, `TakeProfit`, `TakeProfitLimit`, trailing variants
-- Margin: `MarginMode.Cross`, `MarginMode.Isolated`
-- Trigger price: `TriggerType.LastTradePrice`, `IndexPrice`, `MarkPrice`
-- Public trade period: `Period`
-- Order history source: `OrderSource.Orderbook`, `OrderSource.StopOrder`
-
-## Result Handling
-
-REST calls return `HttpResult<T>` and socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`.
-
-```csharp
-var result = await client.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
-if (!result.Success)
-{
-    Console.WriteLine(result.Error);
-    return;
-}
-
-Console.WriteLine(result.Data.LastPrice);
+```sh
+dotnet build Bitstamp.Net/Bitstamp.Net.csproj -p:BuildAllFrameworks=true
 ```
 
-Never assume `Data` is populated when `Success` is false.
+Run focused tests for the change. For edits to consumer examples:
 
-## Local Order Book And Trackers
+```sh
+dotnet test Bitstamp.Net.UnitTests/Bitstamp.Net.UnitTests.csproj --filter FullyQualifiedName~AiExampleCompileTests
+```
 
-Bitstamp.Net includes:
+That test compiles the examples; it does not execute their exchange operations or validate Markdown snippets. The normal test command above excludes integration fixtures. REST integration is disabled by default, Shared REST integration can be enabled with `INTEGRATION=1`, and the socket integration fixture has `Run = true`. Inspect integration fixtures before running the unfiltered CI test command; they can contact the exchange. Do not enable authenticated exchange calls as part of routine validation.
 
-- `BitstampOrderBookFactory`
-- `BitstampSymbolOrderBook`
-- `BitstampTrackerFactory`
-- `BitstampUserSpotDataTracker`
-- `BitstampUserFuturesDataTracker`
+## Implementation conventions
 
-Use these when code needs maintained local order book state or user data tracking instead of manually combining snapshots and websocket deltas.
+- Use the matching client interface and a neighboring endpoint implementation as the starting point. Preserve endpoint metadata, serialization, signing, rate limits, and cancellation behavior.
+- Update public interfaces and XML documentation together with implementations. Add meaningful request/response or subscription coverage when behavior changes.
+- Keep Shared API adapters consistent with native endpoint behavior; verify capability support and trading modes against the implemented surface.
+- Preserve serialization compatibility and source-generated JSON metadata when changing models.
+- Keep changes compatible with every target in the library project; gate framework-specific APIs where required.
 
-## Common Pitfalls
+## AI documentation ownership
 
-- Do not use `SpotApi`, `FuturesApi`, `UsdFuturesApi`, or versioned API roots.
-- Do not add a credentials passphrase.
-- Do not convert Bitstamp symbols to another exchange format.
-- Do not use `BinPeriod`; Bitstamp.Net uses `KlineInterval`.
-- Do not call `GetBalancesAsync`; Bitstamp account balances are `GetAccountBalancesAsync` or `GetAccountBalanceAsync`.
-- Spot and derivatives share `ExchangeApi`; the symbol and method determine which Bitstamp endpoint is used.
-
-## Source Files To Inspect Before Changing API Usage
-
-- `Bitstamp.Net/Interfaces/Clients/ExchangeApi/IBitstampRestClientExchangeApiExchangeData.cs`
-- `Bitstamp.Net/Interfaces/Clients/ExchangeApi/IBitstampRestClientExchangeApiAccount.cs`
-- `Bitstamp.Net/Interfaces/Clients/ExchangeApi/IBitstampRestClientExchangeApiTrading.cs`
-- `Bitstamp.Net/Interfaces/Clients/ExchangeApi/IBitstampSocketClientExchangeApi.cs`
-- `Bitstamp.Net/Objects/Options/BitstampRestOptions.cs`
-- `Bitstamp.Net/Objects/Options/BitstampSocketOptions.cs`
-- `Bitstamp.Net/BitstampCredentials.cs`
-- `Examples/ai-friendly`
+- [SKILL.md](.claude/skills/bitstamp-net/SKILL.md) owns consumer conventions and routes to detailed skill references.
+- [API surfaces](.claude/skills/bitstamp-net/references/api-surfaces.md) owns endpoint routing; [usage](.claude/skills/bitstamp-net/references/usage.md) owns snippets.
+- Link to those files instead of repeating API guides here or in tool-specific instructions.
+- Keep skill links relative. References outside the skill are checkout-only; packaged guidance must remain usable without repository sources.
+- The project packs [.claude/skills](.claude/skills/) into `skills/` in NuGet. After changing its layout, inspect package entries and verify referenced resources are included.

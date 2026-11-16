@@ -1,6 +1,6 @@
 // 04-shared-client.cs
 //
-// Demonstrates: accessing CryptoExchange.Net shared clients from Bitstamp.Net.
+// Demonstrates: accessing CryptoExchange.Net Shared API V2 capabilities from Bitstamp.Net.
 //
 // Setup: dotnet add package Bitstamp.Net
 
@@ -13,9 +13,8 @@ var client = new BitstampRestClient(options =>
     options.ApiCredentials = new BitstampCredentials("API_KEY", "API_SECRET");
 });
 
-var shared = client.ExchangeApi.SharedClient;
+var shared = client.ExchangeApi.SharedApi;
 Console.WriteLine($"Exchange: {shared.Exchange}");
-Console.WriteLine($"Trading modes: {string.Join(", ", shared.SupportedTradingModes)}");
 
 var info = shared.Discover();
 var supportedFeatures = info.Features
@@ -23,7 +22,8 @@ var supportedFeatures = info.Features
     .Select(x => x.EndpointName);
 Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supportedFeatures)}");
 
-var spotSymbols = await shared.GetSpotSymbolsAsync(new GetSymbolsRequest());
+IGetSpotSymbolsRest symbols = shared;
+var spotSymbols = await symbols.GetSpotSymbolsAsync(new GetSymbolsRequest());
 if (!spotSymbols.Success)
 {
     Console.WriteLine($"Shared spot symbol request failed: {spotSymbols.Error}");

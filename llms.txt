@@ -1,79 +1,18 @@
 # Bitstamp.Net
 
-Bitstamp.Net is a CryptoExchange.Net-based .NET client for Bitstamp REST and websocket APIs. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`.
+> A .NET client library for Bitstamp spot and derivatives REST and WebSocket APIs.
 
-## Install
+## Library usage
 
-```bash
-dotnet add package Bitstamp.Net
-```
+- [Bitstamp.Net skill](.claude/skills/bitstamp-net/SKILL.md): Consumer conventions and task-specific guidance.
+- [API surfaces](.claude/skills/bitstamp-net/references/api-surfaces.md): Client roots, intent-to-method routing, and Shared APIs.
+- [Usage examples](.claude/skills/bitstamp-net/references/usage.md): Authentication, REST, WebSockets, and dependency injection.
+- [Operational considerations](.claude/skills/bitstamp-net/references/safety.md): Credentials, order handling, and retry decisions.
 
-## Client Shape
+## Repository and reference
 
-```csharp
-using Bitstamp.Net;
-using Bitstamp.Net.Clients;
-using Bitstamp.Net.Enums;
-
-var restClient = new BitstampRestClient(options =>
-{
-    options.ApiCredentials = new BitstampCredentials("API_KEY", "API_SECRET");
-});
-
-var socketClient = new BitstampSocketClient();
-```
-
-REST:
-
-- `restClient.ExchangeApi.ExchangeData`
-- `restClient.ExchangeApi.Account`
-- `restClient.ExchangeApi.Trading`
-- `restClient.ExchangeApi.SharedApi`
-- Use the exchange-level `IBitstampSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-- Shared spot/futures symbol requests support asset-type/subtype filters, return classified assets, and populate `SpotSymbolCatalog` / `FuturesSymbolCatalog`
-
-Sockets:
-
-- `socketClient.ExchangeApi`
-- `socketClient.ExchangeApi.SharedApi`
-- Use the exchange-level `IBitstampSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-
-There is no `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, `CoinFuturesApi`, or passphrase credential.
-
-## Common Calls
-
-```csharp
-var symbols = await restClient.ExchangeApi.ExchangeData.GetSymbolsAsync();
-var ticker = await restClient.ExchangeApi.ExchangeData.GetTickerAsync("ETH/USD");
-var klines = await restClient.ExchangeApi.ExchangeData.GetKlinesAsync("ETH/USD", KlineInterval.OneMinute, limit: 100);
-var book = await restClient.ExchangeApi.ExchangeData.GetOrderBookAsync("ETH/USD");
-var balances = await restClient.ExchangeApi.Account.GetAccountBalancesAsync();
-var openOrders = await restClient.ExchangeApi.Trading.GetOpenOrdersAsync("ETH/USD");
-```
-
-## Trading
-
-```csharp
-var order = await restClient.ExchangeApi.Trading.PlaceLimitOrderAsync(
-    symbol: "ETH/USD",
-    side: OrderSide.Buy,
-    price: 2000m,
-    orderType: OrderType.Limit,
-    quantity: 0.1m);
-```
-
-## Sockets
-
-```csharp
-var sub = await socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH/USD", update =>
-{
-    Console.WriteLine($"{update.Data.Price} {update.Data.Quantity}");
-});
-```
-
-## Bitstamp Details
-
-- Use Bitstamp-native symbols such as `ETH/USD` and `ETH/USD-PERP`.
-- Use `KlineInterval`, not `BinPeriod`.
-- Credentials are `BitstampCredentials(key, secret)`.
-- Always check `result.Success` before reading `result.Data`.
+- [README](README.md): Overview, installation, release notes, and documentation site link.
+- [Repository instructions](AGENTS.md): Development workflow and documentation ownership.
+- [Client interfaces](Bitstamp.Net/Interfaces/Clients/): Exact endpoint signatures and XML documentation.
+- [Library project](Bitstamp.Net/Bitstamp.Net.csproj): Package version, dependencies, and target frameworks.
+- [AI-friendly examples](Examples/ai-friendly/): Complete programs compiled by the documentation test.

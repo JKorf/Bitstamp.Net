@@ -1,34 +1,13 @@
-# Bitstamp.Net AI-Friendly Examples
+# Bitstamp.Net examples
 
-These examples are intentionally small console programs that AI assistants can copy from safely. They are compiled by `Bitstamp.Net.UnitTests/Documentation/AiExampleCompileTests.cs`.
+These console programs demonstrate [library usage](../../.claude/skills/bitstamp-net/references/usage.md). See [API routing](../../.claude/skills/bitstamp-net/references/api-surfaces.md) and [operational considerations](../../.claude/skills/bitstamp-net/references/safety.md) for details.
 
-## Files
+- [Market and account](01-market-and-account.cs)
+- [Trading and positions](02-trading-and-positions.cs)
+- [WebSockets](03-websocket.cs)
+- [Shared API V2](04-shared-client.cs)
+- [Error handling](05-error-handling.cs)
 
-| File | Demonstrates |
-| --- | --- |
-| `01-market-and-account.cs` | Public market data, balances, symbols and result handling |
-| `02-trading-and-positions.cs` | Limit orders, open orders, cancellation and derivatives positions |
-| `03-websocket.cs` | Public and private websocket subscriptions with teardown |
-| `04-shared-client.cs` | CryptoExchange.Net shared client access, capability discovery, and shared symbols |
-| `05-error-handling.cs` | Reusable `HttpResult`, `WebSocketResult`, and `ExchangeCallResult` result handling notes |
+The documentation test compiles these files as independent console programs without executing exchange operations. Running them manually can contact Bitstamp and place or cancel real orders. Configure credentials and review the selected operations first.
 
-## Bitstamp Shape To Remember
-
-Use:
-
-```csharp
-restClient.ExchangeApi.ExchangeData
-restClient.ExchangeApi.Account
-restClient.ExchangeApi.Trading
-socketClient.ExchangeApi
-```
-
-Do not use exchange roots from other libraries such as `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, `CoinFuturesApi`, or `PerpetualFuturesApi`.
-
-Bitstamp credentials use only API key and API secret:
-
-```csharp
-new BitstampCredentials("API_KEY", "API_SECRET")
-```
-
-Use Bitstamp symbols such as `ETH/USD` and `ETH/USD-PERP`. Use `KlineInterval` for candles.
+For build and test commands, see [repository instructions](../../AGENTS.md).
