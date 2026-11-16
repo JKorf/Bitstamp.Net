@@ -59,6 +59,11 @@ namespace Bitstamp.Net.Objects.Models
         [JsonPropertyName("maximum_order_amount")]
         public decimal MaximumOrderQuantity { get; set; }
         /// <summary>
+        /// ["<c>matching</c>"] Market matching status
+        /// </summary>
+        [JsonPropertyName("matching")]
+        public EnabledStatus MatchingStatus { get; set; }
+        /// <summary>
         /// ["<c>trading</c>"] Symbol status
         /// </summary>
         [JsonPropertyName("trading")]
