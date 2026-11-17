@@ -50,8 +50,8 @@ namespace Bitstamp.Net
             var restClient = _serviceProvider?.GetRequiredService<IBitstampRestClient>() ?? new BitstampRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBitstampSocketClient>() ?? new BitstampSocketClient();
 
-            var sharedRestClient = restClient.ExchangeApi.SharedClient;
-            var sharedSocketClient = socketClient.ExchangeApi.SharedClient;
+            var sharedRestClient = restClient.ExchangeApi.SharedApi;
+            var sharedSocketClient = socketClient.ExchangeApi.SharedApi;
             
             return new TradeTracker(
                 _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
