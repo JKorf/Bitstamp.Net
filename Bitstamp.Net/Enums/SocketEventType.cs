@@ -50,6 +50,9 @@ namespace Bitstamp.Net.Enums
         SelfTrade,
 
         [Map("funding_rate_saved")]
-        FundingRateSaved
+        FundingRateSaved,
+
+        [Map("bts:request_reconnect")]
+        Reconnect
     }
 }
