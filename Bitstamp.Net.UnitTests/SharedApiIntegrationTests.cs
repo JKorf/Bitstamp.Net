@@ -36,12 +36,12 @@ namespace Bitstamp.Net.UnitTests
             return provider.GetRequiredService<IBitstampSharedApiClient>();
         }
 
-        protected override SharedApiTestConfig GetConfig(ISharedRest client)
+        protected override SharedApiTestConfig GetConfig(ISharedRest client, CapabilityOptions options)
         {
-            if (client is IBitstampRestClientExchangeSharedApi)
-                return new SharedApiTestConfig(new SharedSymbol(TradingMode.PerpetualLinear, "ETH", "USD"), "ETH");
+            if (options.SupportedTradingModes.Contains(TradingMode.Spot))
+                return new SharedApiTestConfig(new SharedSymbol(TradingMode.Spot, "ETH", "USD"), "ETH");
 
-            throw new NotImplementedException();
+            return new SharedApiTestConfig(new SharedSymbol(TradingMode.PerpetualLinear, "ETH", "USD"), "ETH");
         }
     }
 
@@ -72,12 +72,12 @@ namespace Bitstamp.Net.UnitTests
             return provider.GetRequiredService<IBitstampSharedApiClient>();
         }
 
-        protected override SharedApiTestConfig GetConfig(ISharedSocket client)
+        protected override SharedApiTestConfig GetConfig(ISharedSocket client, CapabilityOptions options)
         {
-            if (client is IBitstampSocketClientExchangeSharedApi)
+            if (options.SupportedTradingModes.Contains(TradingMode.Spot))
                 return new SharedApiTestConfig(new SharedSymbol(TradingMode.Spot, "ETH", "USD"), "ETH");
 
-            throw new NotImplementedException();
+            return new SharedApiTestConfig(new SharedSymbol(TradingMode.PerpetualLinear, "ETH", "USD"), "ETH");
         }
     }
 }
