@@ -28,7 +28,11 @@ namespace Bitstamp.Net.Clients.ExchangeApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, null, result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(
+                SharedQuantityType.BaseAsset,
+                result.Data.Timestamp.Ticks, // Set sequence number to ticks as it is the recommended way to handle order book update sync for Bitstamp
+                result.Data.Asks,
+                result.Data.Bids));
         }
 
         #endregion
