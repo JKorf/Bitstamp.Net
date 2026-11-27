@@ -215,6 +215,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 2.8.0 - 27 Nov 2026
+    * Updated CryptoExchange.Net to v13.4.0
+    * Fixed warning message for websocket reconnect request
+
 * Version 2.7.1 - 17 Nov 2026
     * Fix CryptoExchange.Net reference version
 
